@@ -1,21 +1,29 @@
 package com.novastream.android
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,40 +32,37 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Tv
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -67,17 +72,21 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
 import com.novastream.android.data.Channel
-import com.novastream.android.data.PlaylistLoader
-import com.novastream.android.data.defaultCategories
+import com.novastream.android.data.curatedSportsChannels
 import com.novastream.android.player.NativePlayer
-import kotlinx.coroutines.launch
 
-private val Bg = Color(0xFF070A10)
-private val Panel = Color(0xFF101827)
-private val Card = Color(0xFF172235)
-private val Accent = Color(0xFF10B981)
-private val Muted = Color(0xFF94A3B8)
-private val White = Color(0xFFF8FAFC)
+// SuperSport & Premium Dark Palette
+private val StadiumDark = Color(0xFF070B14)
+private val StadiumSurface = Color(0xFF0F1728)
+private val StadiumCard = Color(0xFF141F36)
+private val StadiumCardActive = Color(0xFF122C28)
+private val AccentGreen = Color(0xFF10B981)
+private val LiveRed = Color(0xFFEF4444)
+private val SkyBlue = Color(0xFF38BDF8)
+private val GoldYellow = Color(0xFFFBBF24)
+private val TextWhite = Color(0xFFF8FAFC)
+private val TextMuted = Color(0xFF94A3B8)
+private val TextSubtle = Color(0xFF64748B)
 
 class MainActivity : ComponentActivity() {
     private lateinit var nativePlayer: NativePlayer
@@ -87,7 +96,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         nativePlayer = NativePlayer(this)
         setContent {
-            NovaTheme {
+            SuperSportTheme {
                 NovaStreamApp(nativePlayer)
             }
         }
@@ -105,103 +114,351 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun NovaTheme(content: @Composable () -> Unit) {
-    MaterialTheme(colorScheme = darkColorScheme(
-        primary = Accent,
-        onPrimary = Color(0xFF032016),
-        background = Bg,
-        surface = Panel,
-        onSurface = White,
-        secondary = Accent
-    ), content = content)
+private fun SuperSportTheme(content: @Composable () -> Unit) {
+    MaterialTheme(
+        colorScheme = darkColorScheme(
+            primary = AccentGreen,
+            onPrimary = Color(0xFF021B10),
+            background = StadiumDark,
+            surface = StadiumSurface,
+            onSurface = TextWhite,
+            secondary = SkyBlue
+        ),
+        content = content
+    )
 }
 
 @androidx.annotation.OptIn(UnstableApi::class)
 @Composable
 private fun NovaStreamApp(nativePlayer: NativePlayer) {
-    val context = LocalContext.current
-    val scope = rememberCoroutineScope()
-    val channels = remember { mutableStateListOf<Channel>() }
+    val configuration = LocalConfiguration.current
+    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+    val isWideScreen = configuration.screenWidthDp >= 600 || isLandscape
+
+    val allChannels = remember { curatedSportsChannels }
     val favorites = remember { mutableStateListOf<String>() }
-    var selected by remember { mutableStateOf<Channel?>(null) }
-    var query by remember { mutableStateOf("") }
-    var playlistUrl by remember { mutableStateOf("") }
-    var loading by remember { mutableStateOf(false) }
-    var message by remember { mutableStateOf("Choose a channel or load an M3U playlist") }
-    var selectedCategory by remember { mutableStateOf("Sports") }
-    var showFavorites by remember { mutableStateOf(false) }
-    var showEmbed by remember { mutableStateOf(false) }
+
+    var selectedChannel by remember { mutableStateOf<Channel?>(allChannels.firstOrNull()) }
+    var searchQuery by remember { mutableStateOf("") }
+    var selectedCategory by remember { mutableStateOf("Top 10 Matches") }
+    var showEmbed by remember { mutableStateOf(selectedChannel?.isWebsiteEmbed == true) }
+
+    val categories = remember {
+        listOf(
+            "Top 10 Matches",
+            "SuperSport",
+            "Sky Sports",
+            "TNT Sports",
+            "beIN Sports",
+            "Global Sports",
+            "Favorites"
+        )
+    }
 
     fun selectChannel(channel: Channel) {
-        selected = channel
+        selectedChannel = channel
         showEmbed = channel.isWebsiteEmbed
-        if (showEmbed) nativePlayer.pause() else nativePlayer.play(channel)
-    }
-
-    fun loadPlaylist(url: String) {
-        if (!url.startsWith("https://") && !url.startsWith("http://")) {
-            message = "Enter a valid http:// or https:// playlist URL"
-            return
-        }
-        loading = true
-        message = "Loading playlist…"
-        scope.launch {
-            runCatching { PlaylistLoader.load(url) }
-                .onSuccess { loaded ->
-                    channels.clear()
-                    channels.addAll(loaded)
-                    message = "Loaded ${loaded.size} channels"
-                    if (loaded.isEmpty()) message = "No channels found in this playlist"
-                }
-                .onFailure { error ->
-                    message = error.message ?: "Playlist loading failed"
-                }
-            loading = false
+        if (showEmbed) {
+            nativePlayer.pause()
+        } else {
+            nativePlayer.play(channel)
         }
     }
 
-    LaunchedEffect(Unit) {
-        loadPlaylist(defaultCategories.first().url)
+    // Filter channels based on selected category, search query, or favorites
+    val filteredChannels = remember(selectedCategory, searchQuery, favorites.toList()) {
+        allChannels.filter { channel ->
+            val matchesCategory = when (selectedCategory) {
+                "Top 10 Matches" -> channel.isTopTen
+                "SuperSport" -> channel.network.equals("SuperSport", ignoreCase = true)
+                "Sky Sports" -> channel.network.equals("Sky Sports", ignoreCase = true)
+                "TNT Sports" -> channel.network.equals("TNT Sports", ignoreCase = true)
+                "beIN Sports" -> channel.network.equals("beIN Sports", ignoreCase = true)
+                "Global Sports" -> !listOf("SuperSport", "Sky Sports", "TNT Sports", "beIN Sports").contains(channel.network)
+                "Favorites" -> favorites.contains(channel.id)
+                else -> true
+            }
+
+            val matchesSearch = searchQuery.isBlank() ||
+                channel.name.contains(searchQuery, ignoreCase = true) ||
+                channel.network.contains(searchQuery, ignoreCase = true) ||
+                channel.eventSubtitle.contains(searchQuery, ignoreCase = true)
+
+            matchesCategory && matchesSearch
+        }
     }
 
-    val visibleChannels = channels.filter { channel ->
-        val matchesQuery = query.isBlank() ||
-            channel.name.contains(query, ignoreCase = true) ||
-            channel.group.contains(query, ignoreCase = true)
-        val matchesFavorite = !showFavorites || favorites.contains(channel.id)
-        matchesQuery && matchesFavorite
+    BackHandler(enabled = showEmbed) {
+        showEmbed = false
     }
 
-    BackHandler(enabled = showEmbed) { showEmbed = false }
-
-    Column(
-        modifier = Modifier.fillMaxSize().background(Bg)
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = StadiumDark
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth().background(Panel).padding(horizontal = 16.dp, vertical = 13.dp),
-            verticalAlignment = Alignment.CenterVertically
+        Column(modifier = Modifier.fillMaxSize()) {
+            // App Header Bar
+            NovaHeader(channelCount = allChannels.size)
+
+            if (isWideScreen) {
+                // Wide Screen Layout (Tablet / PC / TV / Landscape): Split Screen
+                Row(modifier = Modifier.fillMaxSize()) {
+                    // Left Column (Player & Stream Info)
+                    Column(
+                        modifier = Modifier
+                            .weight(0.60f)
+                            .fillMaxHeight()
+                            .padding(8.dp)
+                    ) {
+                        VideoPlayerContainer(
+                            channel = selectedChannel,
+                            showEmbed = showEmbed,
+                            nativePlayer = nativePlayer,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .aspectRatio(16f / 9f)
+                        )
+
+                        Spacer(Modifier.height(8.dp))
+
+                        if (selectedChannel != null) {
+                            ChannelControlBar(
+                                channel = selectedChannel!!,
+                                isPlaying = nativePlayer.isPlaying,
+                                status = nativePlayer.status,
+                                lastError = nativePlayer.lastError,
+                                isFavorite = favorites.contains(selectedChannel!!.id),
+                                onToggleFavorite = {
+                                    if (favorites.contains(selectedChannel!!.id)) {
+                                        favorites.remove(selectedChannel!!.id)
+                                    } else {
+                                        favorites.add(selectedChannel!!.id)
+                                    }
+                                },
+                                onRetry = { nativePlayer.retry() }
+                            )
+                        }
+                    }
+
+                    // Right Column (Channel Browser)
+                    Column(
+                        modifier = Modifier
+                            .weight(0.40f)
+                            .fillMaxHeight()
+                            .background(StadiumSurface)
+                            .padding(horizontal = 10.dp, vertical = 8.dp)
+                    ) {
+                        CategoryChipsRow(
+                            categories = categories,
+                            selectedCategory = selectedCategory,
+                            onSelectCategory = { selectedCategory = it }
+                        )
+
+                        Spacer(Modifier.height(8.dp))
+
+                        CompactSearchBar(
+                            query = searchQuery,
+                            onQueryChange = { searchQuery = it }
+                        )
+
+                        Spacer(Modifier.height(6.dp))
+
+                        CompactChannelList(
+                            channels = filteredChannels,
+                            selectedChannel = selectedChannel,
+                            favorites = favorites,
+                            onSelect = { selectChannel(it) },
+                            onToggleFavorite = { channel ->
+                                if (favorites.contains(channel.id)) {
+                                    favorites.remove(channel.id)
+                                } else {
+                                    favorites.add(channel.id)
+                                }
+                            }
+                        )
+                    }
+                }
+            } else {
+                // Mobile Portrait Layout: Stacked
+                Column(modifier = Modifier.fillMaxSize()) {
+                    VideoPlayerContainer(
+                        channel = selectedChannel,
+                        showEmbed = showEmbed,
+                        nativePlayer = nativePlayer,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(16f / 9f)
+                    )
+
+                    if (selectedChannel != null) {
+                        ChannelControlBar(
+                            channel = selectedChannel!!,
+                            isPlaying = nativePlayer.isPlaying,
+                            status = nativePlayer.status,
+                            lastError = nativePlayer.lastError,
+                            isFavorite = favorites.contains(selectedChannel!!.id),
+                            onToggleFavorite = {
+                                if (favorites.contains(selectedChannel!!.id)) {
+                                    favorites.remove(selectedChannel!!.id)
+                                } else {
+                                    favorites.add(selectedChannel!!.id)
+                                }
+                            },
+                            onRetry = { nativePlayer.retry() }
+                        )
+                    }
+
+                    CategoryChipsRow(
+                        categories = categories,
+                        selectedCategory = selectedCategory,
+                        onSelectCategory = { selectedCategory = it }
+                    )
+
+                    Spacer(Modifier.height(4.dp))
+
+                    CompactSearchBar(
+                        query = searchQuery,
+                        onQueryChange = { searchQuery = it },
+                        modifier = Modifier.padding(horizontal = 10.dp)
+                    )
+
+                    Spacer(Modifier.height(4.dp))
+
+                    CompactChannelList(
+                        channels = filteredChannels,
+                        selectedChannel = selectedChannel,
+                        favorites = favorites,
+                        onSelect = { selectChannel(it) },
+                        onToggleFavorite = { channel ->
+                            if (favorites.contains(channel.id)) {
+                                favorites.remove(channel.id)
+                            } else {
+                                favorites.add(channel.id)
+                            }
+                        },
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(horizontal = 8.dp)
+                    )
+                }
+            }
+        }
+    }
+}
+
+// Top App Header inspired by SuperSport & DAZN
+@Composable
+private fun NovaHeader(channelCount: Int) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(StadiumSurface)
+            .padding(horizontal = 14.dp, vertical = 9.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .size(32.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(
+                    Brush.linearGradient(
+                        colors = listOf(AccentGreen, SkyBlue)
+                    )
+                ),
+            contentAlignment = Alignment.Center
         ) {
-            Box(
-                modifier = Modifier.size(38.dp).background(Accent, RoundedCornerShape(12.dp)),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(Icons.Default.Tv, contentDescription = null, tint = Color(0xFF032016))
+            Icon(
+                Icons.Default.Tv,
+                contentDescription = null,
+                tint = StadiumDark,
+                modifier = Modifier.size(20.dp)
+            )
+        }
+
+        Spacer(Modifier.width(10.dp))
+
+        Column(modifier = Modifier.weight(1f)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = "NOVASTREAM",
+                    color = TextWhite,
+                    fontWeight = FontWeight.Black,
+                    fontSize = 15.sp,
+                    letterSpacing = 1.2.sp
+                )
+                Spacer(Modifier.width(6.dp))
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(4.dp))
+                        .background(LiveRed)
+                        .padding(horizontal = 5.dp, vertical = 1.dp)
+                ) {
+                    Text(
+                        text = "LIVE",
+                        color = TextWhite,
+                        fontSize = 9.sp,
+                        fontWeight = FontWeight.ExtraBold
+                    )
+                }
             }
-            Spacer(Modifier.width(10.dp))
-            Column(Modifier.weight(1f)) {
-                Text("NOVASTREAM", color = Accent, fontWeight = FontWeight.Black, fontSize = 17.sp, letterSpacing = 1.2.sp)
-                Text("LIVE TV • NATIVE PLAYER", color = Muted, fontSize = 10.sp, letterSpacing = 1.sp)
-            }
-            Text("${channels.size} CH", color = Muted, fontSize = 11.sp)
+            Text(
+                text = "PREMIER SPORTS STREAMING",
+                color = AccentGreen,
+                fontSize = 9.sp,
+                fontWeight = FontWeight.SemiBold,
+                letterSpacing = 0.8.sp
+            )
         }
 
         Box(
-            modifier = Modifier.fillMaxWidth().background(Color.Black).aspectRatio(16f / 9f),
-            contentAlignment = Alignment.Center
+            modifier = Modifier
+                .clip(RoundedCornerShape(12.dp))
+                .background(StadiumCard)
+                .padding(horizontal = 8.dp, vertical = 3.dp)
         ) {
-            when {
-                showEmbed && selected != null -> EmbedPlayer(selected!!.url)
-                else -> AndroidView(
+            Text(
+                text = "$channelCount CH",
+                color = SkyBlue,
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+}
+
+// Video Player Container supporting both Native HLS and Embed Web
+@androidx.annotation.OptIn(UnstableApi::class)
+@Composable
+private fun VideoPlayerContainer(
+    channel: Channel?,
+    showEmbed: Boolean,
+    nativePlayer: NativePlayer,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .background(Color.Black)
+            .clip(RoundedCornerShape(8.dp)),
+        contentAlignment = Alignment.Center
+    ) {
+        when {
+            channel == null -> {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Icon(
+                        Icons.Default.Tv,
+                        contentDescription = null,
+                        tint = TextSubtle,
+                        modifier = Modifier.size(42.dp)
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    Text("Select a channel to start streaming", color = TextMuted, fontSize = 12.sp)
+                }
+            }
+            showEmbed -> {
+                EmbedPlayer(channel.url)
+            }
+            else -> {
+                AndroidView(
                     modifier = Modifier.fillMaxSize(),
                     factory = { ctx ->
                         PlayerView(ctx).apply {
@@ -214,197 +471,345 @@ private fun NovaStreamApp(nativePlayer: NativePlayer) {
                             )
                         }
                     },
-                    update = { it.player = nativePlayer.exoPlayer }
-                )
-            }
-            if (selected == null) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(Icons.Default.Tv, contentDescription = null, tint = Muted, modifier = Modifier.size(34.dp))
-                    Spacer(Modifier.height(8.dp))
-                    Text("Select a channel", color = Muted)
-                }
-            }
-        }
-
-        Column(Modifier.fillMaxWidth().background(Panel).padding(horizontal = 14.dp, vertical = 10.dp)) {
-            Text(selected?.name ?: "No channel selected", color = White, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(selected?.group ?: "NOVASTREAM", color = Accent, fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
-                Spacer(Modifier.width(8.dp))
-                Text(if (showEmbed) "Website embed" else nativePlayer.status, color = Muted, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                Spacer(Modifier.weight(1f))
-                if (nativePlayer.lastError != null && !showEmbed) {
-                    IconButton(onClick = { nativePlayer.retry() }, modifier = Modifier.size(30.dp)) {
-                        Icon(Icons.Default.Refresh, contentDescription = "Retry", tint = Accent)
+                    update = {
+                        it.player = nativePlayer.exoPlayer
                     }
-                }
-            }
-            if (nativePlayer.lastError != null && !showEmbed) {
-                Text(nativePlayer.lastError ?: "", color = Color(0xFFFBBF24), fontSize = 10.sp, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                )
             }
         }
+    }
+}
 
-        Column(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                OutlinedTextField(
-                    value = playlistUrl,
-                    onValueChange = { playlistUrl = it },
-                    modifier = Modifier.weight(1f),
-                    singleLine = true,
-                    label = { Text("M3U playlist URL") },
-                    placeholder = { Text("https://…/playlist.m3u") }
-                )
-                Spacer(Modifier.width(8.dp))
-                Button(
-                    onClick = { loadPlaylist(playlistUrl.trim()) },
-                    enabled = !loading && playlistUrl.isNotBlank(),
-                    colors = ButtonDefaults.buttonColors(containerColor = Accent, contentColor = Color(0xFF032016))
-                ) { Text("Load") }
-            }
-            var directUrl by remember { mutableStateOf("") }
-            Spacer(Modifier.height(5.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                OutlinedTextField(
-                    value = directUrl,
-                    onValueChange = { directUrl = it },
-                    modifier = Modifier.weight(1f),
-                    singleLine = true,
-                    label = { Text("Direct stream / embed URL") },
-                    placeholder = { Text("https://…/live.m3u8") }
-                )
-                Spacer(Modifier.width(8.dp))
-                Button(
-                    onClick = {
-                        val raw = directUrl.trim()
-                        if (raw.startsWith("https://") || raw.startsWith("http://")) {
-                            selectChannel(Channel(
-                                id = "custom_${raw.hashCode()}",
-                                name = "Custom stream",
-                                group = "CUSTOM",
-                                url = raw
-                            ))
-                        } else {
-                            message = "Enter a valid http:// or https:// stream URL"
-                        }
-                    },
-                    enabled = directUrl.isNotBlank(),
-                    colors = ButtonDefaults.buttonColors(containerColor = Accent, contentColor = Color(0xFF032016))
-                ) { Text("Play") }
-            }
-            Spacer(Modifier.height(6.dp))
-            Text(message, color = Muted, fontSize = 10.sp, maxLines = 2, overflow = TextOverflow.Ellipsis)
-        }
-
+// Sleek Channel Control & Live Status Bar
+@Composable
+private fun ChannelControlBar(
+    channel: Channel,
+    isPlaying: Boolean,
+    status: String,
+    lastError: String?,
+    isFavorite: Boolean,
+    onToggleFavorite: () -> Unit,
+    onRetry: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(StadiumSurface, RoundedCornerShape(8.dp))
+            .padding(horizontal = 12.dp, vertical = 8.dp)
+    ) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp),
+            modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            OutlinedTextField(
-                value = query,
-                onValueChange = { query = it },
-                modifier = Modifier.weight(1f),
-                singleLine = true,
-                leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-                placeholder = { Text("Search channels…") }
+            // Live Status Indicator Dot
+            Box(
+                modifier = Modifier
+                    .size(8.dp)
+                    .clip(CircleShape)
+                    .background(if (isPlaying) AccentGreen else LiveRed)
             )
-            Spacer(Modifier.width(8.dp))
-            FilterChip(
-                selected = showFavorites,
-                onClick = { showFavorites = !showFavorites },
-                label = { Text("★") }
-            )
-        }
 
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp, vertical = 6.dp),
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            defaultCategories.take(5).forEach { category ->
-                FilterChip(
-                    selected = selectedCategory == category.title,
-                    onClick = {
-                        selectedCategory = category.title
-                        loadPlaylist(category.url)
-                    },
-                    label = { Text(category.title, fontSize = 10.sp) }
+            Spacer(Modifier.width(6.dp))
+
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = channel.name,
+                    color = TextWhite,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 13.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = "${channel.eventSubtitle} • $status",
+                    color = TextMuted,
+                    fontSize = 10.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
-        }
 
-        if (loading) {
-            LinearLoading()
-        }
+            // Quality Badge (e.g. 4K / FHD)
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(4.dp))
+                    .background(StadiumCard)
+                    .padding(horizontal = 6.dp, vertical = 2.dp)
+            ) {
+                Text(
+                    text = channel.qualityBadge,
+                    color = GoldYellow,
+                    fontSize = 9.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
 
-        LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(horizontal = 10.dp),
-            verticalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            items(visibleChannels, key = { it.id }) { channel ->
-                ChannelRow(
-                    channel = channel,
-                    selected = selected?.id == channel.id,
-                    favorite = favorites.contains(channel.id),
-                    onSelect = { selectChannel(channel) },
-                    onFavorite = {
-                        if (favorites.contains(channel.id)) favorites.remove(channel.id)
-                        else favorites.add(channel.id)
-                    }
+            Spacer(Modifier.width(6.dp))
+
+            // Reload / Retry Button
+            if (lastError != null) {
+                IconButton(onClick = onRetry, modifier = Modifier.size(28.dp)) {
+                    Icon(
+                        Icons.Default.Refresh,
+                        contentDescription = "Retry",
+                        tint = GoldYellow,
+                        modifier = Modifier.size(16.dp)
+                    )
+                }
+            }
+
+            // Favorite Button
+            IconButton(onClick = onToggleFavorite, modifier = Modifier.size(28.dp)) {
+                Icon(
+                    imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                    contentDescription = "Favorite",
+                    tint = if (isFavorite) LiveRed else TextMuted,
+                    modifier = Modifier.size(16.dp)
                 )
             }
         }
     }
 }
 
+// Horizontal Scrollable Category Filter Pills
 @Composable
-private fun LinearLoading() {
-    Row(Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 3.dp), verticalAlignment = Alignment.CenterVertically) {
-        CircularProgressIndicator(modifier = Modifier.size(14.dp), strokeWidth = 2.dp, color = Accent)
-        Spacer(Modifier.width(8.dp))
-        Text("Syncing channels…", color = Muted, fontSize = 11.sp)
-    }
-}
-
-@Composable
-private fun ChannelRow(
-    channel: Channel,
-    selected: Boolean,
-    favorite: Boolean,
-    onSelect: () -> Unit,
-    onFavorite: () -> Unit
+private fun CategoryChipsRow(
+    categories: List<String>,
+    selectedCategory: String,
+    onSelectCategory: (String) -> Unit
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth()
-            .background(if (selected) Color(0xFF12372F) else Card, RoundedCornerShape(10.dp))
-            .clickable(onClick = onSelect)
-            .padding(horizontal = 12.dp, vertical = 11.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier = Modifier
+            .fillMaxWidth()
+            .horizontalScroll(rememberScrollState())
+            .padding(vertical = 4.dp),
+        horizontalArrangement = Arrangement.spacedBy(6.dp)
     ) {
+        categories.forEach { category ->
+            val isSelected = category == selectedCategory
+            val chipColor = if (isSelected) AccentGreen else StadiumCard
+            val textColor = if (isSelected) StadiumDark else TextMuted
+
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(chipColor)
+                    .clickable { onSelectCategory(category) }
+                    .padding(horizontal = 10.dp, vertical = 5.dp)
+            ) {
+                Text(
+                    text = category,
+                    color = textColor,
+                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+                    fontSize = 11.sp
+                )
+            }
+        }
+    }
+}
+
+// Compact, Modern Search Bar
+@Composable
+private fun CompactSearchBar(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    OutlinedTextField(
+        value = query,
+        onValueChange = onQueryChange,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(46.dp),
+        singleLine = true,
+        placeholder = {
+            Text("Search match or channel…", color = TextSubtle, fontSize = 12.sp)
+        },
+        leadingIcon = {
+            Icon(
+                Icons.Default.Search,
+                contentDescription = null,
+                tint = TextSubtle,
+                modifier = Modifier.size(18.dp)
+            )
+        },
+        trailingIcon = {
+            if (query.isNotEmpty()) {
+                IconButton(onClick = { onQueryChange("") }) {
+                    Icon(
+                        Icons.Default.Close,
+                        contentDescription = "Clear",
+                        tint = TextSubtle,
+                        modifier = Modifier.size(16.dp)
+                    )
+                }
+            }
+        },
+        shape = RoundedCornerShape(8.dp),
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedContainerColor = StadiumCard,
+            unfocusedContainerColor = StadiumCard,
+            disabledContainerColor = StadiumCard,
+            focusedBorderColor = AccentGreen,
+            unfocusedBorderColor = Color.Transparent,
+            focusedTextColor = TextWhite,
+            unfocusedTextColor = TextWhite
+        )
+    )
+}
+
+// Compact Channel Selector List
+@Composable
+private fun CompactChannelList(
+    channels: List<Channel>,
+    selectedChannel: Channel?,
+    favorites: List<String>,
+    onSelect: (Channel) -> Unit,
+    onToggleFavorite: (Channel) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    if (channels.isEmpty()) {
         Box(
-            modifier = Modifier.size(34.dp).background(Color(0xFF0B1220), RoundedCornerShape(8.dp)),
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(32.dp),
             contentAlignment = Alignment.Center
         ) {
-            Icon(Icons.Default.PlayArrow, contentDescription = null, tint = if (selected) Accent else Muted)
+            Text("No channels found", color = TextMuted, fontSize = 12.sp)
         }
+    } else {
+        LazyColumn(
+            modifier = modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(5.dp),
+            contentPadding = PaddingValues(vertical = 4.dp)
+        ) {
+            items(channels, key = { it.id }) { channel ->
+                CompactChannelCard(
+                    channel = channel,
+                    isSelected = selectedChannel?.id == channel.id,
+                    isFavorite = favorites.contains(channel.id),
+                    onSelect = { onSelect(channel) },
+                    onToggleFavorite = { onToggleFavorite(channel) }
+                )
+            }
+        }
+    }
+}
+
+// Compact Channel Card (Sleek, low-height ~50dp)
+@Composable
+private fun CompactChannelCard(
+    channel: Channel,
+    isSelected: Boolean,
+    isFavorite: Boolean,
+    onSelect: () -> Unit,
+    onToggleFavorite: () -> Unit
+) {
+    val cardBg = if (isSelected) StadiumCardActive else StadiumCard
+    val borderModifier = if (isSelected) {
+        Modifier.border(1.dp, AccentGreen, RoundedCornerShape(8.dp))
+    } else {
+        Modifier
+    }
+
+    val networkColors = when (channel.network) {
+        "SuperSport" -> listOf(Color(0xFFE11D48), Color(0xFF1E3A8A))
+        "Sky Sports" -> listOf(Color(0xFF0284C7), Color(0xFF0369A1))
+        "TNT Sports" -> listOf(Color(0xFFF59E0B), Color(0xFFD97706))
+        "beIN Sports" -> listOf(Color(0xFF8B5CF6), Color(0xFF6D28D9))
+        else -> listOf(Color(0xFF059669), Color(0xFF047857))
+    }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .then(borderModifier)
+            .clip(RoundedCornerShape(8.dp))
+            .background(cardBg)
+            .clickable(onClick = onSelect)
+            .padding(horizontal = 10.dp, vertical = 7.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        // Network Monogram / Logo Box
+        Box(
+            modifier = Modifier
+                .size(34.dp)
+                .clip(RoundedCornerShape(6.dp))
+                .background(Brush.linearGradient(networkColors)),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = channel.network.take(3).uppercase(),
+                color = Color.White,
+                fontWeight = FontWeight.Black,
+                fontSize = 9.sp
+            )
+        }
+
         Spacer(Modifier.width(10.dp))
-        Column(Modifier.weight(1f)) {
-            Text(channel.name, color = White, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, maxLines = 1, overflow = TextOverflow.Ellipsis)
-            Text(channel.group, color = Muted, fontSize = 10.sp, maxLines = 1)
+
+        Column(modifier = Modifier.weight(1f)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = channel.name,
+                    color = if (isSelected) AccentGreen else TextWhite,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 12.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                if (channel.isTopTen) {
+                    Spacer(Modifier.width(4.dp))
+                    Text(
+                        text = "★ TOP",
+                        color = GoldYellow,
+                        fontSize = 8.sp,
+                        fontWeight = FontWeight.ExtraBold
+                    )
+                }
+            }
+            Text(
+                text = channel.eventSubtitle,
+                color = TextSubtle,
+                fontSize = 10.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
         }
-        if (channel.isWebsiteEmbed) {
-            Text("WEB", color = Color(0xFFFBBF24), fontSize = 9.sp, fontWeight = FontWeight.Bold)
-            Spacer(Modifier.width(6.dp))
+
+        // Quality Tag
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(3.dp))
+                .background(StadiumSurface)
+                .padding(horizontal = 4.dp, vertical = 1.dp)
+        ) {
+            Text(
+                text = channel.qualityBadge,
+                color = TextMuted,
+                fontSize = 8.sp,
+                fontWeight = FontWeight.SemiBold
+            )
         }
-        IconButton(onClick = onFavorite, modifier = Modifier.size(34.dp)) {
+
+        Spacer(Modifier.width(4.dp))
+
+        // Favorite Button
+        IconButton(
+            onClick = onToggleFavorite,
+            modifier = Modifier.size(24.dp)
+        ) {
             Icon(
-                if (favorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                contentDescription = "Favorite",
-                tint = if (favorite) Color(0xFFF87171) else Muted,
-                modifier = Modifier.size(18.dp)
+                imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                contentDescription = null,
+                tint = if (isFavorite) LiveRed else TextSubtle,
+                modifier = Modifier.size(14.dp)
             )
         }
     }
 }
 
+// Embedded Web Player for protected / web streaming portals
 @Composable
 private fun EmbedPlayer(url: String) {
     AndroidView(
@@ -416,6 +821,10 @@ private fun EmbedPlayer(url: String) {
                 settings.mediaPlaybackRequiresUserGesture = false
                 settings.allowFileAccess = false
                 settings.allowContentAccess = false
+                settings.useWideViewPort = true
+                settings.loadWithOverviewMode = true
+                settings.userAgentString =
+                    "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36"
                 webViewClient = WebViewClient()
                 webChromeClient = WebChromeClient()
                 loadUrl(url)
@@ -424,6 +833,9 @@ private fun EmbedPlayer(url: String) {
         update = { view ->
             if (view.url != url) view.loadUrl(url)
         },
-        onRelease = { it.stopLoading(); it.destroy() }
+        onRelease = {
+            it.stopLoading()
+            it.destroy()
+        }
     )
 }
