@@ -154,10 +154,9 @@ export class PlayerView {
   }
 
   private bindOrientationListener(): void {
-    const onOrient = () => setTimeout(() => this.syncOrientationFullscreen(), 100);
+    const onOrient = () => setTimeout(() => this.syncOrientationFullscreen(), 150);
     screen.orientation?.addEventListener('change', onOrient);
     window.addEventListener('orientationchange', onOrient);
-    window.addEventListener('resize', () => this.syncOrientationFullscreen());
   }
 
   public async togglePictureInPicture(): Promise<void> {

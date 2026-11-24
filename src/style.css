@@ -1613,10 +1613,30 @@ body.tv-mode [data-focusable='true']:focus-visible {
     padding: 4px;
   }
 
-  .player-aspect-box {
+  .player-aspect-box:not(.is-clean-fullscreen) {
     max-height: calc(100dvh - 20px);
     width: auto;
     max-width: 100%;
     margin: 0 auto;
   }
+}
+
+.player-aspect-box.is-clean-fullscreen,
+.player-aspect-box:fullscreen {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-height: none !important;
+  z-index: 99999 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #000 !important;
 }
