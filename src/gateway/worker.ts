@@ -30,6 +30,32 @@ export default {
       });
     }
 
+    // Embed Assets Gateway: proxy scripts, fonts, modules from zlive.st
+    if (url.pathname.startsWith('/assets/')) {
+      const assetUrl = `https://zlive.st${url.pathname}${url.search}`;
+      try {
+        const assetResp = await fetch(assetUrl, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+            'Referer': 'https://zlive.st/',
+            'Origin': 'https://zlive.st',
+          },
+        });
+        const headers = new Headers(assetResp.headers);
+        headers.set('Access-Control-Allow-Origin', '*');
+        headers.set('Cache-Control', 'public, max-age=86400');
+        headers.delete('content-encoding');
+        headers.delete('content-length');
+
+        return new Response(assetResp.body, {
+          status: assetResp.status,
+          headers,
+        });
+      } catch (err: unknown) {
+        return new Response(`Asset Proxy Error: ${String(err)}`, { status: 502 });
+      }
+    }
+
     // Proxy endpoint: /stream?url=<targetUrl>
     if (url.pathname === '/stream') {
       const targetUrlStr = url.searchParams.get('url');
@@ -114,6 +140,26 @@ export default {
               'Access-Control-Allow-Origin': '*',
               'Cache-Control': 'no-cache, no-store, must-revalidate',
             },
+          });
+        }
+
+        // HTML Embed Proxying: Inject base href, strip frame blocking headers, and enable CORS
+        if (contentType.includes('text/html') && originResponse.ok) {
+          let html = await originResponse.text();
+          if (html.includes('<head>')) {
+            html = html.replace('<head>', `<head><base href="${finalUrl.origin}/">`);
+          }
+          const responseHeaders = new Headers(originResponse.headers);
+          responseHeaders.set('Access-Control-Allow-Origin', '*');
+          responseHeaders.set('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
+          responseHeaders.delete('content-encoding');
+          responseHeaders.delete('content-length');
+          responseHeaders.delete('x-frame-options');
+          responseHeaders.delete('content-security-policy');
+
+          return new Response(html, {
+            status: originResponse.status,
+            headers: responseHeaders,
           });
         }
 

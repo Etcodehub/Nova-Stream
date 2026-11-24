@@ -139,7 +139,14 @@ export class NovaPlayer {
       this.videoElement.load();
       this.videoElement.style.display = 'none';
       this.iframeElement.style.display = 'block';
-      this.iframeElement.src = source.url;
+
+      // Route via Cloudflare Edge Gateway if proxy requested to bypass geo-blocking & CORS
+      let embedTargetUrl = source.url;
+      if (source.requiresProxy && this.proxyGatewayBase) {
+        embedTargetUrl = `${this.proxyGatewayBase}/stream?url=${encodeURIComponent(source.url)}`;
+      }
+
+      this.iframeElement.src = embedTargetUrl;
       this.sourceManager.markSourceHealthy(source.id);
       this.updateState({
         state: 'playing',

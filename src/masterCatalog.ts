@@ -2,7 +2,7 @@ import type { Channel } from './types/index.ts';
 
 /**
  * Master Bundled Channels Catalog
- * Clean, non-hybrid live feeds without fake test video mirrors.
+ * Clean, non-hybrid live feeds with Edge Geo-Bypass & Direct fallback.
  */
 export const MASTER_CHANNELS_CATALOG: Channel[] = [
   {
@@ -14,10 +14,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": true,
     "sources": [
       {
-        "id": "src_ss_prem_live",
-        "label": "Live HD Feed",
+        "id": "src_ss_prem_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-supersport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_ss_prem_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-supersport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -41,10 +50,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": true,
     "sources": [
       {
-        "id": "src_sky_prem_live",
-        "label": "Live HD Feed",
+        "id": "src_sky_prem_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-premier?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_sky_prem_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-premier?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -68,10 +86,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": true,
     "sources": [
       {
-        "id": "src_sky_main_live",
-        "label": "Live HD Feed",
+        "id": "src_sky_main_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-skymain?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_sky_main_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-skymain?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -95,10 +122,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": true,
     "sources": [
       {
-        "id": "src_tnt_1_live",
-        "label": "Live HD Feed",
+        "id": "src_tnt_1_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-tnt1?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_tnt_1_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-tnt1?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -122,10 +158,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": true,
     "sources": [
       {
-        "id": "src_tnt_2_live",
-        "label": "Live HD Feed",
+        "id": "src_tnt_2_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-tnt2?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_tnt_2_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-tnt2?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -149,10 +194,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": true,
     "sources": [
       {
-        "id": "src_bein_1_live",
-        "label": "Live HD Feed",
+        "id": "src_bein_1_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-bein?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_bein_1_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-bein?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -176,10 +230,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": true,
     "sources": [
       {
-        "id": "src_bein_2_live",
-        "label": "Live HD Feed",
+        "id": "src_bein_2_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-bein?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_bein_2_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-bein?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -203,10 +266,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": true,
     "sources": [
       {
-        "id": "src_ss_foot_live",
-        "label": "Live HD Feed",
+        "id": "src_ss_foot_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_ss_foot_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -230,10 +302,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": true,
     "sources": [
       {
-        "id": "src_cbs_golazo_live",
-        "label": "Live HD Feed",
+        "id": "src_cbs_golazo_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_cbs_golazo_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -257,10 +338,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": true,
     "sources": [
       {
-        "id": "src_tv_varzesh_live",
-        "label": "Live HD Feed",
+        "id": "src_tv_varzesh_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_tv_varzesh_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -284,10 +374,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_espn_usa_live",
-        "label": "Live HD Feed",
+        "id": "src_espn_usa_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_espn_usa_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -311,10 +410,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_espn_2_live",
-        "label": "Live HD Feed",
+        "id": "src_espn_2_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-espn?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_espn_2_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-espn?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -338,10 +446,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_dazn_1_live",
-        "label": "Live HD Feed",
+        "id": "src_dazn_1_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_dazn_1_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -365,10 +482,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_dazn_2_live",
-        "label": "Live HD Feed",
+        "id": "src_dazn_2_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_dazn_2_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -392,10 +518,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_eurosport_1_live",
-        "label": "Live HD Feed",
+        "id": "src_eurosport_1_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_eurosport_1_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -419,10 +554,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_eurosport_2_live",
-        "label": "Live HD Feed",
+        "id": "src_eurosport_2_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_eurosport_2_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -446,10 +590,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_canal_sport_live",
-        "label": "Live HD Feed",
+        "id": "src_canal_sport_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_canal_sport_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -473,10 +626,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_movistar_laliga_live",
-        "label": "Live HD Feed",
+        "id": "src_movistar_laliga_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_movistar_laliga_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -500,10 +662,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_movistar_ucl_live",
-        "label": "Live HD Feed",
+        "id": "src_movistar_ucl_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_movistar_ucl_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -527,10 +698,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_rmc_sport_live",
-        "label": "Live HD Feed",
+        "id": "src_rmc_sport_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_rmc_sport_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -554,10 +734,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_astro_ss1_live",
-        "label": "Live HD Feed",
+        "id": "src_astro_ss1_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_astro_ss1_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -581,10 +770,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_astro_ss2_live",
-        "label": "Live HD Feed",
+        "id": "src_astro_ss2_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_astro_ss2_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -608,10 +806,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_optus_sport_live",
-        "label": "Live HD Feed",
+        "id": "src_optus_sport_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_optus_sport_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -635,10 +842,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_sony_ten1_live",
-        "label": "Live HD Feed",
+        "id": "src_sony_ten1_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_sony_ten1_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -662,10 +878,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_sony_ten2_live",
-        "label": "Live HD Feed",
+        "id": "src_sony_ten2_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_sony_ten2_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -689,10 +914,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_tyc_sports_live",
-        "label": "Live HD Feed",
+        "id": "src_tyc_sports_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_tyc_sports_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -716,10 +950,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_gol_play_live",
-        "label": "Live HD Feed",
+        "id": "src_gol_play_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_gol_play_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -743,10 +986,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_polsat_sport_live",
-        "label": "Live HD Feed",
+        "id": "src_polsat_sport_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_polsat_sport_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -770,10 +1022,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_ss_grandstand_live",
-        "label": "Live HD Feed",
+        "id": "src_ss_grandstand_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_ss_grandstand_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -797,10 +1058,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_ss_var1_live",
-        "label": "Live HD Feed",
+        "id": "src_ss_var1_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_ss_var1_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -824,10 +1094,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_ss_var2_live",
-        "label": "Live HD Feed",
+        "id": "src_ss_var2_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_ss_var2_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -851,10 +1130,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_ss_var3_live",
-        "label": "Live HD Feed",
+        "id": "src_ss_var3_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_ss_var3_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -878,10 +1166,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_ss_var4_live",
-        "label": "Live HD Feed",
+        "id": "src_ss_var4_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_ss_var4_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -905,10 +1202,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_ss_action_live",
-        "label": "Live HD Feed",
+        "id": "src_ss_action_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-supersport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_ss_action_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-supersport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -932,10 +1238,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_sky_foot_live",
-        "label": "Live HD Feed",
+        "id": "src_sky_foot_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_sky_foot_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -959,10 +1274,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_sky_arena_live",
-        "label": "Live HD Feed",
+        "id": "src_sky_arena_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_sky_arena_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -986,10 +1310,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_sky_action_live",
-        "label": "Live HD Feed",
+        "id": "src_sky_action_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_sky_action_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1013,10 +1346,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_sky_1_live",
-        "label": "Live HD Feed",
+        "id": "src_sky_1_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_sky_1_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1040,10 +1382,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_sky_2_live",
-        "label": "Live HD Feed",
+        "id": "src_sky_2_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_sky_2_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1067,10 +1418,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_sky_3_live",
-        "label": "Live HD Feed",
+        "id": "src_sky_3_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_sky_3_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1094,10 +1454,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_sky_4_live",
-        "label": "Live HD Feed",
+        "id": "src_sky_4_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_sky_4_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1121,10 +1490,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_tnt_3_live",
-        "label": "Live HD Feed",
+        "id": "src_tnt_3_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-tnt?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_tnt_3_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-tnt?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1148,10 +1526,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_tnt_4_live",
-        "label": "Live HD Feed",
+        "id": "src_tnt_4_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-tnt?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_tnt_4_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-tnt?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1175,10 +1562,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_tnt_ultimate_live",
-        "label": "Live HD Feed",
+        "id": "src_tnt_ultimate_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_tnt_ultimate_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1202,10 +1598,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_bein_3_live",
-        "label": "Live HD Feed",
+        "id": "src_bein_3_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-bein?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_bein_3_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-bein?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1229,10 +1634,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_bein_4_live",
-        "label": "Live HD Feed",
+        "id": "src_bein_4_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-bein?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_bein_4_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-bein?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1256,10 +1670,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_bein_xtra_live",
-        "label": "Live HD Feed",
+        "id": "src_bein_xtra_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_bein_xtra_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1283,10 +1706,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_sky_f1_live",
-        "label": "Live HD Feed",
+        "id": "src_sky_f1_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-f1?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_sky_f1_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-f1?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1310,10 +1742,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_f1_live_live",
-        "label": "Live HD Feed",
+        "id": "src_f1_live_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_f1_live_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1337,10 +1778,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_ufc_live_live",
-        "label": "Live HD Feed",
+        "id": "src_ufc_live_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_ufc_live_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1364,10 +1814,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_wwe_net_live",
-        "label": "Live HD Feed",
+        "id": "src_wwe_net_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_wwe_net_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1391,10 +1850,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_redbull_tv_live",
-        "label": "Live HD Feed",
+        "id": "src_redbull_tv_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_redbull_tv_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1418,10 +1886,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_motortrend_live",
-        "label": "Live HD Feed",
+        "id": "src_motortrend_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_motortrend_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1445,10 +1922,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_fightbox_live",
-        "label": "Live HD Feed",
+        "id": "src_fightbox_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_fightbox_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1472,10 +1958,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_nba_tv_live",
-        "label": "Live HD Feed",
+        "id": "src_nba_tv_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-nba?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_nba_tv_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-nba?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1499,10 +1994,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_nfl_net_live",
-        "label": "Live HD Feed",
+        "id": "src_nfl_net_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-nfl?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_nfl_net_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-nfl?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1526,10 +2030,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_mlb_net_live",
-        "label": "Live HD Feed",
+        "id": "src_mlb_net_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-mlb?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_mlb_net_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-mlb?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1553,10 +2066,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_fs1_usa_live",
-        "label": "Live HD Feed",
+        "id": "src_fs1_usa_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_fs1_usa_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1580,10 +2102,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_fs2_usa_live",
-        "label": "Live HD Feed",
+        "id": "src_fs2_usa_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_fs2_usa_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1607,10 +2138,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_cbs_net_live",
-        "label": "Live HD Feed",
+        "id": "src_cbs_net_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_cbs_net_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1634,10 +2174,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_tennis_ch_live",
-        "label": "Live HD Feed",
+        "id": "src_tennis_ch_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_tennis_ch_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1661,10 +2210,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_golf_ch_live",
-        "label": "Live HD Feed",
+        "id": "src_golf_ch_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_golf_ch_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1688,10 +2246,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_aljazeera_en_live",
-        "label": "Live HD Feed",
+        "id": "src_aljazeera_en_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_aljazeera_en_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1715,10 +2282,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_skynews_live_live",
-        "label": "Live HD Feed",
+        "id": "src_skynews_live_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_skynews_live_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1742,10 +2318,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_bbc_news_live",
-        "label": "Live HD Feed",
+        "id": "src_bbc_news_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-cnn?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_bbc_news_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-cnn?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1769,10 +2354,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_cnn_intl_live",
-        "label": "Live HD Feed",
+        "id": "src_cnn_intl_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-cnn?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_cnn_intl_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-cnn?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1796,10 +2390,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_bloomberg_tv_live",
-        "label": "Live HD Feed",
+        "id": "src_bloomberg_tv_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_bloomberg_tv_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1823,10 +2426,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_cnbc_live_live",
-        "label": "Live HD Feed",
+        "id": "src_cnbc_live_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_cnbc_live_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1850,10 +2462,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_dw_news_live",
-        "label": "Live HD Feed",
+        "id": "src_dw_news_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_dw_news_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1877,10 +2498,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_france24_en_live",
-        "label": "Live HD Feed",
+        "id": "src_france24_en_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_france24_en_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1904,10 +2534,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_euronews_en_live",
-        "label": "Live HD Feed",
+        "id": "src_euronews_en_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_euronews_en_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1931,10 +2570,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_natgeo_wild_live",
-        "label": "Live HD Feed",
+        "id": "src_natgeo_wild_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_natgeo_wild_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1958,10 +2606,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_discovery_sci_live",
-        "label": "Live HD Feed",
+        "id": "src_discovery_sci_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_discovery_sci_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -1985,10 +2642,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_history_ch_live",
-        "label": "Live HD Feed",
+        "id": "src_history_ch_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_history_ch_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2012,10 +2678,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_nasa_tv_live",
-        "label": "Live HD Feed",
+        "id": "src_nasa_tv_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_nasa_tv_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2039,10 +2714,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_sky_cinema_live",
-        "label": "Live HD Feed",
+        "id": "src_sky_cinema_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_sky_cinema_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2066,10 +2750,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_hbo_premiere_live",
-        "label": "Live HD Feed",
+        "id": "src_hbo_premiere_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_hbo_premiere_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2093,10 +2786,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_paramount_net_live",
-        "label": "Live HD Feed",
+        "id": "src_paramount_net_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_paramount_net_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2120,10 +2822,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "src_warner_tv_live",
-        "label": "Live HD Feed",
+        "id": "src_warner_tv_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "src_warner_tv_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2146,10 +2857,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": true,
     "sources": [
       {
-        "id": "ch_kids_disney_live",
-        "label": "Live HD Feed",
+        "id": "ch_kids_disney_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-disney?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "ch_kids_disney_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-disney?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2172,10 +2892,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": true,
     "sources": [
       {
-        "id": "ch_kids_cartoon_live",
-        "label": "Live HD Feed",
+        "id": "ch_kids_cartoon_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-cartoon?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "ch_kids_cartoon_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-cartoon?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2198,10 +2927,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": true,
     "sources": [
       {
-        "id": "ch_kids_nickelodeon_live",
-        "label": "Live HD Feed",
+        "id": "ch_kids_nickelodeon_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-nick?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "ch_kids_nickelodeon_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-nick?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2224,10 +2962,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": true,
     "sources": [
       {
-        "id": "ch_movie_hbo_live",
-        "label": "Live HD Feed",
+        "id": "ch_movie_hbo_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-hbo?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "ch_movie_hbo_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-hbo?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2250,10 +2997,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "ch_movie_paramount_live",
-        "label": "Live HD Feed",
+        "id": "ch_movie_paramount_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-paramount?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "ch_movie_paramount_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-paramount?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2276,10 +3032,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": true,
     "sources": [
       {
-        "id": "ch_ent_abc_live",
-        "label": "Live HD Feed",
+        "id": "ch_ent_abc_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-abc?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "ch_ent_abc_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-abc?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2302,10 +3067,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "ch_ent_cbs_live",
-        "label": "Live HD Feed",
+        "id": "ch_ent_cbs_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-cbs?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "ch_ent_cbs_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-cbs?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2328,10 +3102,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "ch_ent_nbc_live",
-        "label": "Live HD Feed",
+        "id": "ch_ent_nbc_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-nbc?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "ch_ent_nbc_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-nbc?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2354,10 +3137,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "ch_ent_fox_live",
-        "label": "Live HD Feed",
+        "id": "ch_ent_fox_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-fox?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "ch_ent_fox_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-fox?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2380,10 +3172,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": true,
     "sources": [
       {
-        "id": "ch_news_cnn_live",
-        "label": "Live HD Feed",
+        "id": "ch_news_cnn_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-cnn?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "ch_news_cnn_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-cnn?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2406,10 +3207,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "ch_doc_discovery_live",
-        "label": "Live HD Feed",
+        "id": "ch_doc_discovery_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-discovery?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "ch_doc_discovery_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-discovery?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
@@ -2432,10 +3242,19 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
     "isTop": false,
     "sources": [
       {
-        "id": "ch_doc_natgeo_live",
-        "label": "Live HD Feed",
+        "id": "ch_doc_natgeo_geo_bypass",
+        "label": "Feed 1 (Edge Geo-Bypass)",
         "url": "https://zlive.st/embed/auto-natgeo?radius=7&frame=0&brand=0",
         "priority": 1,
+        "protocol": "embed",
+        "requiresProxy": true,
+        "state": "HEALTHY"
+      },
+      {
+        "id": "ch_doc_natgeo_direct",
+        "label": "Feed 2 (Direct Feed)",
+        "url": "https://zlive.st/embed/auto-natgeo?radius=7&frame=0&brand=0",
+        "priority": 2,
         "protocol": "embed",
         "requiresProxy": false,
         "state": "HEALTHY"
