@@ -38,11 +38,15 @@ export interface EPGProgram {
 export interface Channel {
   id: string;
   name: string;
-  category: 'Sports' | 'Movies' | 'Kids' | 'News' | 'Entertainment' | 'Documentary';
+  category: 'Sports' | 'Movies' | 'Kids' | 'News' | 'Entertainment' | 'Documentary' | 'General';
   logoUrl: string;
   epgId?: string;
   network?: string;
   isTop?: boolean;
+  flag?: string;
+  quality?: string;
+  tagline?: string;
+  region?: string;
   sources: StreamSource[];
   currentProgram?: EPGProgram;
   updatedAt: number;
