@@ -2,6 +2,8 @@
  * PlayerView Component
  * Cinema-Grade Media Player (Prime Video / Netflix style)
  * Clean, elegant consumer viewport that opens on-demand when a user selects a channel.
+ * Closes cleanly upon menu navigation or close button press.
+ * Non-hybrid dedicated streams with clear, honest error handling.
  */
 
 import type { Channel, PlayerPlaybackState, StreamSource } from '../types/index.ts';
@@ -18,10 +20,15 @@ export class PlayerView {
   private titleElement!: HTMLElement;
   private qualityBadgeElement!: HTMLElement;
   private serverButtonsContainer!: HTMLElement;
+  private mirrorSelectorGroup!: HTMLElement;
   private btnOpenChooser!: HTMLButtonElement;
   private currentLogoMini!: HTMLImageElement;
   private btnTheaterMode!: HTMLButtonElement;
   private btnClosePlayer!: HTMLButtonElement;
+  private errorOverlayElement!: HTMLElement;
+  private btnErrorRetry!: HTMLButtonElement;
+  private btnErrorBrowse!: HTMLButtonElement;
+
   private isTheaterMode = false;
   private isPlayerVisible = false;
 
@@ -65,15 +72,20 @@ export class PlayerView {
       this.wrapperElement.style.display = 'none';
       this.wrapperElement.classList.remove('visible');
     }
-    // Pause / Stop stream playback
+    // Pause / Stop stream playback completely
     if (this.player) {
       this.player.stop();
     }
     if (this.videoElement) {
       this.videoElement.pause();
+      this.videoElement.removeAttribute('src');
+      this.videoElement.load();
     }
     if (this.iframeElement) {
       this.iframeElement.src = 'about:blank';
+    }
+    if (this.errorOverlayElement) {
+      this.errorOverlayElement.style.display = 'none';
     }
   }
 
@@ -93,6 +105,19 @@ export class PlayerView {
             allowfullscreen
             referrerpolicy="no-referrer"
           ></iframe>
+
+          <!-- Clean In-Player Error Overlay -->
+          <div class="player-error-overlay" id="player-error-overlay" style="display: none;">
+            <div class="error-dialog-card">
+              <span class="error-dialog-icon">⚠️</span>
+              <h3 class="error-dialog-title">Broadcast Momentarily Offline</h3>
+              <p class="error-dialog-desc">This live channel feed is currently reconnecting with the provider network.</p>
+              <div class="error-actions-row">
+                <button class="btn-error-retry" id="btn-player-retry">🔄 Retry Connection</button>
+                <button class="btn-error-browse" id="btn-player-browse">📺 Choose Other Channel</button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="player-info-toolbar">
@@ -113,8 +138,8 @@ export class PlayerView {
           </div>
 
           <div class="player-info-right">
-            <!-- Server Mirror Selector -->
-            <div class="mirror-selector-group">
+            <!-- Server Mirror Selector (Only visible if channel has multiple genuine feeds) -->
+            <div class="mirror-selector-group" id="mirror-selector-group" style="display: none;">
               <span class="mirror-label">Feed:</span>
               <div class="mirror-pills-row" id="server-buttons-container"></div>
             </div>
@@ -143,11 +168,15 @@ export class PlayerView {
     this.iframeElement = this.container.querySelector('#nova-iframe')!;
     this.titleElement = this.container.querySelector('#now-playing-title')!;
     this.qualityBadgeElement = this.container.querySelector('#player-quality-badge')!;
+    this.mirrorSelectorGroup = this.container.querySelector('#mirror-selector-group')!;
     this.serverButtonsContainer = this.container.querySelector('#server-buttons-container')!;
     this.btnOpenChooser = this.container.querySelector('#btn-open-channel-modal')!;
     this.currentLogoMini = this.container.querySelector('#current-channel-logo-mini')!;
     this.btnTheaterMode = this.container.querySelector('#btn-theater-mode')!;
     this.btnClosePlayer = this.container.querySelector('#btn-close-player')!;
+    this.errorOverlayElement = this.container.querySelector('#player-error-overlay')!;
+    this.btnErrorRetry = this.container.querySelector('#btn-player-retry')!;
+    this.btnErrorBrowse = this.container.querySelector('#btn-player-browse')!;
 
     this.btnTheaterMode.addEventListener('click', () => {
       this.toggleTheaterMode();
@@ -162,10 +191,24 @@ export class PlayerView {
         this.onOpenChooserCallback();
       }
     });
+
+    this.btnErrorRetry.addEventListener('click', () => {
+      this.errorOverlayElement.style.display = 'none';
+      this.player?.retry();
+    });
+
+    this.btnErrorBrowse.addEventListener('click', () => {
+      if (this.onOpenChooserCallback) {
+        this.onOpenChooserCallback();
+      }
+    });
   }
 
   public updateNowPlaying(channel: Channel): void {
     this.show();
+    if (this.errorOverlayElement) {
+      this.errorOverlayElement.style.display = 'none';
+    }
 
     if (this.titleElement) {
       const subtitle = channel.currentProgram?.title ? `• ${channel.currentProgram.title}` : '';
@@ -186,7 +229,18 @@ export class PlayerView {
       this.qualityBadgeElement.textContent = state.activeQuality || '1080p HD';
     }
 
-    // Render Stream Mirror Switcher (e.g. Server 1, Server 2) cleanly
+    // Toggle error overlay
+    if (this.errorOverlayElement) {
+      this.errorOverlayElement.style.display = state.state === 'error' ? 'flex' : 'none';
+    }
+
+    // Only display mirror switcher if channel has multiple genuine candidate feeds
+    if (this.mirrorSelectorGroup) {
+      const hasMultiple = state.candidateSources && state.candidateSources.length > 1;
+      this.mirrorSelectorGroup.style.display = hasMultiple ? 'flex' : 'none';
+    }
+
+    // Render Stream Mirror Switcher cleanly
     this.serverButtonsContainer.innerHTML = '';
     state.candidateSources.forEach((source: StreamSource, idx: number) => {
       const btn = document.createElement('button');

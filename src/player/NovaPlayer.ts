@@ -97,6 +97,16 @@ export class NovaPlayer {
   }
 
   /**
+   * Retries the current channel stream
+   */
+  public async retry(): Promise<void> {
+    if (this.currentChannel) {
+      console.info('[NovaPlayer] Retrying channel playback for:', this.currentChannel.name);
+      await this.loadChannel(this.currentChannel);
+    }
+  }
+
+  /**
    * Simulates a server failure to test and demonstrate automatic failover
    */
   public triggerSimulatedFailure(): void {

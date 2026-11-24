@@ -272,6 +272,95 @@ iframe {
   box-shadow: 0 0 8px var(--live-red);
 }
 
+/* Player In-Viewport Error Overlay */
+.player-error-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  background: rgba(11, 14, 20, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.error-dialog-card {
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  background: rgba(24, 34, 52, 0.96);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem 2rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 24px rgba(239, 68, 68, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.error-dialog-icon {
+  font-size: 2.4rem;
+}
+
+.error-dialog-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-white);
+  letter-spacing: -0.01em;
+}
+
+.error-dialog-desc {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.error-actions-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-error-retry {
+  background: var(--prime-blue);
+  color: #fff;
+  border: none;
+  padding: 0.55rem 1.3rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font-family);
+  transition: all 0.2s ease;
+}
+
+.btn-error-retry:hover {
+  background: var(--prime-blue-hover);
+  box-shadow: 0 0 12px var(--prime-blue-glow);
+}
+
+.btn-error-browse {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-white);
+  border: 1px solid var(--border-subtle);
+  padding: 0.55rem 1.2rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-family);
+  transition: all 0.2s ease;
+}
+
+.btn-error-browse:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
 .player-info-toolbar {
   padding: 1rem 0.5rem;
   display: flex;

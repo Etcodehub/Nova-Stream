@@ -84,6 +84,8 @@ class NovaStreamApp {
     // Clean commercial Header (Home, Sport, All TV Channels)
     this.header = new Header(headerRoot, {
       onCategorySelect: (category) => {
+        // Close player when selecting any menu option (Home, Sport, All TV Channels)
+        this.playerView.hide();
         this.channelGrid.filterByCategory(category);
       },
       onSearch: (query) => {

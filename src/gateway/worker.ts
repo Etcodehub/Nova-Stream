@@ -1,6 +1,8 @@
 /**
  * NovaStream Edge Media Gateway (Cloudflare Worker)
  * Production Edge Worker script for serverless media proxying and CORS injection.
+ * Handles manifest rewriting, relative segment expansion, key/map URI proxying,
+ * redirect resolution, and header cleanup.
  */
 
 export default {
@@ -14,15 +16,16 @@ export default {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
-          'Access-Control-Allow-Headers': 'Range, Origin, Accept, Content-Type, Authorization',
+          'Access-Control-Allow-Headers': 'Range, Origin, Accept, Content-Type, Authorization, X-Requested-With',
           'Access-Control-Expose-Headers': 'Content-Length, Content-Range, Accept-Ranges',
+          'Access-Control-Max-Age': '86400',
         },
       });
     }
 
     // Health check
     if (url.pathname === '/health') {
-      return new Response(JSON.stringify({ status: 'HEALTHY', edge: 'Cloudflare' }), {
+      return new Response(JSON.stringify({ status: 'HEALTHY', edge: 'Cloudflare', timestamp: Date.now() }), {
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
       });
     }
@@ -31,39 +34,77 @@ export default {
     if (url.pathname === '/stream') {
       const targetUrlStr = url.searchParams.get('url');
       if (!targetUrlStr) {
-        return new Response('Missing "url" query parameter', { status: 400 });
+        return new Response('Missing "url" query parameter', {
+          status: 400,
+          headers: { 'Access-Control-Allow-Origin': '*' },
+        });
       }
 
       let targetUrl: URL;
       try {
         targetUrl = new URL(targetUrlStr);
       } catch {
-        return new Response('Invalid target URL', { status: 400 });
+        return new Response('Invalid target URL', {
+          status: 400,
+          headers: { 'Access-Control-Allow-Origin': '*' },
+        });
       }
 
       const forwardHeaders = new Headers(request.headers);
-      forwardHeaders.set('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) NovaStream/1.0');
+      forwardHeaders.set('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36');
       forwardHeaders.set('Referer', `${targetUrl.protocol}//${targetUrl.host}/`);
       forwardHeaders.set('Origin', `${targetUrl.protocol}//${targetUrl.host}`);
+      forwardHeaders.set('Accept', '*/*');
       forwardHeaders.delete('host');
 
       try {
         const originResponse = await fetch(targetUrl.href, {
           method: request.method,
           headers: forwardHeaders,
+          redirect: 'follow',
         });
 
+        // Compute base URL from the final URL after any redirects
+        const finalUrl = new URL(originResponse.url || targetUrl.href);
+        const baseUrl = new URL('.', finalUrl).href;
+
         const contentType = originResponse.headers.get('content-type') || '';
-        const isM3U8 = targetUrl.pathname.endsWith('.m3u8') || contentType.includes('mpegurl');
+        const isM3U8 =
+          targetUrl.pathname.includes('.m3u8') ||
+          targetUrl.pathname.includes('.m3u') ||
+          contentType.includes('mpegurl') ||
+          contentType.includes('application/x-mpegURL');
 
         if (isM3U8 && originResponse.ok) {
           const originalManifest = await originResponse.text();
-          const baseUrl = new URL('.', targetUrl).href;
+
+          // Rewrite lines: both plain segment URLs and tag URIs (e.g. URI="key.bin")
           const rewrittenLines = originalManifest.split('\n').map((line) => {
             const trimmed = line.trim();
-            if (!trimmed || trimmed.startsWith('#')) return line;
-            const absoluteSegmentUrl = new URL(trimmed, baseUrl).href;
-            return `${url.origin}/stream?url=${encodeURIComponent(absoluteSegmentUrl)}`;
+            if (!trimmed) return line;
+
+            // Handle tag lines with URI attributes (e.g. #EXT-X-KEY, #EXT-X-MAP, #EXT-X-MEDIA)
+            if (trimmed.startsWith('#')) {
+              if (trimmed.includes('URI="')) {
+                return trimmed.replace(/URI="([^"]+)"/g, (_, matchUri) => {
+                  try {
+                    const absKeyUrl = new URL(matchUri, baseUrl).href;
+                    return `URI="${url.origin}/stream?url=${encodeURIComponent(absKeyUrl)}"`;
+                  } catch {
+                    return `URI="${matchUri}"`;
+                  }
+                });
+              }
+              return line;
+            }
+
+            // Normal segment or nested child playlist URL
+            try {
+              const absoluteSegmentUrl = new URL(trimmed, baseUrl).href;
+              return `${url.origin}/stream?url=${encodeURIComponent(absoluteSegmentUrl)}`;
+            } catch {
+              return line;
+            }
           });
 
           return new Response(rewrittenLines.join('\n'), {
@@ -71,15 +112,19 @@ export default {
             headers: {
               'Content-Type': 'application/vnd.apple.mpegurl',
               'Access-Control-Allow-Origin': '*',
-              'Cache-Control': 'no-cache, no-store',
+              'Cache-Control': 'no-cache, no-store, must-revalidate',
             },
           });
         }
 
-        // Direct chunk or segment stream
+        // Direct TS chunk, segment or binary stream
         const responseHeaders = new Headers(originResponse.headers);
         responseHeaders.set('Access-Control-Allow-Origin', '*');
         responseHeaders.set('Access-Control-Expose-Headers', 'Content-Length, Content-Range, Accept-Ranges');
+        responseHeaders.set('Access-Control-Allow-Headers', 'Range, Origin, Accept, Content-Type');
+        responseHeaders.delete('content-encoding');
+        responseHeaders.delete('content-length');
+        responseHeaders.delete('transfer-encoding');
 
         return new Response(originResponse.body, {
           status: originResponse.status,
