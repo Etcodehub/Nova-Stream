@@ -1,25 +1,24 @@
 /**
  * PlayerView Component
  * Cinema-Grade Media Player (Prime Video / Netflix style)
- * Clean, elegant consumer viewport without technical debug buttons.
+ * Clean, elegant consumer viewport with Interactive Visual Channel Selector button.
  */
 
 import type { Channel, PlayerPlaybackState, StreamSource } from '../types/index.ts';
 import { NovaPlayer } from '../player/NovaPlayer.ts';
 
-export type ChannelChangeCallback = (channelId: string) => void;
-
 export class PlayerView {
   private container: HTMLElement;
   private player: NovaPlayer | null = null;
-  private onChannelChangeCallback: ChannelChangeCallback | null = null;
+  private onOpenChooserCallback: (() => void) | null = null;
 
   private videoElement!: HTMLVideoElement;
   private iframeElement!: HTMLIFrameElement;
   private titleElement!: HTMLElement;
   private qualityBadgeElement!: HTMLElement;
   private serverButtonsContainer!: HTMLElement;
-  private channelChooserSelect!: HTMLSelectElement;
+  private btnOpenChooser!: HTMLButtonElement;
+  private currentLogoMini!: HTMLImageElement;
   private btnTheaterMode!: HTMLButtonElement;
   private isTheaterMode = false;
 
@@ -33,8 +32,8 @@ export class PlayerView {
     this.player = player;
   }
 
-  public setOnChannelChange(cb: ChannelChangeCallback): void {
-    this.onChannelChangeCallback = cb;
+  public setOnOpenChooser(cb: () => void): void {
+    this.onOpenChooserCallback = cb;
   }
 
   public getVideoElement(): HTMLVideoElement {
@@ -64,11 +63,14 @@ export class PlayerView {
 
         <div class="player-info-toolbar">
           <div class="player-info-left">
-            <div class="channel-dropdown-box">
-              <select id="channel-chooser-select" class="prime-select" title="Switch Channel">
-                <option value="" disabled selected>Channels...</option>
-              </select>
-            </div>
+            <!-- Visual Channel Chooser Trigger Button -->
+            <button class="channel-picker-trigger-btn" id="btn-open-channel-modal" title="Browse and Switch Channels">
+              <img id="current-channel-logo-mini" class="current-channel-mini-logo" src="" alt="" style="display: none;" />
+              <span class="picker-btn-text">📺 Choose Channel</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
 
             <div class="channel-headline">
               <h1 class="now-playing-channel" id="now-playing-title">NovaStream Live</h1>
@@ -100,62 +102,33 @@ export class PlayerView {
     this.titleElement = this.container.querySelector('#now-playing-title')!;
     this.qualityBadgeElement = this.container.querySelector('#player-quality-badge')!;
     this.serverButtonsContainer = this.container.querySelector('#server-buttons-container')!;
-    this.channelChooserSelect = this.container.querySelector('#channel-chooser-select')!;
+    this.btnOpenChooser = this.container.querySelector('#btn-open-channel-modal')!;
+    this.currentLogoMini = this.container.querySelector('#current-channel-logo-mini')!;
     this.btnTheaterMode = this.container.querySelector('#btn-theater-mode')!;
 
     this.btnTheaterMode.addEventListener('click', () => {
       this.toggleTheaterMode();
     });
 
-    this.channelChooserSelect.addEventListener('change', () => {
-      const selectedId = this.channelChooserSelect.value;
-      if (selectedId && this.onChannelChangeCallback) {
-        this.onChannelChangeCallback(selectedId);
+    this.btnOpenChooser.addEventListener('click', () => {
+      if (this.onOpenChooserCallback) {
+        this.onOpenChooserCallback();
       }
     });
   }
 
-  public populateChannelChooser(channels: Channel[], activeId?: string): void {
-    if (!this.channelChooserSelect) return;
-
-    const categories = new Map<string, Channel[]>();
-    channels.forEach((ch) => {
-      const list = categories.get(ch.category) || [];
-      list.push(ch);
-      categories.set(ch.category, list);
-    });
-
-    this.channelChooserSelect.innerHTML = '<option value="" disabled>Switch Channel...</option>';
-
-    categories.forEach((list, category) => {
-      const optGroup = document.createElement('optgroup');
-      optGroup.label = category;
-      list.forEach((ch) => {
-        const option = document.createElement('option');
-        option.value = ch.id;
-        option.textContent = ch.name;
-        if (ch.id === activeId) {
-          option.selected = true;
-        }
-        optGroup.appendChild(option);
-      });
-      this.channelChooserSelect.appendChild(optGroup);
-    });
-
-    if (activeId) {
-      this.channelChooserSelect.value = activeId;
-    }
-  }
-
-  public setSelectedChannel(channelId: string): void {
-    if (this.channelChooserSelect) {
-      this.channelChooserSelect.value = channelId;
-    }
-  }
-
-  public updateNowPlaying(title: string, subtitle?: string): void {
+  public updateNowPlaying(channel: Channel): void {
     if (this.titleElement) {
-      this.titleElement.innerHTML = `${title} ${subtitle ? `<span class="now-playing-sub">• ${subtitle}</span>` : ''}`;
+      const subtitle = channel.currentProgram?.title ? `• ${channel.currentProgram.title}` : '';
+      this.titleElement.innerHTML = `${channel.name} <span class="now-playing-sub">${subtitle}</span>`;
+    }
+
+    if (this.currentLogoMini && channel.logoUrl) {
+      this.currentLogoMini.src = channel.logoUrl;
+      this.currentLogoMini.style.display = 'inline-block';
+      this.currentLogoMini.onerror = () => {
+        this.currentLogoMini.style.display = 'none';
+      };
     }
   }
 

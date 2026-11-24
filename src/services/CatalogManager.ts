@@ -125,9 +125,10 @@ export class CatalogManager {
 
       // 3. Auto-fetch IPTV-org Categories in parallel
       const iptvPromises = [
-        iptvOrgService.fetchCategoryChannels(IPTV_ORG_ENDPOINTS[0], 30), // Sports
-        iptvOrgService.fetchCategoryChannels(IPTV_ORG_ENDPOINTS[1], 15), // News
-        iptvOrgService.fetchCategoryChannels(IPTV_ORG_ENDPOINTS[2], 15), // Movies
+        iptvOrgService.fetchCategoryChannels(IPTV_ORG_ENDPOINTS[0], 25), // Sports
+        iptvOrgService.fetchCategoryChannels(IPTV_ORG_ENDPOINTS[1], 15), // Movies
+        iptvOrgService.fetchCategoryChannels(IPTV_ORG_ENDPOINTS[2], 20), // Kids
+        iptvOrgService.fetchCategoryChannels(IPTV_ORG_ENDPOINTS[3], 15), // News
       ];
 
       const results = await Promise.allSettled(iptvPromises);

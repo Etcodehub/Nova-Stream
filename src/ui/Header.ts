@@ -30,10 +30,8 @@ export class Header {
 
           <nav class="nav-links">
             <button class="nav-link active" data-cat="ALL">Home</button>
-            <button class="nav-link" data-cat="Sports">Sports</button>
-            <button class="nav-link" data-cat="Movies">Movies</button>
-            <button class="nav-link" data-cat="News">News</button>
-            <button class="nav-link" data-cat="Entertainment">Live TV</button>
+            <button class="nav-link" data-cat="Sports">Sport</button>
+            <button class="nav-link" data-cat="ALL_CHANNELS">All TV Channels</button>
           </nav>
         </div>
 

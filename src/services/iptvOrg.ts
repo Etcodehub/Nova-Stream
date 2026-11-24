@@ -8,7 +8,7 @@ import type { Channel, StreamSource } from '../types/index.ts';
 
 export interface IptvCategory {
   id: string;
-  name: 'Sports' | 'Movies' | 'News' | 'Entertainment';
+  name: 'Sports' | 'Movies' | 'Kids' | 'News' | 'Entertainment';
   url: string;
 }
 
@@ -19,14 +19,19 @@ export const IPTV_ORG_ENDPOINTS: IptvCategory[] = [
     url: 'https://iptv-org.github.io/iptv/categories/sports.m3u',
   },
   {
-    id: 'news',
-    name: 'News',
-    url: 'https://iptv-org.github.io/iptv/categories/news.m3u',
-  },
-  {
     id: 'movies',
     name: 'Movies',
     url: 'https://iptv-org.github.io/iptv/categories/movies.m3u',
+  },
+  {
+    id: 'kids',
+    name: 'Kids',
+    url: 'https://iptv-org.github.io/iptv/categories/kids.m3u',
+  },
+  {
+    id: 'news',
+    name: 'News',
+    url: 'https://iptv-org.github.io/iptv/categories/news.m3u',
   },
   {
     id: 'entertainment',

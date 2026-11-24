@@ -38,7 +38,7 @@ export interface EPGProgram {
 export interface Channel {
   id: string;
   name: string;
-  category: 'Sports' | 'Movies' | 'News' | 'Entertainment' | 'Documentary';
+  category: 'Sports' | 'Movies' | 'Kids' | 'News' | 'Entertainment' | 'Documentary';
   logoUrl: string;
   epgId?: string;
   sources: StreamSource[];

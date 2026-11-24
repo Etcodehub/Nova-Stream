@@ -1,7 +1,7 @@
 /**
  * ChannelGrid Component
  * Prime Video / Netflix-style horizontal carousels (rails)
- * Organized by Sports, Cinema, News, and Live TV with smooth horizontal scrolling.
+ * Organized on Home by Sport, Movie, and Kids, plus full 'All TV Channels' view with category tabs.
  */
 
 import type { Channel } from '../types/index.ts';
@@ -14,6 +14,7 @@ export class ChannelGrid {
   private channels: Channel[] = [];
   private activeChannelId: string | null = null;
   private currentCategory = 'ALL';
+  private allChannelsSubCategory = 'ALL';
   private searchQuery = '';
 
   constructor(container: HTMLElement, onSelect: ChannelSelectCallback) {
@@ -53,7 +54,13 @@ export class ChannelGrid {
       return;
     }
 
-    // If a specific category tab is selected, show that category rail/grid
+    // View 1: 'All TV Channels' with Category Tabs
+    if (this.currentCategory === 'ALL_CHANNELS') {
+      this.renderAllChannelsView();
+      return;
+    }
+
+    // View 2: Single Category View (e.g. user clicked 'Sport' from top navigation)
     if (this.currentCategory !== 'ALL') {
       const filtered = this.channels.filter(
         (c) => c.category.toLowerCase() === this.currentCategory.toLowerCase()
@@ -62,18 +69,68 @@ export class ChannelGrid {
       return;
     }
 
-    // Default: Prime Video-style Multi-Rail Layout
+    // View 3: Default Home Rails: Sport, Movie, Kids (Requested by User)
     const sports = this.channels.filter((c) => c.category === 'Sports');
     const movies = this.channels.filter((c) => c.category === 'Movies');
+    const kids = this.channels.filter((c) => c.category === 'Kids');
     const news = this.channels.filter((c) => c.category === 'News');
-    const entertainment = this.channels.filter(
-      (c) => c.category === 'Entertainment' || (!['Sports', 'Movies', 'News'].includes(c.category))
-    );
 
-    if (sports.length > 0) this.renderRail('⚽ Live Sports & Football Matchday', sports);
-    if (movies.length > 0) this.renderRail('🎬 Premiere Cinema & Movies', movies);
-    if (news.length > 0) this.renderRail('🌐 Global 24/7 News Networks', news);
-    if (entertainment.length > 0) this.renderRail('📺 Entertainment & Live TV', entertainment);
+    if (sports.length > 0) this.renderRail('⚽ Sport — Live Matches & Premier Feeds', sports);
+    if (movies.length > 0) this.renderRail('🎬 Movie — Premiere Cinema & Blockbusters', movies);
+    if (kids.length > 0) this.renderRail('🧸 Kids — Cartoons, Animation & Family Fun', kids);
+    if (news.length > 0) this.renderRail('🌐 News & World Broadcasts', news);
+  }
+
+  private renderAllChannelsView(): void {
+    const section = document.createElement('div');
+    section.className = 'prime-single-category-section';
+
+    section.innerHTML = `
+      <div class="all-channels-header-bar">
+        <div>
+          <h3 class="prime-rail-title">All TV Channels</h3>
+          <p class="section-subtext">Browse and switch between all available live broadcasts</p>
+        </div>
+
+        <div class="all-channels-category-filter" id="all-channels-filter">
+          <button class="cat-chip ${this.allChannelsSubCategory === 'ALL' ? 'active' : ''}" data-cat="ALL">All (${this.channels.length})</button>
+          <button class="cat-chip ${this.allChannelsSubCategory === 'Sports' ? 'active' : ''}" data-cat="Sports">Sport</button>
+          <button class="cat-chip ${this.allChannelsSubCategory === 'Movies' ? 'active' : ''}" data-cat="Movies">Movie</button>
+          <button class="cat-chip ${this.allChannelsSubCategory === 'Kids' ? 'active' : ''}" data-cat="Kids">Kids</button>
+          <button class="cat-chip ${this.allChannelsSubCategory === 'News' ? 'active' : ''}" data-cat="News">News</button>
+        </div>
+      </div>
+
+      <div class="prime-cards-grid" id="all-channels-grid"></div>
+    `;
+
+    const filterBar = section.querySelector('#all-channels-filter') as HTMLElement;
+    const grid = section.querySelector('#all-channels-grid') as HTMLElement;
+
+    filterBar.addEventListener('click', (e) => {
+      const target = (e.target as HTMLElement).closest('.cat-chip') as HTMLElement | null;
+      if (target && target.dataset.cat) {
+        filterBar.querySelectorAll('.cat-chip').forEach((c) => c.classList.remove('active'));
+        target.classList.add('active');
+        this.allChannelsSubCategory = target.dataset.cat;
+        this.populateAllChannelsGrid(grid);
+      }
+    });
+
+    this.populateAllChannelsGrid(grid);
+    this.container.appendChild(section);
+  }
+
+  private populateAllChannelsGrid(grid: HTMLElement): void {
+    grid.innerHTML = '';
+    const filtered =
+      this.allChannelsSubCategory === 'ALL'
+        ? this.channels
+        : this.channels.filter((c) => c.category.toLowerCase() === this.allChannelsSubCategory.toLowerCase());
+
+    filtered.forEach((channel) => {
+      grid.appendChild(this.createChannelCard(channel));
+    });
   }
 
   private renderRail(title: string, list: Channel[]): void {
@@ -174,14 +231,17 @@ export class ChannelGrid {
 
     card.innerHTML = `
       <div class="card-poster-box">
-        <img class="card-logo-img" src="${channel.logoUrl}" alt="${channel.name}" loading="lazy" />
+        <img class="card-logo-img" src="${channel.logoUrl}" alt="${channel.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=300&q=80'" />
         <div class="card-overlay-badge">
           <span class="mini-live-dot"></span> LIVE
         </div>
       </div>
 
       <div class="card-details-box">
-        <h4 class="card-channel-name">${channel.name}</h4>
+        <div class="card-title-row">
+          <img class="card-mini-icon" src="${channel.logoUrl}" alt="" loading="lazy" onerror="this.style.display='none'" />
+          <h4 class="card-channel-name">${channel.name}</h4>
+        </div>
         <div class="card-program-title">${programTitle}</div>
         <div class="card-footer-tags">
           <span class="prime-pill-tag">${channel.category}</span>
@@ -194,7 +254,6 @@ export class ChannelGrid {
       this.activeChannelId = channel.id;
       this.highlightActiveCards();
       this.onSelect(channel);
-      // Smooth scroll up to player
       document.getElementById('player-viewport')?.scrollIntoView({ behavior: 'smooth' });
     };
 
