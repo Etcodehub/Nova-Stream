@@ -107,12 +107,15 @@ export default {
         });
       }
 
-      const forwardHeaders = new Headers(request.headers);
+      const forwardHeaders = new Headers();
       forwardHeaders.set('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36');
       forwardHeaders.set('Referer', `${targetUrl.protocol}//${targetUrl.host}/`);
       forwardHeaders.set('Origin', `${targetUrl.protocol}//${targetUrl.host}`);
       forwardHeaders.set('Accept', '*/*');
-      forwardHeaders.delete('host');
+      const rangeHeader = request.headers.get('Range');
+      if (rangeHeader) {
+        forwardHeaders.set('Range', rangeHeader);
+      }
 
       try {
         const originResponse = await fetch(targetUrl.href, {
@@ -199,6 +202,7 @@ export default {
         responseHeaders.set('Access-Control-Allow-Origin', '*');
         responseHeaders.set('Access-Control-Expose-Headers', 'Content-Length, Content-Range, Accept-Ranges');
         responseHeaders.set('Access-Control-Allow-Headers', 'Range, Origin, Accept, Content-Type');
+        responseHeaders.set('Cache-Control', 'public, max-age=15');
         responseHeaders.delete('content-encoding');
         responseHeaders.delete('content-length');
         responseHeaders.delete('transfer-encoding');

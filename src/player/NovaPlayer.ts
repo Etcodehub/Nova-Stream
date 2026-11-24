@@ -177,13 +177,22 @@ export class NovaPlayer {
       if (Hls.isSupported()) {
         this.hls = new Hls({
           enableWorker: true,
-          lowLatencyMode: true,
-          liveSyncDurationCount: 3,
-          liveMaxLatencyDurationCount: 6,
-          manifestLoadingMaxRetry: 2,
-          manifestLoadingRetryDelay: 1000,
-          levelLoadingMaxRetry: 2,
-          fragLoadingMaxRetry: 2,
+          lowLatencyMode: false,
+          backBufferLength: 30,
+          maxBufferLength: 24,
+          maxMaxBufferLength: 48,
+          liveSyncDurationCount: 4,
+          liveMaxLatencyDurationCount: 10,
+          startLevel: -1,
+          abrEwmaDefaultEstimate: 1500000,
+          manifestLoadingTimeOut: 10000,
+          manifestLoadingMaxRetry: 4,
+          manifestLoadingRetryDelay: 800,
+          levelLoadingTimeOut: 10000,
+          levelLoadingMaxRetry: 4,
+          fragLoadingTimeOut: 15000,
+          fragLoadingMaxRetry: 4,
+          fragLoadingRetryDelay: 800,
         });
 
         this.hls.attachMedia(this.videoElement);
@@ -206,8 +215,22 @@ export class NovaPlayer {
           });
         });
 
+        let mediaRecoveryAttempts = 0;
+        let networkRecoveryAttempts = 0;
         this.hls.on(Hls.Events.ERROR, (_, data) => {
           if (data.fatal) {
+            if (data.type === Hls.ErrorTypes.NETWORK_ERROR && networkRecoveryAttempts < 2) {
+              networkRecoveryAttempts++;
+              console.warn('[NovaPlayer] Network hiccup, attempting HLS reload:', data.details);
+              this.hls?.startLoad();
+              return;
+            }
+            if (data.type === Hls.ErrorTypes.MEDIA_ERROR && mediaRecoveryAttempts < 2) {
+              mediaRecoveryAttempts++;
+              console.warn('[NovaPlayer] Media error, attempting recovery:', data.details);
+              this.hls?.recoverMediaError();
+              return;
+            }
             console.error('[NovaPlayer] Fatal HLS error encountered:', data.type, data.details);
             this.handleSourceFailure(`HLS Fatal: ${data.details}`);
           }
