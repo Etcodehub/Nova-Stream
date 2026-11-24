@@ -52,8 +52,9 @@ class NovaStreamApp {
     this.header.updateRevision(currentRev);
     this.header.updateCacheStatus(this.channels.length, 'Cached (0ms Ready)');
 
-    // 5. Populate Channel Grid
+    // 5. Populate Channel Grid and Quick Channel Chooser
     this.channelGrid.setChannels(this.channels);
+    this.playerView.populateChannelChooser(this.channels);
 
     // 6. Auto-mount first channel for instant play
     if (this.channels.length > 0) {
@@ -65,6 +66,7 @@ class NovaStreamApp {
       this.channels = updatedChannels;
       this.header.updateCacheStatus(this.channels.length, 'Cached');
       this.channelGrid.setChannels(this.channels, this.activeChannel?.id);
+      this.playerView.populateChannelChooser(this.channels, this.activeChannel?.id);
       if (stats.newlyAdded > 0) {
         console.info(`[NovaStream] Ingested +${stats.newlyAdded} live channels from background fetch.`);
       }
@@ -91,6 +93,12 @@ class NovaStreamApp {
     });
 
     this.playerView = new PlayerView(playerRoot, null as any);
+    this.playerView.setOnChannelChange((channelId) => {
+      const channel = this.channels.find((c) => c.id === channelId);
+      if (channel) {
+        this.selectChannel(channel);
+      }
+    });
 
     this.diagnosticsView = new DiagnosticsView(diagnosticsRoot);
 
@@ -102,6 +110,7 @@ class NovaStreamApp {
   private selectChannel(channel: Channel): void {
     this.activeChannel = channel;
     this.playerView.updateNowPlaying(channel.name, channel.currentProgram?.title);
+    this.playerView.setSelectedChannel(channel.id);
     this.channelGrid.setActiveChannel(channel.id);
     this.player.loadChannel(channel);
   }

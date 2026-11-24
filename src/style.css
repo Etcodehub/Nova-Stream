@@ -330,6 +330,42 @@ iframe {
   flex-wrap: wrap;
 }
 
+/* Quick Channel Chooser Dropdown */
+.channel-chooser-box {
+  display: inline-flex;
+}
+
+.channel-dropdown-select {
+  background-color: var(--bg-surface-2);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  max-width: 200px;
+}
+
+.channel-dropdown-select:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--accent-cyan-glow);
+}
+
+.channel-dropdown-select:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 12px var(--accent-cyan-glow);
+}
+
+.channel-dropdown-select option,
+.channel-dropdown-select optgroup {
+  background-color: var(--bg-surface-1);
+  color: var(--text-primary);
+}
+
 .player-channel-title {
   font-size: 1.15rem;
   font-weight: 700;

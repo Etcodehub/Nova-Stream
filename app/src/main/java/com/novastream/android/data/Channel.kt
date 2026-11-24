@@ -33,8 +33,7 @@ data class Channel(
         get() {
             val lower = url.lowercase()
             return lower.contains("/embed/") ||
-                lower.contains("zlive.st") ||
-                lower.contains("atlantic.st") ||
+                lower.contains(".st/embed") ||
                 lower.contains("embedsports") ||
                 lower.contains(".html")
         }

@@ -115,11 +115,11 @@ export class NovaPlayer {
 
     this.destroyHls();
 
-    // Check if the stream is an embed iframe (e.g., zlive.st)
+    // Check if the stream is an embed iframe provider
     const isEmbed =
       source.protocol === 'embed' ||
       source.url.includes('/embed/') ||
-      source.url.includes('zlive.st') ||
+      source.url.includes('.st/embed') ||
       source.url.includes('embedsports');
 
     if (isEmbed && this.iframeElement) {

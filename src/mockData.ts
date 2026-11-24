@@ -1,32 +1,32 @@
 import type { Channel } from './types/index.ts';
 
 export const INITIAL_MOCK_CHANNELS: Channel[] = [
-  // 1. ZLive Live Sports Provider (Embed Iframe Provider)
+  // 1. Nova Live Sports Premier Feed (Ultra HD Match Broadcast)
   {
-    id: 'ch_zlive_sports',
-    name: 'ZLive Live Sports Feed',
+    id: 'ch_nova_sports_premier',
+    name: 'Nova Sports Premier Feed',
     category: 'Sports',
     logoUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=200&q=80',
-    epgId: 'zlive.sports.auto',
+    epgId: 'novasports.premier.auto',
     updatedAt: Date.now(),
     currentProgram: {
-      id: 'epg_zlive_match',
-      title: 'Live Football Match: Auto Feature Feed',
-      description: 'Official ZLive sports streaming broadcast (zlive.st embed player)',
+      id: 'epg_premier_match',
+      title: 'UEFA & Premier League Live Matchday',
+      description: 'Ultra HD feature broadcast with multi-angle match coverage',
       startTime: Date.now() - 1000 * 60 * 30,
       endTime: Date.now() + 1000 * 60 * 90,
     },
     sources: [
       {
-        id: 'src_zlive_primary',
-        label: 'Server 1 (ZLive HD Embed)',
+        id: 'src_nsp_primary',
+        label: 'Server 1 (FHD Live Stream)',
         url: 'https://zlive.st/embed/auto-abc?radius=7&frame=0&brand=0',
         priority: 1,
         protocol: 'embed',
         state: 'HEALTHY',
       },
       {
-        id: 'src_zlive_backup',
+        id: 'src_nsp_backup',
         label: 'Server 2 (Edge HLS Backup)',
         url: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
         priority: 2,

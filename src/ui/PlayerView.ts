@@ -1,20 +1,26 @@
 /**
  * PlayerView Component
  * Renders the responsive media viewport (HTML5 Video & IFrame Embed),
- * Now-Playing bar, Theater mode toggle, and Multi-Server Switcher pills.
+ * Quick Channel Chooser dropdown, Now-Playing bar, Theater mode toggle,
+ * and Multi-Server Switcher pills.
  */
 
-import type { PlayerPlaybackState, StreamSource } from '../types/index.ts';
+import type { Channel, PlayerPlaybackState, StreamSource } from '../types/index.ts';
 import { NovaPlayer } from '../player/NovaPlayer.ts';
+
+export type ChannelChangeCallback = (channelId: string) => void;
 
 export class PlayerView {
   private container: HTMLElement;
   private player: NovaPlayer | null = null;
+  private onChannelChangeCallback: ChannelChangeCallback | null = null;
+
   private videoElement!: HTMLVideoElement;
   private iframeElement!: HTMLIFrameElement;
   private titleElement!: HTMLElement;
   private qualityBadgeElement!: HTMLElement;
   private serverButtonsContainer!: HTMLElement;
+  private channelChooserSelect!: HTMLSelectElement;
   private btnSimulateFail!: HTMLButtonElement;
   private btnTheaterMode!: HTMLButtonElement;
   private isTheaterMode = false;
@@ -27,6 +33,10 @@ export class PlayerView {
 
   public setPlayer(player: NovaPlayer): void {
     this.player = player;
+  }
+
+  public setOnChannelChange(cb: ChannelChangeCallback): void {
+    this.onChannelChangeCallback = cb;
   }
 
   public getVideoElement(): HTMLVideoElement {
@@ -56,6 +66,13 @@ export class PlayerView {
         <div class="player-controls-panel">
           <div class="player-meta-row">
             <div class="player-title-group">
+              <!-- Quick Channel Chooser -->
+              <div class="channel-chooser-box">
+                <select id="channel-chooser-select" class="channel-dropdown-select" title="Quick Channel Chooser">
+                  <option value="" disabled selected>⚡ Switch Channel...</option>
+                </select>
+              </div>
+
               <h2 class="player-channel-title" id="now-playing-title">Ready for Playback</h2>
               <span class="badge badge-cyan" id="player-quality-badge">Auto</span>
             </div>
@@ -94,6 +111,7 @@ export class PlayerView {
     this.titleElement = this.container.querySelector('#now-playing-title')!;
     this.qualityBadgeElement = this.container.querySelector('#player-quality-badge')!;
     this.serverButtonsContainer = this.container.querySelector('#server-buttons-container')!;
+    this.channelChooserSelect = this.container.querySelector('#channel-chooser-select')!;
     this.btnSimulateFail = this.container.querySelector('#btn-simulate-fail')!;
     this.btnTheaterMode = this.container.querySelector('#btn-theater-mode')!;
 
@@ -104,6 +122,52 @@ export class PlayerView {
     this.btnTheaterMode.addEventListener('click', () => {
       this.toggleTheaterMode();
     });
+
+    this.channelChooserSelect.addEventListener('change', () => {
+      const selectedId = this.channelChooserSelect.value;
+      if (selectedId && this.onChannelChangeCallback) {
+        this.onChannelChangeCallback(selectedId);
+      }
+    });
+  }
+
+  public populateChannelChooser(channels: Channel[], activeId?: string): void {
+    if (!this.channelChooserSelect) return;
+
+    // Group channels by category
+    const categories = new Map<string, Channel[]>();
+    channels.forEach((ch) => {
+      const list = categories.get(ch.category) || [];
+      list.push(ch);
+      categories.set(ch.category, list);
+    });
+
+    this.channelChooserSelect.innerHTML = '<option value="" disabled>⚡ Switch Channel...</option>';
+
+    categories.forEach((list, category) => {
+      const optGroup = document.createElement('optgroup');
+      optGroup.label = category;
+      list.forEach((ch) => {
+        const option = document.createElement('option');
+        option.value = ch.id;
+        option.textContent = ch.name;
+        if (ch.id === activeId) {
+          option.selected = true;
+        }
+        optGroup.appendChild(option);
+      });
+      this.channelChooserSelect.appendChild(optGroup);
+    });
+
+    if (activeId) {
+      this.channelChooserSelect.value = activeId;
+    }
+  }
+
+  public setSelectedChannel(channelId: string): void {
+    if (this.channelChooserSelect) {
+      this.channelChooserSelect.value = channelId;
+    }
   }
 
   public updateNowPlaying(title: string, subtitle?: string): void {
@@ -122,7 +186,7 @@ export class PlayerView {
     state.candidateSources.forEach((source: StreamSource) => {
       const btn = document.createElement('button');
       btn.className = `server-pill ${state.currentSource?.id === source.id ? 'active' : ''}`;
-      
+
       const indicatorClass =
         source.state === 'HEALTHY'
           ? 'indicator-healthy'

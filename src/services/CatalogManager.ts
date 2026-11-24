@@ -67,7 +67,7 @@ export class CatalogManager {
         channelMap.set(ch.id, ch);
       }
 
-      // Ensure bundled mock channels (e.g. zlive.st sports) are always present
+      // Ensure bundled base channels are always present
       for (const ch of INITIAL_MOCK_CHANNELS) {
         if (!channelMap.has(ch.id)) {
           channelMap.set(ch.id, ch);
@@ -86,7 +86,7 @@ export class CatalogManager {
             if (!channelMap.has(chId)) {
               const isEmbed =
                 raw.url?.includes('/embed/') ||
-                raw.url?.includes('zlive.st') ||
+                raw.url?.includes('.st/embed') ||
                 raw.url?.includes('embedsports');
 
               const source: StreamSource = {
