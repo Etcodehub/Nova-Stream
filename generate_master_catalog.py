@@ -101,8 +101,10 @@ for c in zlive_list:
     logo = get_logo(cid, name, cat)
     is_top = cid in top_slugs or c.get('quality') == '4K' or 'premier' in name.lower() or 'main event' in name.lower()
     
-    # Server 1: Direct embed (preserves SPA routing, no X-Frame-Options, matches zlive.st "1 source")
+    # Server 1: Direct embed (preserves SPA routing, no X-Frame-Options)
+    # Server 2: Cloudflare Edge Proxy (/embed/* route on novastream-gateway.etcodehub.workers.dev)
     direct_url = f"https://zlive.st/embed/{cid}?radius=7&frame=0&brand=0"
+    edge_url = f"https://novastream-gateway.etcodehub.workers.dev/embed/{cid}?radius=7&frame=0&brand=0"
     
     channel_obj = {
         "id": cid,
@@ -121,6 +123,15 @@ for c in zlive_list:
                 "label": "Server 1 (Direct Live)",
                 "url": direct_url,
                 "priority": 1,
+                "protocol": "embed",
+                "requiresProxy": False,
+                "state": "HEALTHY"
+            },
+            {
+                "id": f"src_{cid}_proxy",
+                "label": "Server 2 (Cloudflare Proxy)",
+                "url": edge_url,
+                "priority": 2,
                 "protocol": "embed",
                 "requiresProxy": False,
                 "state": "HEALTHY"
