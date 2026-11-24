@@ -43,6 +43,7 @@ export class PlayerView {
   private isPlayerVisible = false;
   private allChannels: Channel[] = [];
   private currentChannel: Channel | null = null;
+  private renderedSidebarCategory: string | null = null;
 
   constructor(container: HTMLElement, player?: NovaPlayer) {
     this.container = container;
@@ -84,11 +85,14 @@ export class PlayerView {
   }
 
   public show(): void {
+    const wasVisible = this.isPlayerVisible;
     this.isPlayerVisible = true;
     if (this.wrapperElement) {
       this.wrapperElement.style.display = 'block';
       this.wrapperElement.classList.add('visible');
-      this.wrapperElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (!wasVisible) {
+        this.wrapperElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
   }
 
@@ -348,15 +352,26 @@ export class PlayerView {
   private renderQuickChannelList(): void {
     if (!this.quickChannelListEl) return;
     const cat = this.currentChannel?.category || 'Sports';
+
+    if (this.renderedSidebarCategory === cat && this.quickChannelListEl.children.length > 0) {
+      this.quickChannelListEl.querySelectorAll('.quick-ch-item').forEach((el) => {
+        const item = el as HTMLElement;
+        item.classList.toggle('active', item.dataset.channelId === this.currentChannel?.id);
+      });
+      return;
+    }
+
+    this.renderedSidebarCategory = cat;
     const related = this.allChannels
       .filter((c) => c.category === cat)
-      .slice(0, 20);
+      .slice(0, 25);
 
     this.quickChannelListEl.innerHTML = '';
     related.forEach((ch) => {
       const item = document.createElement('button');
       const isActive = this.currentChannel?.id === ch.id;
       item.className = `quick-ch-item ${isActive ? 'active' : ''}`;
+      item.dataset.channelId = ch.id;
       item.innerHTML = `
         <img class="quick-ch-logo" src="${ch.logoUrl || ''}" alt="${ch.name}" onerror="this.style.display='none'" />
         <div class="quick-ch-info">

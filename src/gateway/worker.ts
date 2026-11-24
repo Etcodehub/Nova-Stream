@@ -30,6 +30,40 @@ export default {
       });
     }
 
+    // Embed HTML Gateway: proxy /embed/* directly while preserving pathname for SPA routing
+    if (url.pathname.startsWith('/embed/')) {
+      const embedUrl = `https://zlive.st${url.pathname}${url.search}`;
+      try {
+        const originResp = await fetch(embedUrl, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+            'Referer': 'https://zlive.st/',
+            'Origin': 'https://zlive.st',
+          },
+        });
+        let html = await originResp.text();
+        if (html.includes('<head>')) {
+          html = html.replace('<head>', `<head><base href="https://zlive.st/">`);
+        }
+        const headers = new Headers(originResp.headers);
+        headers.set('Access-Control-Allow-Origin', '*');
+        headers.set('Content-Type', 'text/html; charset=utf-8');
+        headers.delete('content-encoding');
+        headers.delete('content-length');
+        headers.delete('x-frame-options');
+        headers.delete('content-security-policy');
+        headers.delete('cross-origin-resource-policy');
+        headers.delete('cross-origin-embedder-policy');
+
+        return new Response(html, {
+          status: originResp.status,
+          headers,
+        });
+      } catch (err: unknown) {
+        return new Response(`Embed Proxy Error: ${String(err)}`, { status: 502 });
+      }
+    }
+
     // Embed Assets Gateway: proxy scripts, fonts, modules from zlive.st
     if (url.pathname.startsWith('/assets/')) {
       const assetUrl = `https://zlive.st${url.pathname}${url.search}`;

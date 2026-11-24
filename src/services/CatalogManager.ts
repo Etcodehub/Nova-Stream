@@ -15,7 +15,7 @@ export type CatalogUpdateListener = (
 ) => void;
 
 const CACHE_VERSION_KEY = 'novastream_catalog_schema';
-const CURRENT_CACHE_VERSION = 'zlive_only_v4';
+const CURRENT_CACHE_VERSION = 'zlive_only_v6';
 
 function resolveCategory(raw: any): Channel['category'] {
   const sport = (raw.sport || '').toLowerCase();
@@ -169,19 +169,10 @@ export class CatalogManager {
           isTop: quality === '4K' || name.toLowerCase().includes('premier'),
           sources: [
             {
-              id: `src_${cid}_proxy`,
-              label: 'Server 1 (Edge Proxy)',
+              id: `src_${cid}_direct`,
+              label: 'Server 1 (Direct Live)',
               url: `https://zlive.st/embed/${cid}?radius=7&frame=0&brand=0`,
               priority: 1,
-              protocol: 'embed',
-              requiresProxy: true,
-              state: 'HEALTHY',
-            },
-            {
-              id: `src_${cid}_direct`,
-              label: 'Server 2 (Direct Feed)',
-              url: `https://zlive.st/embed/${cid}?radius=7&frame=0&brand=0`,
-              priority: 2,
               protocol: 'embed',
               requiresProxy: false,
               state: 'HEALTHY',

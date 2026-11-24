@@ -120,7 +120,6 @@ class NovaStreamApp {
     this.playerView.updateNowPlaying(channel);
     this.channelChooserModal.setActiveChannel(channel.id);
     this.channelGrid.setActiveChannel(channel.id);
-    this.heroBanner.setFeaturedChannel(channel);
     this.player.loadChannel(channel);
   }
 }

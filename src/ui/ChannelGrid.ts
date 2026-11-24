@@ -27,7 +27,10 @@ export class ChannelGrid {
 
   public setActiveChannel(channelId: string): void {
     this.activeChannelId = channelId;
-    this.render();
+    this.container.querySelectorAll('.channel-tile').forEach((el) => {
+      const tile = el as HTMLElement;
+      tile.classList.toggle('active', tile.dataset.channelId === channelId);
+    });
   }
 
   public filterByCategory(category: string): void {
@@ -60,6 +63,7 @@ export class ChannelGrid {
     const card = document.createElement('button');
     card.type = 'button';
     card.className = `nm-card channel-tile ${isActive ? 'active' : ''}`;
+    card.dataset.channelId = ch.id;
     card.setAttribute('data-focusable', 'true');
 
     const quality = (ch as any).quality || 'FHD';
