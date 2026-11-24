@@ -285,6 +285,10 @@ export class PlayerView {
       this.onOpenChooserCallback?.();
     });
 
+    const customFsBtn = this.container.querySelector('#btn-custom-fullscreen');
+    const fsEnterIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>`;
+    const fsExitIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+
     const toggleFs = () => {
       const viewport = this.container.querySelector('#player-viewport');
       if (document.fullscreenElement) {
@@ -294,8 +298,15 @@ export class PlayerView {
       }
     };
 
+    document.addEventListener('fullscreenchange', () => {
+      if (!customFsBtn) return;
+      const inFs = Boolean(document.fullscreenElement);
+      customFsBtn.innerHTML = inFs ? fsExitIcon : fsEnterIcon;
+      customFsBtn.setAttribute('title', inFs ? 'Exit Fullscreen' : 'Fullscreen (NovaStream)');
+    });
+
     this.btnFullscreen.addEventListener('click', toggleFs);
-    this.container.querySelector('#btn-custom-fullscreen')?.addEventListener('click', toggleFs);
+    customFsBtn?.addEventListener('click', toggleFs);
 
     this.btnErrorRetry.addEventListener('click', () => {
       this.errorOverlayElement.style.display = 'none';
