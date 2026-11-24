@@ -178,17 +178,19 @@ export class NovaPlayer {
         this.hls = new Hls({
           enableWorker: true,
           autoStartLoad: true,
-          lowLatencyMode: false,
-          backBufferLength: 30,
-          maxBufferLength: 60,
-          maxMaxBufferLength: 120,
-          liveSyncDurationCount: 2,
-          liveMaxLatencyDurationCount: 8,
-          maxFragLookUpTolerance: 0.25,
-          nudgeOffset: 0.2,
+          lowLatencyMode: true,
+          startFragPrefetch: true,
+          backBufferLength: 10,
+          maxBufferLength: 10,
+          maxMaxBufferLength: 20,
+          maxBufferHole: 0.3,
+          liveSyncDurationCount: 1,
+          liveMaxLatencyDurationCount: 3,
+          maxFragLookUpTolerance: 0.15,
+          nudgeOffset: 0.1,
           nudgeMaxRetry: 5,
           startLevel: -1,
-          abrEwmaDefaultEstimate: 2_500_000,
+          abrEwmaDefaultEstimate: 500_000,
           fragLoadPolicy: {
             default: {
               maxLoadTimeMs: 30_000,
@@ -360,15 +362,15 @@ export class NovaPlayer {
         const currentTime = this.videoElement.currentTime;
         if (Math.abs(currentTime - this.lastPlaybackTime) < 0.05) {
           this.stallCounter++;
-          if (this.stallCounter === 6 && this.hls) {
-            console.warn('[NovaPlayer] Stuck on buffering (6s), nudging to live edge...');
+          if (this.stallCounter === 3 && this.hls) {
+            console.warn('[NovaPlayer] Buffering >3s, nudging to live edge...');
             if (typeof this.hls.liveSyncPosition === 'number' && this.hls.liveSyncPosition > 0) {
               this.videoElement.currentTime = this.hls.liveSyncPosition;
             }
             this.hls.startLoad();
-          } else if (this.stallCounter >= 12) {
-            console.warn('[NovaPlayer] Watchdog detected prolonged buffering stall (12s).');
-            this.handleSourceFailure('Stream Buffer Stall Timeout (12s)');
+          } else if (this.stallCounter >= 7) {
+            console.warn('[NovaPlayer] Watchdog detected prolonged buffering stall (7s).');
+            this.handleSourceFailure('Stream Buffer Stall Timeout (7s)');
           }
         } else {
           this.stallCounter = 0;
