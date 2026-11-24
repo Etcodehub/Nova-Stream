@@ -177,22 +177,47 @@ export class NovaPlayer {
       if (Hls.isSupported()) {
         this.hls = new Hls({
           enableWorker: true,
+          autoStartLoad: true,
           lowLatencyMode: false,
           backBufferLength: 30,
-          maxBufferLength: 24,
-          maxMaxBufferLength: 48,
+          maxBufferLength: 120,
+          maxMaxBufferLength: 240,
           liveSyncDurationCount: 4,
-          liveMaxLatencyDurationCount: 10,
+          liveMaxLatencyDurationCount: 12,
           startLevel: -1,
-          abrEwmaDefaultEstimate: 1500000,
-          manifestLoadingTimeOut: 10000,
-          manifestLoadingMaxRetry: 4,
-          manifestLoadingRetryDelay: 800,
-          levelLoadingTimeOut: 10000,
-          levelLoadingMaxRetry: 4,
-          fragLoadingTimeOut: 15000,
-          fragLoadingMaxRetry: 4,
-          fragLoadingRetryDelay: 800,
+          abrEwmaDefaultEstimate: 5_000_000,
+          fragLoadPolicy: {
+            default: {
+              maxLoadTimeMs: 30_000,
+              maxTimeToFirstByteMs: 30_000,
+              errorRetry: {
+                maxNumRetry: 10,
+                retryDelayMs: 1000,
+                maxRetryDelayMs: 10_000,
+              },
+              timeoutRetry: {
+                maxNumRetry: 10,
+                retryDelayMs: 0,
+                maxRetryDelayMs: 0,
+              },
+            },
+          },
+          manifestLoadPolicy: {
+            default: {
+              maxLoadTimeMs: 15_000,
+              maxTimeToFirstByteMs: 15_000,
+              errorRetry: {
+                maxNumRetry: 6,
+                retryDelayMs: 800,
+                maxRetryDelayMs: 8_000,
+              },
+              timeoutRetry: {
+                maxNumRetry: 6,
+                retryDelayMs: 500,
+                maxRetryDelayMs: 5_000,
+              },
+            },
+          },
         });
 
         this.hls.attachMedia(this.videoElement);
