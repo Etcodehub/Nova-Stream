@@ -80,6 +80,57 @@ export class PlayerView {
     return this.iframeElement;
   }
 
+  public toggleFullscreen(): void {
+    const viewport = this.container.querySelector('#player-viewport');
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    } else if (viewport?.requestFullscreen) {
+      viewport.requestFullscreen().catch(() => {});
+    }
+  }
+
+  public async togglePictureInPicture(): Promise<void> {
+    if (!this.videoElement || this.videoElement.style.display === 'none') {
+      this.showToast('Picture-in-Picture is available on Server 2 (Playlist HLS)');
+      return;
+    }
+    try {
+      if (document.pictureInPictureElement) {
+        await document.exitPictureInPicture();
+      } else if (this.videoElement.requestPictureInPicture) {
+        await this.videoElement.requestPictureInPicture();
+      }
+    } catch {
+      this.showToast('Picture-in-Picture unavailable for this stream');
+    }
+  }
+
+  public async copyInviteLink(): Promise<void> {
+    const url = new URL(window.location.href);
+    if (this.currentChannel) {
+      url.searchParams.set('ch', this.currentChannel.id);
+    }
+    try {
+      await navigator.clipboard.writeText(url.toString());
+      this.showToast(`Invite link copied for ${this.currentChannel?.name || 'NovaStream'}!`);
+    } catch {
+      this.showToast('Share URL ready in address bar');
+    }
+  }
+
+  public showToast(message: string): void {
+    let toast = document.getElementById('novastream-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'novastream-toast';
+      toast.className = 'novastream-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add('show');
+    window.setTimeout(() => toast?.classList.remove('show'), 2400);
+  }
+
   public isVisible(): boolean {
     return this.isPlayerVisible;
   }
@@ -213,6 +264,13 @@ export class PlayerView {
             <div class="player-servers-bar" id="mirror-selector-group">
               <span class="servers-label">Sources:</span>
               <div class="server-pills-row" id="server-buttons-container"></div>
+              <div class="player-shortcuts-hint" title="Keyboard Shortcuts">
+                <span><kbd>↑</kbd><kbd>↓</kbd> Zap</span>
+                <span><kbd>L</kbd> Channels</span>
+                <span><kbd>I</kbd> Invite</span>
+                <span><kbd>P</kbd> PiP</span>
+                <span><kbd>F</kbd> Fullscreen</span>
+              </div>
             </div>
           </div>
 
@@ -289,14 +347,7 @@ export class PlayerView {
     const fsEnterIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>`;
     const fsExitIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
 
-    const toggleFs = () => {
-      const viewport = this.container.querySelector('#player-viewport');
-      if (document.fullscreenElement) {
-        document.exitFullscreen().catch(() => {});
-      } else if (viewport?.requestFullscreen) {
-        viewport.requestFullscreen().catch(() => {});
-      }
-    };
+    const toggleFs = () => this.toggleFullscreen();
 
     document.addEventListener('fullscreenchange', () => {
       if (!customFsBtn) return;

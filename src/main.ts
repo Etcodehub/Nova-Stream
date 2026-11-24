@@ -56,6 +56,17 @@ class NovaStreamApp {
       this.channelChooserModal.setActiveChannel(featured.id);
     }
 
+    // Deep-link support for Invite links (?ch=channel_id)
+    const inviteChId = new URLSearchParams(window.location.search).get('ch');
+    if (inviteChId) {
+      const target = this.channels.find((c) => c.id === inviteChId);
+      if (target) {
+        this.selectChannel(target);
+      }
+    }
+
+    this.bindKeyboardShortcuts();
+
     // 2. Background sync from official zlive.st directory
     catalogManager
       .autoFetchAllProviders(this.channels)
@@ -121,6 +132,67 @@ class NovaStreamApp {
     this.channelChooserModal.setActiveChannel(channel.id);
     this.channelGrid.setActiveChannel(channel.id);
     this.player.loadChannel(channel);
+  }
+
+  private stepChannel(delta: number): void {
+    if (this.channels.length === 0) return;
+    const currentIdx = this.activeChannel
+      ? this.channels.findIndex((c) => c.id === this.activeChannel!.id)
+      : -1;
+    const nextIdx =
+      currentIdx === -1
+        ? 0
+        : (currentIdx + delta + this.channels.length) % this.channels.length;
+    this.selectChannel(this.channels[nextIdx]);
+  }
+
+  private bindKeyboardShortcuts(): void {
+    window.addEventListener('keydown', (e) => {
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || (e.target as HTMLElement)?.isContentEditable) {
+        return;
+      }
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+      switch (e.key) {
+        case 'ArrowUp':
+          if (this.playerView.isVisible()) {
+            e.preventDefault();
+            this.stepChannel(-1);
+          }
+          break;
+        case 'ArrowDown':
+          if (this.playerView.isVisible()) {
+            e.preventDefault();
+            this.stepChannel(1);
+          }
+          break;
+        case 'l':
+        case 'L':
+          e.preventDefault();
+          this.channelChooserModal.open();
+          break;
+        case 'i':
+        case 'I':
+          e.preventDefault();
+          this.playerView.copyInviteLink();
+          break;
+        case 'p':
+        case 'P':
+          if (this.playerView.isVisible()) {
+            e.preventDefault();
+            this.playerView.togglePictureInPicture();
+          }
+          break;
+        case 'f':
+        case 'F':
+          if (this.playerView.isVisible()) {
+            e.preventDefault();
+            this.playerView.toggleFullscreen();
+          }
+          break;
+      }
+    });
   }
 }
 
