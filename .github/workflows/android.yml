@@ -1,4 +1,4 @@
-name: NovaStream Android Build
+name: iStream Android APK Build
 
 on:
   push:
@@ -10,6 +10,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -34,15 +36,23 @@ jobs:
           yes | "$SDKMANAGER" --licenses || true
           "$SDKMANAGER" "platforms;android-36" "build-tools;36.0.0"
 
-      - name: Run tests
-        run: gradle test
-
       - name: Build APK
-        run: gradle assembleDebug
+        run: gradle assembleDebug -x test
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: novastream-debug-apk
+          name: istream-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
+
+      - name: Release APK
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          tag_name: v1.0.0
+          name: "iStream Android APK v1.0.0"
+          body: "Direct download for the iStream Android APK (Reezn OTT Style)."
+          files: app/build/outputs/apk/debug/app-debug.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

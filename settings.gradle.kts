@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "NovaStream"
+rootProject.name = "iStream"
 include(":app")

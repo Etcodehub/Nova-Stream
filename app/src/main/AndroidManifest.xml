@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:label="NovaStream"
+        android:label="iStream"
         android:theme="@android:style/Theme.Material.Light.NoActionBar"
         android:usesCleartextTraffic="true"
         android:supportsRtl="true">
