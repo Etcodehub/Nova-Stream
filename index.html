@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>NOVA STREAM - Live Sports & World Football</title>
+  <meta name="description" content="Watch SuperSport, Sky Sports, TNT Sports, beIN Sports, and 75+ premium world sports channels live in HD/4K." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+  
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- HLS.js for .m3u8 live video streams -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <style>
+    :root {
+      --bg-darkest: #07090e;
+      --bg-main: #0c1017;
+      --bg-card: #131924;
+      --bg-card-hover: #1c2434;
+      --bg-card-active: #182844;
+      --border-subtle: #1e293b;
+      --border-active: #0284c7;
+      --primary: #0284c7;
+      --primary-glow: rgba(2, 132, 199, 0.35);
+      --accent: #38bdf8;
+      --gold: #f59e0b;
+      --gold-glow: rgba(245, 158, 11, 0.3);
+      --live-red: #ef4444;
+      --emerald: #10b981;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-darkest);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      background: rgba(12, 16, 23, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.5rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0284c7, #2563eb, #7c3aed);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 18px var(--primary-glow);
+    }
+
+    .brand-logo i {
+      font-size: 1.25rem;
+      color: #fff;
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-tag {
+      background: rgba(2, 132, 199, 0.2);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #38bdf8;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .stat-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #10b981;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background: #10b981;
+      border-radius: 50%;
+      animation: pulse 1.6s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* Main Container */
+    .app-layout {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      flex: 1;
+      height: calc(100vh - 61px);
+      overflow: hidden;
+    }
+
+    /* Left: Player Stage */
+    .stage-section {
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-darkest);
+      overflow-y: auto;
+      padding: 1.25rem;
+      gap: 1rem;
+    }
+
+    .player-card {
+      background: #000;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+      position: relative;
+    }
+
+    .player-aspect {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      background: #000;
+    }
+
+    .player-element {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #000;
+    }
+
+    .player-loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(7, 9, 14, 0.85);
+      backdrop-filter: blur(8px);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      z-index: 10;
+    }
+
+    .spinner {
+      width: 44px;
+      height: 44px;
+      border: 3px solid rgba(2, 132, 199, 0.2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Stream Metadata Bar */
+    .stream-meta-bar {
+      background: var(--bg-main);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .stream-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .stream-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .stream-channel-name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-network {
+      background: rgba(2, 132, 199, 0.2);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #38bdf8;
+    }
+
+    .badge-quality {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #fbbf24;
+    }
+
+    .badge-live {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+    }
+
+    .stream-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .stream-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-icon {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-icon:hover {
+      background: var(--bg-card-hover);
+      color: var(--text-main);
+      border-color: var(--primary);
+    }
+
+    .btn-icon.active {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--gold);
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    /* Top Highlights Section */
+    .top-picks-banner {
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.12), rgba(124, 58, 237, 0.08));
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 12px;
+      padding: 0.9rem 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .top-picks-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .top-picks-icon {
+      font-size: 1.5rem;
+      color: var(--gold);
+    }
+
+    .top-picks-text h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .top-picks-text p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Right: Channel Browser */
+    .catalog-section {
+      background: var(--bg-main);
+      border-left: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    /* Search & Filter Header */
+    .search-box-wrap {
+      padding: 1rem 1.15rem 0.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .search-input-group {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input-group i {
+      position: absolute;
+      left: 0.85rem;
+      color: var(--text-dim);
+      font-size: 1.1rem;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 0.65rem 0.85rem 0.65rem 2.4rem;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .clear-search-btn {
+      position: absolute;
+      right: 0.75rem;
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* Category Filter Tabs */
+    .category-scroll {
+      display: flex;
+      gap: 0.4rem;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+      scrollbar-width: none;
+    }
+
+    .category-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-chip {
+      white-space: nowrap;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .cat-chip:hover {
+      background: var(--bg-card-hover);
+      color: #fff;
+    }
+
+    .cat-chip.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 2px 10px var(--primary-glow);
+    }
+
+    /* Channel List */
+    .channel-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.85rem 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .channel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 0.75rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .channel-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .channel-card.active {
+      background: var(--bg-card-active);
+      border-color: var(--primary);
+      box-shadow: 0 0 16px rgba(2, 132, 199, 0.25);
+    }
+
+    .channel-card.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--accent);
+    }
+
+    .card-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      overflow: hidden;
+    }
+
+    .network-badge-box {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #172133, #0f172a);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.75rem;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      overflow: hidden;
+    }
+
+    .card-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-subtitle {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: fit-content;
+    }
+
+    .card-fav-btn {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.15rem;
+      cursor: pointer;
+      padding: 0.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .card-fav-btn:hover,
+    .card-fav-btn.is-fav {
+      color: var(--gold);
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1rem;
+      text-align: center;
+      gap: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .empty-state i {
+      font-size: 2.5rem;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 900px) {
+      .app-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow-y: auto;
+      }
+
+      .stage-section {
+        padding: 0.75rem;
+        position: sticky;
+        top: 61px;
+        z-index: 50;
+        background: var(--bg-darkest);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+      }
+
+      .catalog-section {
+        height: auto;
+        border-left: none;
+        border-top: 1px solid var(--border-subtle);
+      }
+
+      .channel-list {
+        max-height: 60vh;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header>
+    <a href="/" class="brand">
+      <div class="brand-logo">
+        <i class="ph-bold ph-lightning"></i>
+      </div>
+      <div>
+        <span class="brand-title">NOVA STREAM</span>
+      </div>
+      <span class="brand-tag">PRO</span>
+    </a>
+
+    <div class="header-actions">
+      <div class="stat-badge">
+        <span class="pulse-dot"></span>
+        <span id="channel-count-badge">79 LIVE</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main App Layout -->
+  <div class="app-layout">
+    
+    <!-- Left Stage: Video Player & Controls -->
+    <main class="stage-section">
+      
+      <!-- Video Player Viewport -->
+      <div class="player-card" id="player-container">
+        <div class="player-aspect">
+          
+          <!-- Direct HLS Native/JS Player -->
+          <video 
+            id="hls-video" 
+            class="player-element" 
+            controls 
+            playsinline 
+            autoplay 
+            style="display: none;">
+          </video>
+
+          <!-- Iframe Embed Stream Player -->
+          <iframe 
+            id="embed-frame" 
+            class="player-element" 
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture" 
+            allowfullscreen 
+            sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
+            style="display: block;">
+          </iframe>
+
+          <!-- Loading State Overlay -->
+          <div id="player-loader" class="player-loading-overlay">
+            <div class="spinner"></div>
+            <p style="font-size: 0.85rem; font-weight: 600; color: #94a3b8;">Connecting to live feed...</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Current Playing Metadata Bar -->
+      <div class="stream-meta-bar">
+        <div class="stream-details">
+          <div class="stream-title-row">
+            <span id="now-playing-title" class="stream-channel-name">SuperSport Premier League</span>
+            <span id="now-playing-network" class="badge badge-network">SuperSport</span>
+            <span id="now-playing-quality" class="badge badge-quality">4K</span>
+            <span class="badge badge-live">LIVE</span>
+          </div>
+          <div id="now-playing-subtitle" class="stream-subtitle">
+            <i class="ph ph-broadcast"></i>
+            <span>Premier League Live • Feature Match</span>
+          </div>
+        </div>
+
+        <div class="stream-actions">
+          <button id="btn-reload" class="btn-icon" title="Reload Stream">
+            <i class="ph-bold ph-arrows-clockwise"></i>
+          </button>
+          <button id="btn-theater" class="btn-icon" title="Toggle Fullscreen">
+            <i class="ph-bold ph-corners-out"></i>
+          </button>
+          <button id="btn-favorite" class="btn-icon" title="Save Favorite">
+            <i class="ph-bold ph-star"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Matchday Spotlight Banner -->
+      <div class="top-picks-banner">
+        <div class="top-picks-info">
+          <i class="ph-fill ph-trophy top-picks-icon"></i>
+          <div class="top-picks-text">
+            <h4>Football Matchday Feeds Active</h4>
+            <p>SuperSport, Sky Sports, TNT, and beIN feeds are tuned to the best European football matches.</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Right Drawer: Channel Catalog -->
+    <aside class="catalog-section">
+      
+      <!-- Search & Filters -->
+      <div class="search-box-wrap">
+        <div class="search-input-group">
+          <i class="ph ph-magnifying-glass"></i>
+          <input 
+            type="text" 
+            id="channel-search" 
+            class="search-input" 
+            placeholder="Search channels, leagues, networks..." 
+            autocomplete="off"
+          />
+          <button id="clear-search" class="clear-search-btn">
+            <i class="ph-bold ph-x"></i>
+          </button>
+        </div>
+
+        <!-- Category Horizontal Tabs -->
+        <div class="category-scroll" id="category-tabs">
+          <button class="cat-chip active" data-category="Top 10 Matches">
+            <i class="ph-fill ph-star" style="color:#f59e0b;"></i> Top 10 Matches
+          </button>
+          <button class="cat-chip" data-category="ALL">All Channels</button>
+          <button class="cat-chip" data-category="Premier Sports">Premier Sports</button>
+          <button class="cat-chip" data-category="Football Feeds">Football Feeds</button>
+          <button class="cat-chip" data-category="Combat & Racing">Combat & Racing</button>
+          <button class="cat-chip" data-category="US Leagues">US Leagues</button>
+          <button class="cat-chip" data-category="24/7 News">24/7 News</button>
+          <button class="cat-chip" data-category="Docs & Cinema">Docs & Cinema</button>
+          <button class="cat-chip" data-category="Favorites">
+            <i class="ph-fill ph-heart" style="color:#ef4444;"></i> Favorites
+          </button>
+        </div>
+      </div>
+
+      <!-- Channel List Items -->
+      <div class="channel-list" id="channel-container">
+        <!-- Rendered via JavaScript -->
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // Channel Data
+    const CHANNELS = [
+  {
+    "id": "ss_prem",
+    "name": "SuperSport Premier League",
+    "network": "SuperSport",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/supersport-premier-league-stream-1/embed/",
+    "eventSubtitle": "Premier League Live \u2022 Feature Match",
+    "qualityBadge": "4K",
+    "isTopTen": true
+  },
+  {
+    "id": "sky_prem",
+    "name": "Sky Sports Premier League",
+    "network": "Sky Sports",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/sky-sports-premier-league-stream-1/embed/",
+    "eventSubtitle": "Super Sunday & EPL 24/7 Matchday",
+    "qualityBadge": "FHD",
+    "isTopTen": true
+  },
+  {
+    "id": "sky_main",
+    "name": "Sky Sports Main Event",
+    "network": "Sky Sports",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/sky-sports-main-event-stream-1/embed/",
+    "eventSubtitle": "Flagship Matchday & Big Events",
+    "qualityBadge": "FHD",
+    "isTopTen": true
+  },
+  {
+    "id": "tnt_1",
+    "name": "TNT Sports 1",
+    "network": "TNT Sports",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/tnt-sports-1-stream-1/embed/",
+    "eventSubtitle": "UEFA Champions League & EPL Live",
+    "qualityBadge": "FHD",
+    "isTopTen": true
+  },
+  {
+    "id": "tnt_2",
+    "name": "TNT Sports 2",
+    "network": "TNT Sports",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/tnt-sports-2-stream-1/embed/",
+    "eventSubtitle": "UEFA Europa League & Serie A",
+    "qualityBadge": "HD",
+    "isTopTen": true
+  },
+  {
+    "id": "bein_1",
+    "name": "beIN Sports 1 English",
+    "network": "beIN Sports",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/bein-sports-1-stream-1/embed/",
+    "eventSubtitle": "Premier League & UCL Prime Feed",
+    "qualityBadge": "FHD",
+    "isTopTen": true
+  },
+  {
+    "id": "bein_2",
+    "name": "beIN Sports 2 English",
+    "network": "beIN Sports",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/bein-sports-2-stream-1/embed/",
+    "eventSubtitle": "La Liga & Ligue 1 Live Action",
+    "qualityBadge": "HD",
+    "isTopTen": true
+  },
+  {
+    "id": "ss_foot",
+    "name": "SuperSport Football",
+    "network": "SuperSport",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/supersport-football-stream-1/embed/",
+    "eventSubtitle": "Serie A, AFCON & European Cup Ties",
+    "qualityBadge": "FHD",
+    "isTopTen": true
+  },
+  {
+    "id": "cbs_golazo",
+    "name": "CBS Sports Golazo",
+    "network": "CBS Sports",
+    "group": "Football Feeds",
+    "url": "https://dai.google.com/linear/hls/event/7f3Wv6f7QEKfQna22jHqLQ/master.m3u8",
+    "eventSubtitle": "24/7 Football & UEFA Champions League",
+    "qualityBadge": "1080p",
+    "isTopTen": true
+  },
+  {
+    "id": "tv_varzesh",
+    "name": "TV Varzesh",
+    "network": "Varzesh",
+    "group": "Football Feeds",
+    "url": "https://live.telewebion.com/varzesh/live.m3u8",
+    "eventSubtitle": "World Football & International Tournaments",
+    "qualityBadge": "HD",
+    "isTopTen": true
+  },
+  {
+    "id": "espn_usa",
+    "name": "ESPN USA",
+    "network": "ESPN",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/espn-stream-1/embed/",
+    "eventSubtitle": "Live Sports Center, La Liga & MLS",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "espn_2",
+    "name": "ESPN 2",
+    "network": "ESPN",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/espn-2-stream-1/embed/",
+    "eventSubtitle": "FA Cup, Bundesliga & Top Football",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "dazn_1",
+    "name": "DAZN 1 HD",
+    "network": "DAZN",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/dazn-1-stream-1/embed/",
+    "eventSubtitle": "Serie A, La Liga & Boxing Matchday",
+    "qualityBadge": "1080p",
+    "isTopTen": false
+  },
+  {
+    "id": "dazn_2",
+    "name": "DAZN 2 HD",
+    "network": "DAZN",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/dazn-2-stream-1/embed/",
+    "eventSubtitle": "Champions League & Global Combat",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "eurosport_1",
+    "name": "Eurosport 1 HD",
+    "network": "Eurosport",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/eurosport-1-stream-1/embed/",
+    "eventSubtitle": "Tennis Grand Slams & World Championship",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "eurosport_2",
+    "name": "Eurosport 2 HD",
+    "network": "Eurosport",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/eurosport-2-stream-1/embed/",
+    "eventSubtitle": "Cycling, Winter Sports & Live Feeds",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "canal_sport",
+    "name": "Canal+ Sport 1",
+    "network": "Canal+",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/canal-sport-stream-1/embed/",
+    "eventSubtitle": "Premier League, Ligue 1 & Top Rugby",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "movistar_laliga",
+    "name": "Movistar LaLiga",
+    "network": "Movistar",
+    "group": "Football Feeds",
+    "url": "https://embedsports.me/movistar-laliga-stream-1/embed/",
+    "eventSubtitle": "Spanish La Liga Live Broadcasts",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "movistar_ucl",
+    "name": "Movistar Liga de Campeones",
+    "network": "Movistar",
+    "group": "Football Feeds",
+    "url": "https://embedsports.me/movistar-liga-de-campeones-stream-1/embed/",
+    "eventSubtitle": "UEFA Champions League & Europa Live",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "rmc_sport",
+    "name": "RMC Sport 1",
+    "network": "RMC",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/rmc-sport-1-stream-1/embed/",
+    "eventSubtitle": "UFC, European Football & Kickboxing",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "astro_ss1",
+    "name": "Astro SuperSport 1",
+    "network": "Astro",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/astro-supersport-1-stream-1/embed/",
+    "eventSubtitle": "Premier League HD Multi-Camera",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "astro_ss2",
+    "name": "Astro SuperSport 2",
+    "network": "Astro",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/astro-supersport-2-stream-1/embed/",
+    "eventSubtitle": "La Liga, Cup Matches & Asian Football",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "optus_sport",
+    "name": "Optus Sport 1",
+    "network": "Optus",
+    "group": "Football Feeds",
+    "url": "https://embedsports.me/optus-sport-1-stream-1/embed/",
+    "eventSubtitle": "Premier League, WSL & International Football",
+    "qualityBadge": "1080p",
+    "isTopTen": false
+  },
+  {
+    "id": "sony_ten1",
+    "name": "Sony Sports Ten 1",
+    "network": "Sony",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/sony-ten-1-stream-1/embed/",
+    "eventSubtitle": "UEFA Champions League, WWE & Tennis",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "sony_ten2",
+    "name": "Sony Sports Ten 2",
+    "network": "Sony",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/sony-ten-2-stream-1/embed/",
+    "eventSubtitle": "European Football Leagues & Athletics",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "tyc_sports",
+    "name": "TyC Sports",
+    "network": "TyC",
+    "group": "Football Feeds",
+    "url": "https://embedsports.me/tyc-sports-stream-1/embed/",
+    "eventSubtitle": "Argentine Primera, Copa & South America",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "gol_play",
+    "name": "Gol Play",
+    "network": "Gol",
+    "group": "Football Feeds",
+    "url": "https://embedsports.me/gol-play-stream-1/embed/",
+    "eventSubtitle": "Free Live Football & Highlights",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "polsat_sport",
+    "name": "Polsat Sport 1",
+    "network": "Polsat",
+    "group": "Premier Sports",
+    "url": "https://embedsports.me/polsat-sport-1-stream-1/embed/",
+    "eventSubtitle": "European Football & Volleyball Nations",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "ss_grandstand",
+    "name": "SuperSport Grandstand",
+    "network": "SuperSport",
+    "group": "SuperSport",
+    "url": "https://embedsports.me/supersport-grandstand-stream-1/embed/",
+    "eventSubtitle": "Premier Stadium Broadcast & Big Clashes",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "ss_var1",
+    "name": "SuperSport Variety 1",
+    "network": "SuperSport",
+    "group": "SuperSport",
+    "url": "https://embedsports.me/supersport-variety-1-stream-1/embed/",
+    "eventSubtitle": "Multi-League Football & Rugby Union",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "ss_var2",
+    "name": "SuperSport Variety 2",
+    "network": "SuperSport",
+    "group": "SuperSport",
+    "url": "https://embedsports.me/supersport-variety-2-stream-1/embed/",
+    "eventSubtitle": "European Football Matches & Athletics",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "ss_var3",
+    "name": "SuperSport Variety 3",
+    "network": "SuperSport",
+    "group": "SuperSport",
+    "url": "https://embedsports.me/supersport-variety-3-stream-1/embed/",
+    "eventSubtitle": "Athletics, Boxing & Live Racing",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "ss_var4",
+    "name": "SuperSport Variety 4",
+    "network": "SuperSport",
+    "group": "SuperSport",
+    "url": "https://embedsports.me/supersport-variety-4-stream-1/embed/",
+    "eventSubtitle": "Tennis Grand Slam, Golf & Action Sports",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "ss_action",
+    "name": "SuperSport Action",
+    "network": "SuperSport",
+    "group": "SuperSport",
+    "url": "https://embedsports.me/supersport-action-stream-1/embed/",
+    "eventSubtitle": "Extreme Sports, MMA & High Octane Action",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "sky_foot",
+    "name": "Sky Sports Football",
+    "network": "Sky Sports",
+    "group": "Sky Sports",
+    "url": "https://embedsports.me/sky-sports-football-stream-1/embed/",
+    "eventSubtitle": "EFL, SPFL, Bundesliga Live Matches",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "sky_arena",
+    "name": "Sky Sports Arena",
+    "network": "Sky Sports",
+    "group": "Sky Sports",
+    "url": "https://embedsports.me/sky-sports-arena-stream-1/embed/",
+    "eventSubtitle": "Boxing World Titles, Darts & Rugby",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "sky_action",
+    "name": "Sky Sports Action",
+    "network": "Sky Sports",
+    "group": "Sky Sports",
+    "url": "https://embedsports.me/sky-sports-action-stream-1/embed/",
+    "eventSubtitle": "NFL Sunday Night, Athletics & Tennis",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "sky_1",
+    "name": "Sky Sports 1",
+    "network": "Sky Sports",
+    "group": "Sky Sports",
+    "url": "https://embedsports.me/sky-sports-1-stream-1/embed/",
+    "eventSubtitle": "Live Sky Event Broadcast 1",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "sky_2",
+    "name": "Sky Sports 2",
+    "network": "Sky Sports",
+    "group": "Sky Sports",
+    "url": "https://embedsports.me/sky-sports-2-stream-1/embed/",
+    "eventSubtitle": "Live Sky Event Broadcast 2",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "sky_3",
+    "name": "Sky Sports 3",
+    "network": "Sky Sports",
+    "group": "Sky Sports",
+    "url": "https://embedsports.me/sky-sports-3-stream-1/embed/",
+    "eventSubtitle": "Live Sky Event Broadcast 3",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "sky_4",
+    "name": "Sky Sports 4",
+    "network": "Sky Sports",
+    "group": "Sky Sports",
+    "url": "https://embedsports.me/sky-sports-4-stream-1/embed/",
+    "eventSubtitle": "Live Sky Event Broadcast 4",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "tnt_3",
+    "name": "TNT Sports 3",
+    "network": "TNT Sports",
+    "group": "TNT Sports",
+    "url": "https://embedsports.me/tnt-sports-3-stream-1/embed/",
+    "eventSubtitle": "MotoGP, Boxing & Football Highlights",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "tnt_4",
+    "name": "TNT Sports 4",
+    "network": "TNT Sports",
+    "group": "TNT Sports",
+    "url": "https://embedsports.me/tnt-sports-4-stream-1/embed/",
+    "eventSubtitle": "Rugby Premiership, UFC & Live Sports",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "tnt_ultimate",
+    "name": "TNT Sports Ultimate",
+    "network": "TNT Sports",
+    "group": "TNT Sports",
+    "url": "https://embedsports.me/tnt-sports-ultimate-stream-1/embed/",
+    "eventSubtitle": "Ultra HD 4K HDR Sports Broadcast",
+    "qualityBadge": "4K",
+    "isTopTen": false
+  },
+  {
+    "id": "bein_3",
+    "name": "beIN Sports 3 English",
+    "network": "beIN Sports",
+    "group": "beIN Sports",
+    "url": "https://embedsports.me/bein-sports-3-stream-1/embed/",
+    "eventSubtitle": "Bundesliga & International Football",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "bein_4",
+    "name": "beIN Sports 4 English",
+    "network": "beIN Sports",
+    "group": "beIN Sports",
+    "url": "https://embedsports.me/bein-sports-4-stream-1/embed/",
+    "eventSubtitle": "French Ligue 1 & World Tournaments",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "bein_xtra",
+    "name": "beIN Sports XTRA",
+    "network": "beIN Sports",
+    "group": "beIN Sports",
+    "url": "https://beinsportsxtra-linear.amagi.tv/playlist.m3u8",
+    "eventSubtitle": "Live Free Sports & Highlights",
+    "qualityBadge": "720p",
+    "isTopTen": false
+  },
+  {
+    "id": "sky_f1",
+    "name": "Sky Sports F1 HD",
+    "network": "Sky Sports",
+    "group": "Combat & Racing",
+    "url": "https://embedsports.me/sky-sports-f1-stream-1/embed/",
+    "eventSubtitle": "Formula 1 Practice, Quali & Grand Prix",
+    "qualityBadge": "4K",
+    "isTopTen": false
+  },
+  {
+    "id": "f1_live",
+    "name": "Formula 1 World Feed",
+    "network": "F1",
+    "group": "Combat & Racing",
+    "url": "https://embedsports.me/f1-live-stream-1/embed/",
+    "eventSubtitle": "Pit Lane & On-board Camera Feeds",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "ufc_live",
+    "name": "UFC Fight Pass Live",
+    "network": "UFC",
+    "group": "Combat & Racing",
+    "url": "https://embedsports.me/ufc-fight-pass-stream-1/embed/",
+    "eventSubtitle": "Championship MMA & Fight Night",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "wwe_net",
+    "name": "WWE Network Live",
+    "network": "WWE",
+    "group": "Combat & Racing",
+    "url": "https://embedsports.me/wwe-network-stream-1/embed/",
+    "eventSubtitle": "RAW, SmackDown & Premium Live Events",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "redbull_tv",
+    "name": "Red Bull TV HD",
+    "network": "Red Bull",
+    "group": "Combat & Racing",
+    "url": "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8",
+    "eventSubtitle": "Extreme Sports, Rally, Biking & Surfing",
+    "qualityBadge": "1080p",
+    "isTopTen": false
+  },
+  {
+    "id": "motortrend",
+    "name": "MotorTrend Network",
+    "network": "MotorTrend",
+    "group": "Combat & Racing",
+    "url": "https://embedsports.me/motortrend-stream-1/embed/",
+    "eventSubtitle": "Supercars, Live Road Racing & Garage",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "fightbox",
+    "name": "FightBox HD",
+    "network": "FightBox",
+    "group": "Combat & Racing",
+    "url": "https://embedsports.me/fightbox-stream-1/embed/",
+    "eventSubtitle": "Kickboxing, Muay Thai & MMA Worldwide",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "nba_tv",
+    "name": "NBA TV 24/7 Live",
+    "network": "NBA",
+    "group": "US Leagues",
+    "url": "https://embedsports.me/nba-tv-stream-1/embed/",
+    "eventSubtitle": "NBA Live Games, Highlights & Analysis",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "nfl_net",
+    "name": "NFL Network Live",
+    "network": "NFL",
+    "group": "US Leagues",
+    "url": "https://embedsports.me/nfl-network-stream-1/embed/",
+    "eventSubtitle": "Thursday Night Football & NFL RedZone",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "mlb_net",
+    "name": "MLB Network",
+    "network": "MLB",
+    "group": "US Leagues",
+    "url": "https://embedsports.me/mlb-network-stream-1/embed/",
+    "eventSubtitle": "Major League Baseball Game of the Day",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "fs1_usa",
+    "name": "Fox Sports 1 (FS1",
+    "network": "Live",
+    "group": "Premier Sports",
+    "url": "",
+    "eventSubtitle": "Live Broadcast",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "fs2_usa",
+    "name": "Fox Sports 2 (FS2",
+    "network": "Live",
+    "group": "Premier Sports",
+    "url": "",
+    "eventSubtitle": "Live Broadcast",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "cbs_net",
+    "name": "CBS Sports Network",
+    "network": "CBS Sports",
+    "group": "US Leagues",
+    "url": "https://embedsports.me/cbs-sports-network-stream-1/embed/",
+    "eventSubtitle": "College Football, NWSL & World League Play",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "tennis_ch",
+    "name": "Tennis Channel HD",
+    "network": "Tennis",
+    "group": "US Leagues",
+    "url": "https://embedsports.me/tennis-channel-stream-1/embed/",
+    "eventSubtitle": "ATP, WTA & Grand Slam Tournament Live",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "golf_ch",
+    "name": "Golf Channel HD",
+    "network": "Golf",
+    "group": "US Leagues",
+    "url": "https://embedsports.me/golf-channel-stream-1/embed/",
+    "eventSubtitle": "PGA Tour, European Tour & The Open Live",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "aljazeera_en",
+    "name": "Al Jazeera English HD",
+    "network": "Al Jazeera",
+    "group": "24/7 News",
+    "url": "https://live-hls-web-aje.getaj.net/AJE/01.m3u8",
+    "eventSubtitle": "Live Global News & In-depth Reporting",
+    "qualityBadge": "1080p",
+    "isTopTen": false
+  },
+  {
+    "id": "skynews_live",
+    "name": "Sky News UK Live",
+    "network": "Sky News",
+    "group": "24/7 News",
+    "url": "https://skynewsau-live.akamaized.net/hls/live/2002689/skynewsau-extra1/master.m3u8",
+    "eventSubtitle": "Breaking News Live Around the Clock",
+    "qualityBadge": "1080p",
+    "isTopTen": false
+  },
+  {
+    "id": "bbc_news",
+    "name": "BBC News HD",
+    "network": "BBC",
+    "group": "24/7 News",
+    "url": "https://embedsports.me/bbc-news-stream-1/embed/",
+    "eventSubtitle": "Trusted World News & Live Reports",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "cnn_intl",
+    "name": "CNN International",
+    "network": "CNN",
+    "group": "24/7 News",
+    "url": "https://embedsports.me/cnn-international-stream-1/embed/",
+    "eventSubtitle": "Global Headlines & Live Coverage",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "bloomberg_tv",
+    "name": "Bloomberg Global TV",
+    "network": "Bloomberg",
+    "group": "24/7 News",
+    "url": "https://liveproduseast.akamaized.net/us/Channel-USTV-AWS-virginia-1/live.m3u8",
+    "eventSubtitle": "Live Stock Markets, Finance & Economics",
+    "qualityBadge": "1080p",
+    "isTopTen": false
+  },
+  {
+    "id": "cnbc_live",
+    "name": "CNBC Live",
+    "network": "CNBC",
+    "group": "24/7 News",
+    "url": "https://embedsports.me/cnbc-stream-1/embed/",
+    "eventSubtitle": "Business News, Wall Street & Tech",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "dw_news",
+    "name": "DW News English",
+    "network": "DW",
+    "group": "24/7 News",
+    "url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8",
+    "eventSubtitle": "European Perspective on World News",
+    "qualityBadge": "1080p",
+    "isTopTen": false
+  },
+  {
+    "id": "france24_en",
+    "name": "France 24 English",
+    "network": "France 24",
+    "group": "24/7 News",
+    "url": "https://static.france24.com/live/F24_EN_LO_HLS/live_tv.m3u8",
+    "eventSubtitle": "International Breaking News Live",
+    "qualityBadge": "720p",
+    "isTopTen": false
+  },
+  {
+    "id": "euronews_en",
+    "name": "Euronews World",
+    "network": "Euronews",
+    "group": "24/7 News",
+    "url": "https://euronews-euronews-world-1-au.samsung.wurl.tv/manifest/playlist.m3u8",
+    "eventSubtitle": "Pan-European News & Analysis",
+    "qualityBadge": "1080p",
+    "isTopTen": false
+  },
+  {
+    "id": "natgeo_wild",
+    "name": "Nat Geo Wild HD",
+    "network": "Nat Geo",
+    "group": "Docs & Cinema",
+    "url": "https://embedsports.me/nat-geo-wild-stream-1/embed/",
+    "eventSubtitle": "Wildlife & Planet Earth Expeditions",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "discovery_sci",
+    "name": "Discovery Science",
+    "network": "Discovery",
+    "group": "Docs & Cinema",
+    "url": "https://embedsports.me/discovery-science-stream-1/embed/",
+    "eventSubtitle": "Exploration, Technology & Science",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "history_ch",
+    "name": "History Channel HD",
+    "network": "History",
+    "group": "Docs & Cinema",
+    "url": "https://embedsports.me/history-channel-stream-1/embed/",
+    "eventSubtitle": "Ancient Civilizations & World History",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "nasa_tv",
+    "name": "NASA TV HD",
+    "network": "NASA",
+    "group": "Docs & Cinema",
+    "url": "https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master.m3u8",
+    "eventSubtitle": "Live Space Station & Rocket Launches",
+    "qualityBadge": "1080p",
+    "isTopTen": false
+  },
+  {
+    "id": "sky_cinema",
+    "name": "Sky Cinema Action",
+    "network": "Sky Cinema",
+    "group": "Docs & Cinema",
+    "url": "https://embedsports.me/sky-cinema-action-stream-1/embed/",
+    "eventSubtitle": "Blockbuster Hollywood Action 24/7",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  },
+  {
+    "id": "hbo_premiere",
+    "name": "HBO Premiere Cinema",
+    "network": "HBO",
+    "group": "Docs & Cinema",
+    "url": "https://embedsports.me/hbo-stream-1/embed/",
+    "eventSubtitle": "Award Winning Feature Films & Series",
+    "qualityBadge": "4K",
+    "isTopTen": false
+  },
+  {
+    "id": "paramount_net",
+    "name": "Paramount Network HD",
+    "network": "Paramount",
+    "group": "Docs & Cinema",
+    "url": "https://embedsports.me/paramount-network-stream-1/embed/",
+    "eventSubtitle": "Hit Dramas, Series & Classic Movies",
+    "qualityBadge": "HD",
+    "isTopTen": false
+  },
+  {
+    "id": "warner_tv",
+    "name": "Warner TV Cinema",
+    "network": "Warner",
+    "group": "Docs & Cinema",
+    "url": "https://embedsports.me/warner-tv-stream-1/embed/",
+    "eventSubtitle": "Warner Bros Premier Movies & Classics",
+    "qualityBadge": "FHD",
+    "isTopTen": false
+  }
+];
+
+    // State
+    let currentChannel = CHANNELS[0];
+    let selectedCategory = "Top 10 Matches";
+    let searchQuery = "";
+    let favorites = new Set(JSON.parse(localStorage.getItem("novastream_favs") || "[]"));
+    let hlsInstance = null;
+
+    // DOM Elements
+    const hlsVideo = document.getElementById("hls-video");
+    const embedFrame = document.getElementById("embed-frame");
+    const playerLoader = document.getElementById("player-loader");
+    const channelContainer = document.getElementById("channel-container");
+    const searchInput = document.getElementById("channel-search");
+    const clearSearchBtn = document.getElementById("clear-search");
+    const categoryTabs = document.querySelectorAll(".cat-chip");
+    
+    const nowPlayingTitle = document.getElementById("now-playing-title");
+    const nowPlayingNetwork = document.getElementById("now-playing-network");
+    const nowPlayingQuality = document.getElementById("now-playing-quality");
+    const nowPlayingSubtitle = document.getElementById("now-playing-subtitle");
+    
+    const btnReload = document.getElementById("btn-reload");
+    const btnTheater = document.getElementById("btn-theater");
+    const btnFavorite = document.getElementById("btn-favorite");
+    const channelCountBadge = document.getElementById("channel-count-badge");
+
+    // Initialize
+    function init() {
+      channelCountBadge.textContent = `${CHANNELS.length} LIVE`;
+      setupEventListeners();
+      renderChannels();
+      playChannel(CHANNELS[0]);
+    }
+
+    function setupEventListeners() {
+      // Search
+      searchInput.addEventListener("input", (e) => {
+        searchQuery = e.target.value.trim().toLowerCase();
+        clearSearchBtn.style.display = searchQuery ? "block" : "none";
+        renderChannels();
+      });
+
+      clearSearchBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        searchQuery = "";
+        clearSearchBtn.style.display = "none";
+        renderChannels();
+      });
+
+      // Category Switcher
+      categoryTabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+          categoryTabs.forEach(t => t.classList.remove("active"));
+          tab.classList.add("active");
+          selectedCategory = tab.dataset.category;
+          renderChannels();
+        });
+      });
+
+      // Reload
+      btnReload.addEventListener("click", () => {
+        if (currentChannel) playChannel(currentChannel);
+      });
+
+      // Fullscreen
+      btnTheater.addEventListener("click", () => {
+        const target = currentChannel && isHlsStream(currentChannel.url) ? hlsVideo : embedFrame;
+        if (!document.fullscreenElement) {
+          if (target.requestFullscreen) target.requestFullscreen();
+          else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
+        } else {
+          if (document.exitFullscreen) document.exitFullscreen();
+        }
+      });
+
+      // Favorite Current
+      btnFavorite.addEventListener("click", () => {
+        if (!currentChannel) return;
+        toggleFavorite(currentChannel.id);
+        updateFavoriteButtonState();
+        if (selectedCategory === "Favorites") renderChannels();
+      });
+
+      // Keyboard navigation
+      window.addEventListener("keydown", (e) => {
+        if (e.target.tagName === "INPUT") return;
+        if (e.key === "f" || e.key === "F") btnTheater.click();
+        if (e.key === "r" || e.key === "R") btnReload.click();
+      });
+    }
+
+    function isHlsStream(url) {
+      const lower = url.toLowerCase();
+      return lower.includes(".m3u8");
+    }
+
+    function playChannel(channel) {
+      currentChannel = channel;
+      updateHeaderMetadata(channel);
+      updateFavoriteButtonState();
+
+      // Show loader
+      playerLoader.style.display = "flex";
+
+      if (isHlsStream(channel.url)) {
+        // HLS Player Mode
+        embedFrame.style.display = "none";
+        embedFrame.src = "about:blank";
+        hlsVideo.style.display = "block";
+
+        if (Hls.isSupported()) {
+          if (hlsInstance) hlsInstance.destroy();
+          hlsInstance = new Hls({ enableWorker: true, lowLatencyMode: true });
+          hlsInstance.loadSource(channel.url);
+          hlsInstance.attachMedia(hlsVideo);
+          hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
+            hlsVideo.play().catch(() => {});
+            playerLoader.style.display = "none";
+          });
+          hlsInstance.on(Hls.Events.ERROR, () => {
+            playerLoader.style.display = "none";
+          });
+        } else if (hlsVideo.canPlayType("application/vnd.apple.mpegurl")) {
+          // iOS Safari native HLS
+          hlsVideo.src = channel.url;
+          hlsVideo.addEventListener("loadedmetadata", () => {
+            hlsVideo.play().catch(() => {});
+            playerLoader.style.display = "none";
+          });
+        }
+      } else {
+        // Embed Player Mode
+        if (hlsInstance) {
+          hlsInstance.destroy();
+          hlsInstance = null;
+        }
+        hlsVideo.pause();
+        hlsVideo.style.display = "none";
+        hlsVideo.src = "";
+
+        embedFrame.style.display = "block";
+        embedFrame.src = channel.url;
+        embedFrame.onload = () => {
+          playerLoader.style.display = "none";
+        };
+      }
+
+      // Mark active in DOM
+      document.querySelectorAll(".channel-card").forEach(card => {
+        if (card.dataset.id === channel.id) {
+          card.classList.add("active");
+          card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        } else {
+          card.classList.remove("active");
+        }
+      });
+    }
+
+    function updateHeaderMetadata(channel) {
+      nowPlayingTitle.textContent = channel.name;
+      nowPlayingNetwork.textContent = channel.network || "Live";
+      nowPlayingQuality.textContent = channel.qualityBadge || "HD";
+      nowPlayingSubtitle.innerHTML = `<i class="ph ph-broadcast"></i> <span>${channel.eventSubtitle || "Live Broadcast"}</span>`;
+    }
+
+    function toggleFavorite(channelId) {
+      if (favorites.has(channelId)) {
+        favorites.delete(channelId);
+      } else {
+        favorites.add(channelId);
+      }
+      localStorage.setItem("novastream_favs", JSON.stringify(Array.from(favorites)));
+    }
+
+    function updateFavoriteButtonState() {
+      if (currentChannel && favorites.has(currentChannel.id)) {
+        btnFavorite.classList.add("active");
+      } else {
+        btnFavorite.classList.remove("active");
+      }
+    }
+
+    function renderChannels() {
+      channelContainer.innerHTML = "";
+
+      let filtered = CHANNELS.filter(c => {
+        // Filter by category
+        if (selectedCategory === "Top 10 Matches") {
+          if (!c.isTopTen) return false;
+        } else if (selectedCategory === "Favorites") {
+          if (!favorites.has(c.id)) return false;
+        } else if (selectedCategory !== "ALL") {
+          if (c.group !== selectedCategory) return false;
+        }
+
+        // Filter by search query
+        if (searchQuery) {
+          const term = `${c.name} ${c.network} ${c.group} ${c.eventSubtitle}`.toLowerCase();
+          if (!term.includes(searchQuery)) return false;
+        }
+
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        channelContainer.innerHTML = `
+          <div class="empty-state">
+            <i class="ph ph-television-simple"></i>
+            <p>No channels found</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(channel => {
+        const card = document.createElement("div");
+        card.className = `channel-card ${currentChannel && currentChannel.id === channel.id ? "active" : ""}`;
+        card.dataset.id = channel.id;
+
+        const isFav = favorites.has(channel.id);
+        const initials = channel.network.slice(0, 3).toUpperCase();
+
+        card.innerHTML = `
+          <div class="card-left">
+            <div class="network-badge-box">${initials}</div>
+            <div class="card-meta">
+              <span class="card-title">${channel.name}</span>
+              <span class="card-subtitle">${channel.eventSubtitle}</span>
+            </div>
+          </div>
+          <div class="card-right">
+            <span class="badge badge-quality" style="font-size:0.65rem; padding:0.15rem 0.35rem;">${channel.qualityBadge}</span>
+            <button class="card-fav-btn ${isFav ? "is-fav" : ""}" title="Favorite">
+              <i class="${isFav ? "ph-fill" : "ph"} ph-star"></i>
+            </button>
+          </div>
+        `;
+
+        card.addEventListener("click", (e) => {
+          if (e.target.closest(".card-fav-btn")) return;
+          playChannel(channel);
+        });
+
+        const favBtn = card.querySelector(".card-fav-btn");
+        favBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggleFavorite(channel.id);
+          favBtn.classList.toggle("is-fav");
+          const icon = favBtn.querySelector("i");
+          icon.className = favorites.has(channel.id) ? "ph-fill ph-star" : "ph ph-star";
+          updateFavoriteButtonState();
+          if (selectedCategory === "Favorites") renderChannels();
+        });
+
+        channelContainer.appendChild(card);
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>
