@@ -20,6 +20,14 @@
         <div class="badge badge-purple" id="cache-badge">
           <span>IndexedDB Cache:</span> <strong id="cached-count-val">0ms Ready</strong>
         </div>
+        <button class="btn btn-secondary" id="btn-load-iptv" style="border-color: rgba(59, 130, 246, 0.4);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Load IPTV-org Streams
+        </button>
         <button class="btn btn-secondary" id="btn-sync-trigger">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="23 4 23 10 17 10"></polyline>
@@ -37,6 +45,12 @@
         <div>
           <div class="player-container">
             <video id="nova-video" controls playsinline></video>
+            <iframe
+              id="nova-iframe"
+              style="display: none; width: 100%; aspect-ratio: 16 / 9; border: 0;"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+            ></iframe>
           </div>
 
           <div class="player-controls-panel">

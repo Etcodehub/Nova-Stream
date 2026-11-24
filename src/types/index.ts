@@ -3,7 +3,7 @@
  * Production architecture modeled after high-performance live and VOD streaming engines.
  */
 
-export type StreamProtocol = 'hls' | 'dash' | 'mp4' | 'progressive';
+export type StreamProtocol = 'hls' | 'dash' | 'mp4' | 'progressive' | 'embed';
 
 export type ExtractionState = 'IDLE' | 'CHECKING' | 'HEALTHY' | 'DEGRADED' | 'FAILED';
 

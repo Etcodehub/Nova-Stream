@@ -8,10 +8,12 @@ import { fastCache } from './cache/FastCacheManager.ts';
 import { deltaSync } from './sync/DeltaSyncService.ts';
 import { NovaPlayer } from './player/NovaPlayer.ts';
 import { INITIAL_MOCK_CHANNELS } from './mockData.ts';
+import { iptvOrgService, IPTV_ORG_ENDPOINTS } from './services/iptvOrg.ts';
 import type { Channel, PlayerPlaybackState } from './types/index.ts';
 
 // UI Element References
 const videoElement = document.getElementById('nova-video') as HTMLVideoElement;
+const iframeElement = document.getElementById('nova-iframe') as HTMLIFrameElement;
 const nowPlayingTitle = document.getElementById('now-playing-title') as HTMLElement;
 const serverButtonsContainer = document.getElementById('server-buttons-container') as HTMLElement;
 const channelsGrid = document.getElementById('channels-grid') as HTMLElement;
@@ -21,6 +23,7 @@ const activeRevVal = document.getElementById('active-rev-val') as HTMLElement;
 const cachedCountVal = document.getElementById('cached-count-val') as HTMLElement;
 const btnSimulateFail = document.getElementById('btn-simulate-fail') as HTMLButtonElement;
 const btnSyncTrigger = document.getElementById('btn-sync-trigger') as HTMLButtonElement;
+const btnLoadIptv = document.getElementById('btn-load-iptv') as HTMLButtonElement;
 const categoryTabs = document.getElementById('category-tabs') as HTMLElement;
 
 let channels: Channel[] = [];
@@ -31,8 +34,8 @@ let player: NovaPlayer;
 async function bootstrap(): Promise<void> {
   console.log('[NovaStream] Initializing Web Streaming Core...');
 
-  // 1. Initialize Player with Cloudflare Edge Gateway
-  player = new NovaPlayer(videoElement, 'https://novastream-gateway.etcodehub.workers.dev');
+  // 1. Initialize Player with Cloudflare Edge Gateway & IFrame Embed support
+  player = new NovaPlayer(videoElement, 'https://novastream-gateway.etcodehub.workers.dev', iframeElement);
   player.subscribe(renderPlayerState);
 
   // 2. Load 0ms Fast Cache from IndexedDB
@@ -85,6 +88,37 @@ async function bootstrap(): Promise<void> {
 
   btnSyncTrigger.addEventListener('click', () => {
     deltaSync.performDeltaSync().catch(console.error);
+  });
+
+  btnLoadIptv.addEventListener('click', async () => {
+    btnLoadIptv.disabled = true;
+    btnLoadIptv.textContent = 'Importing IPTV-org...';
+
+    try {
+      const sportsChannels = await iptvOrgService.fetchCategoryChannels(IPTV_ORG_ENDPOINTS[0], 20);
+      const newsChannels = await iptvOrgService.fetchCategoryChannels(IPTV_ORG_ENDPOINTS[1], 10);
+      const newItems = [...sportsChannels, ...newsChannels];
+
+      if (newItems.length > 0) {
+        // Merge without duplicates
+        const existingIds = new Set(channels.map((c) => c.id));
+        const added = newItems.filter((c) => !existingIds.has(c.id));
+        channels = [...channels, ...added];
+        await fastCache.saveChannels(channels, await fastCache.getActiveRevision());
+        cachedCountVal.textContent = `${channels.length} Cached`;
+        btnLoadIptv.textContent = `+${added.length} IPTV-org Added`;
+        renderChannelsGrid();
+      } else {
+        btnLoadIptv.textContent = 'IPTV-org Up to Date';
+      }
+    } catch (err) {
+      console.error(err);
+      btnLoadIptv.textContent = 'Import Failed';
+    } finally {
+      setTimeout(() => {
+        btnLoadIptv.disabled = false;
+      }, 2000);
+    }
   });
 
   categoryTabs.addEventListener('click', (e) => {

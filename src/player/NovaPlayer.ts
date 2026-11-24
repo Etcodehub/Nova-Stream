@@ -1,7 +1,7 @@
 /**
  * NovaPlayer
  * Production-ready web video player engine integrating Hls.js, ClearKey EME,
- * and automated multi-server failover via SourceManager.
+ * automated multi-server failover via SourceManager, and sandboxed iframe embeds.
  */
 
 import Hls from 'hls.js';
@@ -12,6 +12,7 @@ export type PlayerStateListener = (state: PlayerPlaybackState) => void;
 
 export class NovaPlayer {
   private videoElement: HTMLVideoElement;
+  private iframeElement: HTMLIFrameElement | null = null;
   private hls: Hls | null = null;
   private sourceManager: SourceManager;
   private currentChannel: Channel | null = null;
@@ -22,8 +23,9 @@ export class NovaPlayer {
   private stallCounter = 0;
   private proxyGatewayBase = '';
 
-  constructor(videoElement: HTMLVideoElement, proxyGatewayBase = '') {
+  constructor(videoElement: HTMLVideoElement, proxyGatewayBase = '', iframeElement?: HTMLIFrameElement) {
     this.videoElement = videoElement;
+    this.iframeElement = iframeElement || null;
     this.proxyGatewayBase = proxyGatewayBase;
     this.sourceManager = new SourceManager([]);
 
@@ -103,7 +105,7 @@ export class NovaPlayer {
   }
 
   /**
-   * Mounts a stream source into the video element and initializes Hls.js
+   * Mounts a stream source into the video element or iframe embed
    */
   private async mountSource(source: StreamSource): Promise<void> {
     this.updateState({
@@ -112,6 +114,35 @@ export class NovaPlayer {
     });
 
     this.destroyHls();
+
+    // Check if the stream is an embed iframe (e.g., zlive.st)
+    const isEmbed =
+      source.protocol === 'embed' ||
+      source.url.includes('/embed/') ||
+      source.url.includes('zlive.st') ||
+      source.url.includes('embedsports');
+
+    if (isEmbed && this.iframeElement) {
+      console.info('[NovaPlayer] Activating responsive embed player for:', source.url);
+      this.videoElement.pause();
+      this.videoElement.style.display = 'none';
+      this.iframeElement.style.display = 'block';
+      this.iframeElement.src = source.url;
+      this.sourceManager.markSourceHealthy(source.id);
+      this.updateState({
+        state: 'playing',
+        activeQuality: 'Embed Web Feed',
+        availableQualities: ['Embed Stream'],
+      });
+      return;
+    }
+
+    // Switch back to standard video element for HLS / direct streams
+    if (this.iframeElement) {
+      this.iframeElement.src = 'about:blank';
+      this.iframeElement.style.display = 'none';
+    }
+    this.videoElement.style.display = 'block';
 
     let targetUrl = source.url;
     if (source.requiresProxy && this.proxyGatewayBase) {
@@ -259,7 +290,6 @@ export class NovaPlayer {
         if (Math.abs(currentTime - this.lastPlaybackTime) < 0.05) {
           this.stallCounter++;
           if (this.stallCounter >= 6) {
-            // Frozen for 6+ seconds without recovering
             console.warn('[NovaPlayer] Watchdog detected prolonged playback stall.');
             this.handleSourceFailure('Stream Buffer Stall Timeout (6s)');
           }

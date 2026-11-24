@@ -1,6 +1,78 @@
 import type { Channel } from './types/index.ts';
 
 export const INITIAL_MOCK_CHANNELS: Channel[] = [
+  // 1. ZLive Live Sports Provider (Embed Iframe Provider)
+  {
+    id: 'ch_zlive_sports',
+    name: 'ZLive Live Sports Feed',
+    category: 'Sports',
+    logoUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=200&q=80',
+    epgId: 'zlive.sports.auto',
+    updatedAt: Date.now(),
+    currentProgram: {
+      id: 'epg_zlive_match',
+      title: 'Live Football Match: Auto Feature Feed',
+      description: 'Official ZLive sports streaming broadcast (zlive.st embed player)',
+      startTime: Date.now() - 1000 * 60 * 30,
+      endTime: Date.now() + 1000 * 60 * 90,
+    },
+    sources: [
+      {
+        id: 'src_zlive_primary',
+        label: 'Server 1 (ZLive HD Embed)',
+        url: 'https://zlive.st/embed/auto-abc?radius=7&frame=0&brand=0',
+        priority: 1,
+        protocol: 'embed',
+        state: 'HEALTHY',
+      },
+      {
+        id: 'src_zlive_backup',
+        label: 'Server 2 (Edge HLS Backup)',
+        url: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
+        priority: 2,
+        protocol: 'hls',
+        state: 'IDLE',
+      },
+    ],
+  },
+
+  // 2. IPTV-org: Red Bull TV (Official Sports / Action)
+  {
+    id: 'ch_iptv_redbull',
+    name: 'Red Bull TV Sports (IPTV-org)',
+    category: 'Sports',
+    logoUrl: 'https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=200&q=80',
+    epgId: 'redbulltv.sports',
+    updatedAt: Date.now() - 1200000,
+    currentProgram: {
+      id: 'epg_redbull_live',
+      title: 'Extreme Action Sports & Championship Live',
+      description: 'Official verified public stream from iptv-org verified collection.',
+      startTime: Date.now() - 1000 * 60 * 20,
+      endTime: Date.now() + 1000 * 60 * 100,
+    },
+    sources: [
+      {
+        id: 'src_rb_1',
+        label: 'Server 1 (IPTV-org Fastly)',
+        url: 'https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8',
+        priority: 1,
+        protocol: 'hls',
+        requiresProxy: true,
+        state: 'HEALTHY',
+      },
+      {
+        id: 'src_rb_2',
+        label: 'Server 2 (Backup Mux)',
+        url: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
+        priority: 2,
+        protocol: 'hls',
+        state: 'IDLE',
+      },
+    ],
+  },
+
+  // 3. Nova Sports 1 HD
   {
     id: 'ch_nova_sports_1',
     name: 'Nova Sports 1 HD',
@@ -42,6 +114,8 @@ export const INITIAL_MOCK_CHANNELS: Channel[] = [
       },
     ],
   },
+
+  // 4. Nova Cinema Premiere
   {
     id: 'ch_nova_cinema',
     name: 'Nova Cinema Premiere',
@@ -75,6 +149,8 @@ export const INITIAL_MOCK_CHANNELS: Channel[] = [
       },
     ],
   },
+
+  // 5. Nova 24 World News
   {
     id: 'ch_nova_news_24',
     name: 'Nova 24 World News',
@@ -105,39 +181,6 @@ export const INITIAL_MOCK_CHANNELS: Channel[] = [
         priority: 2,
         protocol: 'hls',
         state: 'IDLE',
-      },
-    ],
-  },
-  {
-    id: 'ch_nova_failover_demo',
-    name: 'Nova Failover Test Lab',
-    category: 'Entertainment',
-    logoUrl: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80',
-    epgId: 'novafailover.test',
-    updatedAt: Date.now() - 500000,
-    currentProgram: {
-      id: 'epg_test_sim',
-      title: 'Active Fault-Tolerance & Auto-Switching Benchmark',
-      description: 'Primary server is intentionally dead (404) to demonstrate auto-failover to Backup Server 2.',
-      startTime: Date.now() - 1000 * 60 * 15,
-      endTime: Date.now() + 1000 * 60 * 45,
-    },
-    sources: [
-      {
-        id: 'src_dead_server',
-        label: 'Server 1 (Simulated Dead Server 404)',
-        url: 'https://invalid-domain-does-not-exist-999.com/live/dead.m3u8',
-        priority: 1,
-        protocol: 'hls',
-        state: 'FAILED',
-      },
-      {
-        id: 'src_backup_healthy',
-        label: 'Server 2 (Auto-Failover Healthy Backup)',
-        url: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
-        priority: 2,
-        protocol: 'hls',
-        state: 'HEALTHY',
       },
     ],
   },
