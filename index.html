@@ -2,120 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NovaStream - High Performance Web Streaming Architecture</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>NovaStream - Multi-Platform Media Streaming Engine</title>
     <link rel="stylesheet" href="/src/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%2300f0ff%22>⚡</text></svg>" />
   </head>
   <body>
-    <!-- Top Navigation -->
-    <header>
-      <div class="logo-group">
-        <div class="logo-badge">NOVA</div>
-        <div class="logo-title">NovaStream Web</div>
-      </div>
-      <div class="header-status">
-        <div class="badge badge-cyan" id="revision-badge">
-          <span>Active Revision:</span> <strong id="active-rev-val">rev: 0</strong>
-        </div>
-        <div class="badge badge-purple" id="cache-badge">
-          <span>IndexedDB Cache:</span> <strong id="cached-count-val">0ms Ready</strong>
-        </div>
-        <button class="btn btn-secondary" id="btn-load-iptv" style="border-color: rgba(59, 130, 246, 0.4);">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          Load IPTV-org Streams
-        </button>
-        <button class="btn btn-secondary" id="btn-sync-trigger">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="23 4 23 10 17 10"></polyline>
-            <polyline points="1 20 1 14 7 14"></polyline>
-            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-          </svg>
-          Trigger V3 Delta Sync
-        </button>
-      </div>
-    </header>
+    <!-- 1. Header Component Root -->
+    <div id="header-mount"></div>
 
-    <div class="container">
-      <div class="grid-layout">
-        <!-- Left: Video Player and Controls -->
-        <div>
-          <div class="player-container">
-            <video id="nova-video" controls playsinline></video>
-            <iframe
-              id="nova-iframe"
-              style="display: none; width: 100%; aspect-ratio: 16 / 9; border: 0;"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </div>
+    <!-- 2. Main App Container -->
+    <main class="app-container">
+      <div class="main-content-grid">
+        <!-- Player Component Root -->
+        <div id="player-mount"></div>
 
-          <div class="player-controls-panel">
-            <div class="player-header">
-              <div class="player-channel-title" id="now-playing-title">Loading Stream...</div>
-              <button class="btn btn-danger" id="btn-simulate-fail">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                  <line x1="12" y1="9" x2="12" y2="13"></line>
-                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                Simulate Server 1 Crash
-              </button>
-            </div>
-
-            <div class="server-selector-group">
-              <span class="server-label">Available Mirrors:</span>
-              <div id="server-buttons-container" style="display: inline-flex; gap: 0.5rem; flex-wrap: wrap;"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Real-time Diagnostics & Reconciler Status -->
-        <div class="diagnostics-panel">
-          <!-- Multi-Source Failover Event Log -->
-          <div class="card">
-            <div class="card-title">
-              <span>Automatic Failover History</span>
-              <span class="badge badge-cyan" id="failover-count-badge">0 events</span>
-            </div>
-            <div class="failover-log" id="failover-log-list">
-              <div style="color: var(--text-muted); font-style: italic;">No failover incidents yet. All streams operating within baseline tolerance.</div>
-            </div>
-          </div>
-
-          <!-- Architecture Specs -->
-          <div class="card">
-            <div class="card-title">System Architecture</div>
-            <ul style="list-style: none; font-size: 0.8rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.4rem;">
-              <li>🚀 <strong>IndexedDB:</strong> Zero-latency startup (FAST_CACHE)</li>
-              <li>🔄 <strong>V3 Protocol:</strong> Monotonic activeRevision delta sync</li>
-              <li>🛡️ <strong>Failover Engine:</strong> Dynamic server quarantine & circuit breaker</li>
-              <li>🔐 <strong>DRM Security:</strong> W3C ClearKey EME integration</li>
-              <li>🌐 <strong>CORS Gateway:</strong> Edge reverse-proxy with manifest rewrite</li>
-            </ul>
-          </div>
-        </div>
+        <!-- Diagnostics Component Root -->
+        <div id="diagnostics-mount"></div>
       </div>
 
-      <!-- Catalog / Channels Grid -->
-      <section class="catalog-section">
-        <div class="catalog-header">
-          <h2 style="font-size: 1.25rem; font-weight: 700;">Live Channels & Media Catalog</h2>
-          <div class="category-tabs" id="category-tabs">
-            <button class="tab-btn active" data-category="ALL">All</button>
-            <button class="tab-btn" data-category="Sports">Sports</button>
-            <button class="tab-btn" data-category="Movies">Movies</button>
-            <button class="tab-btn" data-category="News">News</button>
-            <button class="tab-btn" data-category="Entertainment">Entertainment</button>
-          </div>
-        </div>
-
-        <div class="channels-grid" id="channels-grid"></div>
-      </section>
-    </div>
+      <!-- Catalog / ChannelGrid Component Root -->
+      <div id="catalog-mount"></div>
+    </main>
 
     <script type="module" src="/src/main.ts"></script>
   </body>
