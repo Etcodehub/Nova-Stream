@@ -41,10 +41,7 @@ export default {
             'Origin': 'https://zlive.st',
           },
         });
-        let html = await originResp.text();
-        if (html.includes('<head>')) {
-          html = html.replace('<head>', `<head><base href="https://zlive.st/">`);
-        }
+        const html = await originResp.text();
         const headers = new Headers(originResp.headers);
         headers.set('Access-Control-Allow-Origin', '*');
         headers.set('Content-Type', 'text/html; charset=utf-8');
