@@ -128,24 +128,36 @@ export class PlayerView {
     customFsBtn.setAttribute('title', inFs ? 'Exit Fullscreen' : 'Fullscreen (NovaStream)');
   }
 
-  private bindOrientationListener(): void {
-    const handleOrientation = () => {
-      const isLandscape = window.matchMedia('(orientation: landscape)').matches;
-      const isTouchPhone = window.innerWidth <= 960 && window.innerHeight <= 560;
-      if (!isLandscape) {
-        this.manualFullscreenExit = false;
-        if (this.isCleanFullscreen && !document.fullscreenElement) {
-          this.exitCleanFullscreen(false);
-        }
-        return;
-      }
-      if (this.isPlayerVisible && isTouchPhone && !this.manualFullscreenExit && !this.isCleanFullscreen) {
-        this.enterCleanFullscreen(false);
-      }
-    };
+  private isOrientationLandscape(): boolean {
+    const type = screen.orientation?.type || '';
+    if (type.startsWith('landscape')) return true;
+    return window.matchMedia('(orientation: landscape)').matches;
+  }
 
-    window.addEventListener('orientationchange', () => setTimeout(handleOrientation, 120));
-    window.addEventListener('resize', handleOrientation);
+  private isTouchPhone(): boolean {
+    const hasTouch = navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches;
+    return hasTouch && Math.min(window.innerWidth, window.innerHeight) <= 768;
+  }
+
+  private syncOrientationFullscreen(): void {
+    const isLandscape = this.isOrientationLandscape();
+    if (!isLandscape) {
+      this.manualFullscreenExit = false;
+      if (this.isCleanFullscreen && !document.fullscreenElement) {
+        this.exitCleanFullscreen(false);
+      }
+      return;
+    }
+    if (this.isPlayerVisible && this.isTouchPhone() && !this.manualFullscreenExit && !this.isCleanFullscreen) {
+      this.enterCleanFullscreen(false);
+    }
+  }
+
+  private bindOrientationListener(): void {
+    const onOrient = () => setTimeout(() => this.syncOrientationFullscreen(), 100);
+    screen.orientation?.addEventListener('change', onOrient);
+    window.addEventListener('orientationchange', onOrient);
+    window.addEventListener('resize', () => this.syncOrientationFullscreen());
   }
 
   public async togglePictureInPicture(): Promise<void> {
@@ -203,6 +215,7 @@ export class PlayerView {
       if (!wasVisible) {
         this.wrapperElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
+      this.syncOrientationFullscreen();
     }
   }
 
