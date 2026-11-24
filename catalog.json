@@ -5,7 +5,7 @@
       "name": "SuperSport Premier League",
       "network": "SuperSport",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/supersport-premier-league-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-supersport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Premier League Live \u2022 Feature Match",
       "qualityBadge": "4K",
       "isTopTen": true
@@ -15,7 +15,7 @@
       "name": "Sky Sports Premier League",
       "network": "Sky Sports",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/sky-sports-premier-league-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-premier?radius=7&frame=0&brand=0",
       "eventSubtitle": "Super Sunday & EPL 24/7 Matchday",
       "qualityBadge": "FHD",
       "isTopTen": true
@@ -25,7 +25,7 @@
       "name": "Sky Sports Main Event",
       "network": "Sky Sports",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/sky-sports-main-event-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-skymain?radius=7&frame=0&brand=0",
       "eventSubtitle": "Flagship Matchday & Big Events",
       "qualityBadge": "FHD",
       "isTopTen": true
@@ -35,7 +35,7 @@
       "name": "TNT Sports 1",
       "network": "TNT Sports",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/tnt-sports-1-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-tnt1?radius=7&frame=0&brand=0",
       "eventSubtitle": "UEFA Champions League & EPL Live",
       "qualityBadge": "FHD",
       "isTopTen": true
@@ -45,7 +45,7 @@
       "name": "TNT Sports 2",
       "network": "TNT Sports",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/tnt-sports-2-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-tnt2?radius=7&frame=0&brand=0",
       "eventSubtitle": "UEFA Europa League & Serie A",
       "qualityBadge": "HD",
       "isTopTen": true
@@ -55,7 +55,7 @@
       "name": "beIN Sports 1 English",
       "network": "beIN Sports",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/bein-sports-1-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-bein?radius=7&frame=0&brand=0",
       "eventSubtitle": "Premier League & UCL Prime Feed",
       "qualityBadge": "FHD",
       "isTopTen": true
@@ -65,7 +65,7 @@
       "name": "beIN Sports 2 English",
       "network": "beIN Sports",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/bein-sports-2-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-bein?radius=7&frame=0&brand=0",
       "eventSubtitle": "La Liga & Ligue 1 Live Action",
       "qualityBadge": "HD",
       "isTopTen": true
@@ -75,7 +75,7 @@
       "name": "SuperSport Football",
       "network": "SuperSport",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/supersport-football-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Serie A, AFCON & European Cup Ties",
       "qualityBadge": "FHD",
       "isTopTen": true
@@ -85,7 +85,7 @@
       "name": "CBS Sports Golazo",
       "network": "CBS Sports",
       "group": "Football Feeds",
-      "url": "https://dai.google.com/linear/hls/event/7f3Wv6f7QEKfQna22jHqLQ/master.m3u8",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "24/7 Football & UEFA Champions League",
       "qualityBadge": "1080p",
       "isTopTen": true
@@ -95,7 +95,7 @@
       "name": "TV Varzesh",
       "network": "Varzesh",
       "group": "Football Feeds",
-      "url": "https://live.telewebion.com/varzesh/live.m3u8",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "World Football & International Tournaments",
       "qualityBadge": "HD",
       "isTopTen": true
@@ -105,7 +105,7 @@
       "name": "ESPN USA",
       "network": "ESPN",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/espn-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Live Sports Center, La Liga & MLS",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -115,7 +115,7 @@
       "name": "ESPN 2",
       "network": "ESPN",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/espn-2-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-espn?radius=7&frame=0&brand=0",
       "eventSubtitle": "FA Cup, Bundesliga & Top Football",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -125,7 +125,7 @@
       "name": "DAZN 1 HD",
       "network": "DAZN",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/dazn-1-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Serie A, La Liga & Boxing Matchday",
       "qualityBadge": "1080p",
       "isTopTen": false
@@ -135,7 +135,7 @@
       "name": "DAZN 2 HD",
       "network": "DAZN",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/dazn-2-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Champions League & Global Combat",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -145,7 +145,7 @@
       "name": "Eurosport 1 HD",
       "network": "Eurosport",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/eurosport-1-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Tennis Grand Slams & World Championship",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -155,7 +155,7 @@
       "name": "Eurosport 2 HD",
       "network": "Eurosport",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/eurosport-2-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Cycling, Winter Sports & Live Feeds",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -165,7 +165,7 @@
       "name": "Canal+ Sport 1",
       "network": "Canal+",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/canal-sport-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Premier League, Ligue 1 & Top Rugby",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -175,7 +175,7 @@
       "name": "Movistar LaLiga",
       "network": "Movistar",
       "group": "Football Feeds",
-      "url": "https://embedsports.me/movistar-laliga-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Spanish La Liga Live Broadcasts",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -185,7 +185,7 @@
       "name": "Movistar Liga de Campeones",
       "network": "Movistar",
       "group": "Football Feeds",
-      "url": "https://embedsports.me/movistar-liga-de-campeones-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "UEFA Champions League & Europa Live",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -195,7 +195,7 @@
       "name": "RMC Sport 1",
       "network": "RMC",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/rmc-sport-1-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "UFC, European Football & Kickboxing",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -205,7 +205,7 @@
       "name": "Astro SuperSport 1",
       "network": "Astro",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/astro-supersport-1-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Premier League HD Multi-Camera",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -215,7 +215,7 @@
       "name": "Astro SuperSport 2",
       "network": "Astro",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/astro-supersport-2-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "La Liga, Cup Matches & Asian Football",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -225,7 +225,7 @@
       "name": "Optus Sport 1",
       "network": "Optus",
       "group": "Football Feeds",
-      "url": "https://embedsports.me/optus-sport-1-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Premier League, WSL & International Football",
       "qualityBadge": "1080p",
       "isTopTen": false
@@ -235,7 +235,7 @@
       "name": "Sony Sports Ten 1",
       "network": "Sony",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/sony-ten-1-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "UEFA Champions League, WWE & Tennis",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -245,7 +245,7 @@
       "name": "Sony Sports Ten 2",
       "network": "Sony",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/sony-ten-2-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "European Football Leagues & Athletics",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -255,7 +255,7 @@
       "name": "TyC Sports",
       "network": "TyC",
       "group": "Football Feeds",
-      "url": "https://embedsports.me/tyc-sports-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Argentine Primera, Copa & South America",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -265,7 +265,7 @@
       "name": "Gol Play",
       "network": "Gol",
       "group": "Football Feeds",
-      "url": "https://embedsports.me/gol-play-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Free Live Football & Highlights",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -275,7 +275,7 @@
       "name": "Polsat Sport 1",
       "network": "Polsat",
       "group": "Premier Sports",
-      "url": "https://embedsports.me/polsat-sport-1-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "European Football & Volleyball Nations",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -285,7 +285,7 @@
       "name": "SuperSport Grandstand",
       "network": "SuperSport",
       "group": "SuperSport",
-      "url": "https://embedsports.me/supersport-grandstand-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Premier Stadium Broadcast & Big Clashes",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -295,7 +295,7 @@
       "name": "SuperSport Variety 1",
       "network": "SuperSport",
       "group": "SuperSport",
-      "url": "https://embedsports.me/supersport-variety-1-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Multi-League Football & Rugby Union",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -305,7 +305,7 @@
       "name": "SuperSport Variety 2",
       "network": "SuperSport",
       "group": "SuperSport",
-      "url": "https://embedsports.me/supersport-variety-2-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "European Football Matches & Athletics",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -315,7 +315,7 @@
       "name": "SuperSport Variety 3",
       "network": "SuperSport",
       "group": "SuperSport",
-      "url": "https://embedsports.me/supersport-variety-3-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Athletics, Boxing & Live Racing",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -325,7 +325,7 @@
       "name": "SuperSport Variety 4",
       "network": "SuperSport",
       "group": "SuperSport",
-      "url": "https://embedsports.me/supersport-variety-4-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Tennis Grand Slam, Golf & Action Sports",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -335,7 +335,7 @@
       "name": "SuperSport Action",
       "network": "SuperSport",
       "group": "SuperSport",
-      "url": "https://embedsports.me/supersport-action-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-supersport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Extreme Sports, MMA & High Octane Action",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -345,7 +345,7 @@
       "name": "Sky Sports Football",
       "network": "Sky Sports",
       "group": "Sky Sports",
-      "url": "https://embedsports.me/sky-sports-football-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "EFL, SPFL, Bundesliga Live Matches",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -355,7 +355,7 @@
       "name": "Sky Sports Arena",
       "network": "Sky Sports",
       "group": "Sky Sports",
-      "url": "https://embedsports.me/sky-sports-arena-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Boxing World Titles, Darts & Rugby",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -365,7 +365,7 @@
       "name": "Sky Sports Action",
       "network": "Sky Sports",
       "group": "Sky Sports",
-      "url": "https://embedsports.me/sky-sports-action-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "NFL Sunday Night, Athletics & Tennis",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -375,7 +375,7 @@
       "name": "Sky Sports 1",
       "network": "Sky Sports",
       "group": "Sky Sports",
-      "url": "https://embedsports.me/sky-sports-1-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Live Sky Event Broadcast 1",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -385,7 +385,7 @@
       "name": "Sky Sports 2",
       "network": "Sky Sports",
       "group": "Sky Sports",
-      "url": "https://embedsports.me/sky-sports-2-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Live Sky Event Broadcast 2",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -395,7 +395,7 @@
       "name": "Sky Sports 3",
       "network": "Sky Sports",
       "group": "Sky Sports",
-      "url": "https://embedsports.me/sky-sports-3-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Live Sky Event Broadcast 3",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -405,7 +405,7 @@
       "name": "Sky Sports 4",
       "network": "Sky Sports",
       "group": "Sky Sports",
-      "url": "https://embedsports.me/sky-sports-4-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Live Sky Event Broadcast 4",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -415,7 +415,7 @@
       "name": "TNT Sports 3",
       "network": "TNT Sports",
       "group": "TNT Sports",
-      "url": "https://embedsports.me/tnt-sports-3-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-tnt?radius=7&frame=0&brand=0",
       "eventSubtitle": "MotoGP, Boxing & Football Highlights",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -425,7 +425,7 @@
       "name": "TNT Sports 4",
       "network": "TNT Sports",
       "group": "TNT Sports",
-      "url": "https://embedsports.me/tnt-sports-4-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-tnt?radius=7&frame=0&brand=0",
       "eventSubtitle": "Rugby Premiership, UFC & Live Sports",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -435,7 +435,7 @@
       "name": "TNT Sports Ultimate",
       "network": "TNT Sports",
       "group": "TNT Sports",
-      "url": "https://embedsports.me/tnt-sports-ultimate-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Ultra HD 4K HDR Sports Broadcast",
       "qualityBadge": "4K",
       "isTopTen": false
@@ -445,7 +445,7 @@
       "name": "beIN Sports 3 English",
       "network": "beIN Sports",
       "group": "beIN Sports",
-      "url": "https://embedsports.me/bein-sports-3-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-bein?radius=7&frame=0&brand=0",
       "eventSubtitle": "Bundesliga & International Football",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -455,7 +455,7 @@
       "name": "beIN Sports 4 English",
       "network": "beIN Sports",
       "group": "beIN Sports",
-      "url": "https://embedsports.me/bein-sports-4-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-bein?radius=7&frame=0&brand=0",
       "eventSubtitle": "French Ligue 1 & World Tournaments",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -465,7 +465,7 @@
       "name": "beIN Sports XTRA",
       "network": "beIN Sports",
       "group": "beIN Sports",
-      "url": "https://beinsportsxtra-linear.amagi.tv/playlist.m3u8",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Live Free Sports & Highlights",
       "qualityBadge": "720p",
       "isTopTen": false
@@ -475,7 +475,7 @@
       "name": "Sky Sports F1 HD",
       "network": "Sky Sports",
       "group": "Combat & Racing",
-      "url": "https://embedsports.me/sky-sports-f1-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-f1?radius=7&frame=0&brand=0",
       "eventSubtitle": "Formula 1 Practice, Quali & Grand Prix",
       "qualityBadge": "4K",
       "isTopTen": false
@@ -485,7 +485,7 @@
       "name": "Formula 1 World Feed",
       "network": "F1",
       "group": "Combat & Racing",
-      "url": "https://embedsports.me/f1-live-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Pit Lane & On-board Camera Feeds",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -495,7 +495,7 @@
       "name": "UFC Fight Pass Live",
       "network": "UFC",
       "group": "Combat & Racing",
-      "url": "https://embedsports.me/ufc-fight-pass-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Championship MMA & Fight Night",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -505,7 +505,7 @@
       "name": "WWE Network Live",
       "network": "WWE",
       "group": "Combat & Racing",
-      "url": "https://embedsports.me/wwe-network-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "RAW, SmackDown & Premium Live Events",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -515,7 +515,7 @@
       "name": "Red Bull TV HD",
       "network": "Red Bull",
       "group": "Combat & Racing",
-      "url": "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Extreme Sports, Rally, Biking & Surfing",
       "qualityBadge": "1080p",
       "isTopTen": false
@@ -525,7 +525,7 @@
       "name": "MotorTrend Network",
       "network": "MotorTrend",
       "group": "Combat & Racing",
-      "url": "https://embedsports.me/motortrend-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Supercars, Live Road Racing & Garage",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -535,7 +535,7 @@
       "name": "FightBox HD",
       "network": "FightBox",
       "group": "Combat & Racing",
-      "url": "https://embedsports.me/fightbox-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Kickboxing, Muay Thai & MMA Worldwide",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -545,7 +545,7 @@
       "name": "NBA TV 24/7 Live",
       "network": "NBA",
       "group": "US Leagues",
-      "url": "https://embedsports.me/nba-tv-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-nba?radius=7&frame=0&brand=0",
       "eventSubtitle": "NBA Live Games, Highlights & Analysis",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -555,7 +555,7 @@
       "name": "NFL Network Live",
       "network": "NFL",
       "group": "US Leagues",
-      "url": "https://embedsports.me/nfl-network-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-nfl?radius=7&frame=0&brand=0",
       "eventSubtitle": "Thursday Night Football & NFL RedZone",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -565,7 +565,7 @@
       "name": "MLB Network",
       "network": "MLB",
       "group": "US Leagues",
-      "url": "https://embedsports.me/mlb-network-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-mlb?radius=7&frame=0&brand=0",
       "eventSubtitle": "Major League Baseball Game of the Day",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -575,7 +575,7 @@
       "name": "Fox Sports 1 (FS1",
       "network": "Live",
       "group": "Premier Sports",
-      "url": "",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Live Broadcast",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -585,7 +585,7 @@
       "name": "Fox Sports 2 (FS2",
       "network": "Live",
       "group": "Premier Sports",
-      "url": "",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Live Broadcast",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -595,7 +595,7 @@
       "name": "CBS Sports Network",
       "network": "CBS Sports",
       "group": "US Leagues",
-      "url": "https://embedsports.me/cbs-sports-network-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "College Football, NWSL & World League Play",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -605,7 +605,7 @@
       "name": "Tennis Channel HD",
       "network": "Tennis",
       "group": "US Leagues",
-      "url": "https://embedsports.me/tennis-channel-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "ATP, WTA & Grand Slam Tournament Live",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -615,7 +615,7 @@
       "name": "Golf Channel HD",
       "network": "Golf",
       "group": "US Leagues",
-      "url": "https://embedsports.me/golf-channel-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "PGA Tour, European Tour & The Open Live",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -625,7 +625,7 @@
       "name": "Al Jazeera English HD",
       "network": "Al Jazeera",
       "group": "24/7 News",
-      "url": "https://live-hls-web-aje.getaj.net/AJE/01.m3u8",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Live Global News & In-depth Reporting",
       "qualityBadge": "1080p",
       "isTopTen": false
@@ -635,7 +635,7 @@
       "name": "Sky News UK Live",
       "network": "Sky News",
       "group": "24/7 News",
-      "url": "https://skynewsau-live.akamaized.net/hls/live/2002689/skynewsau-extra1/master.m3u8",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Breaking News Live Around the Clock",
       "qualityBadge": "1080p",
       "isTopTen": false
@@ -645,7 +645,7 @@
       "name": "BBC News HD",
       "network": "BBC",
       "group": "24/7 News",
-      "url": "https://embedsports.me/bbc-news-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-cnn?radius=7&frame=0&brand=0",
       "eventSubtitle": "Trusted World News & Live Reports",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -655,7 +655,7 @@
       "name": "CNN International",
       "network": "CNN",
       "group": "24/7 News",
-      "url": "https://embedsports.me/cnn-international-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-cnn?radius=7&frame=0&brand=0",
       "eventSubtitle": "Global Headlines & Live Coverage",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -665,7 +665,7 @@
       "name": "Bloomberg Global TV",
       "network": "Bloomberg",
       "group": "24/7 News",
-      "url": "https://liveproduseast.akamaized.net/us/Channel-USTV-AWS-virginia-1/live.m3u8",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Live Stock Markets, Finance & Economics",
       "qualityBadge": "1080p",
       "isTopTen": false
@@ -675,7 +675,7 @@
       "name": "CNBC Live",
       "network": "CNBC",
       "group": "24/7 News",
-      "url": "https://embedsports.me/cnbc-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Business News, Wall Street & Tech",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -685,7 +685,7 @@
       "name": "DW News English",
       "network": "DW",
       "group": "24/7 News",
-      "url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "European Perspective on World News",
       "qualityBadge": "1080p",
       "isTopTen": false
@@ -695,7 +695,7 @@
       "name": "France 24 English",
       "network": "France 24",
       "group": "24/7 News",
-      "url": "https://static.france24.com/live/F24_EN_LO_HLS/live_tv.m3u8",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "International Breaking News Live",
       "qualityBadge": "720p",
       "isTopTen": false
@@ -705,7 +705,7 @@
       "name": "Euronews World",
       "network": "Euronews",
       "group": "24/7 News",
-      "url": "https://euronews-euronews-world-1-au.samsung.wurl.tv/manifest/playlist.m3u8",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Pan-European News & Analysis",
       "qualityBadge": "1080p",
       "isTopTen": false
@@ -715,7 +715,7 @@
       "name": "Nat Geo Wild HD",
       "network": "Nat Geo",
       "group": "Docs & Cinema",
-      "url": "https://embedsports.me/nat-geo-wild-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Wildlife & Planet Earth Expeditions",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -725,7 +725,7 @@
       "name": "Discovery Science",
       "network": "Discovery",
       "group": "Docs & Cinema",
-      "url": "https://embedsports.me/discovery-science-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Exploration, Technology & Science",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -735,7 +735,7 @@
       "name": "History Channel HD",
       "network": "History",
       "group": "Docs & Cinema",
-      "url": "https://embedsports.me/history-channel-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Ancient Civilizations & World History",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -745,7 +745,7 @@
       "name": "NASA TV HD",
       "network": "NASA",
       "group": "Docs & Cinema",
-      "url": "https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master.m3u8",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Live Space Station & Rocket Launches",
       "qualityBadge": "1080p",
       "isTopTen": false
@@ -755,7 +755,7 @@
       "name": "Sky Cinema Action",
       "network": "Sky Cinema",
       "group": "Docs & Cinema",
-      "url": "https://embedsports.me/sky-cinema-action-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Blockbuster Hollywood Action 24/7",
       "qualityBadge": "FHD",
       "isTopTen": false
@@ -765,7 +765,7 @@
       "name": "HBO Premiere Cinema",
       "network": "HBO",
       "group": "Docs & Cinema",
-      "url": "https://embedsports.me/hbo-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Award Winning Feature Films & Series",
       "qualityBadge": "4K",
       "isTopTen": false
@@ -775,7 +775,7 @@
       "name": "Paramount Network HD",
       "network": "Paramount",
       "group": "Docs & Cinema",
-      "url": "https://embedsports.me/paramount-network-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Hit Dramas, Series & Classic Movies",
       "qualityBadge": "HD",
       "isTopTen": false
@@ -785,7 +785,7 @@
       "name": "Warner TV Cinema",
       "network": "Warner",
       "group": "Docs & Cinema",
-      "url": "https://embedsports.me/warner-tv-stream-1/embed/",
+      "url": "https://zlive.st/embed/auto-sport?radius=7&frame=0&brand=0",
       "eventSubtitle": "Warner Bros Premier Movies & Classics",
       "qualityBadge": "FHD",
       "isTopTen": false

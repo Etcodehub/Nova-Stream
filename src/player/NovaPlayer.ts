@@ -125,14 +125,16 @@ export class NovaPlayer {
     if (isEmbed && this.iframeElement) {
       console.info('[NovaPlayer] Activating responsive embed player for:', source.url);
       this.videoElement.pause();
+      this.videoElement.removeAttribute('src');
+      this.videoElement.load();
       this.videoElement.style.display = 'none';
       this.iframeElement.style.display = 'block';
       this.iframeElement.src = source.url;
       this.sourceManager.markSourceHealthy(source.id);
       this.updateState({
         state: 'playing',
-        activeQuality: 'Embed Web Feed',
-        availableQualities: ['Embed Stream'],
+        activeQuality: 'Embed HD Live',
+        availableQualities: ['Embed HD Live'],
       });
       return;
     }

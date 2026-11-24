@@ -7,8 +7,8 @@
 import { openDB, type IDBPDatabase } from 'idb';
 import type { Channel, DeltaItem, FastCacheMetadata } from '../types/index.ts';
 
-const DB_NAME = 'NovaStream_FastCache';
-const DB_VERSION = 1;
+const DB_NAME = 'NovaStream_MasterCache_v2';
+const DB_VERSION = 2;
 
 export class FastCacheManager {
   private dbPromise: Promise<IDBPDatabase> | null = null;
@@ -17,14 +17,16 @@ export class FastCacheManager {
     if (!this.dbPromise) {
       this.dbPromise = openDB(DB_NAME, DB_VERSION, {
         upgrade(db) {
-          if (!db.objectStoreNames.contains('channels')) {
-            const channelStore = db.createObjectStore('channels', { keyPath: 'id' });
-            channelStore.createIndex('by_category', 'category');
-            channelStore.createIndex('by_updatedAt', 'updatedAt');
+          if (db.objectStoreNames.contains('channels')) {
+            db.deleteObjectStore('channels');
           }
-          if (!db.objectStoreNames.contains('metadata')) {
-            db.createObjectStore('metadata');
+          if (db.objectStoreNames.contains('metadata')) {
+            db.deleteObjectStore('metadata');
           }
+          const channelStore = db.createObjectStore('channels', { keyPath: 'id' });
+          channelStore.createIndex('by_category', 'category');
+          channelStore.createIndex('by_updatedAt', 'updatedAt');
+          db.createObjectStore('metadata');
         },
       });
     }

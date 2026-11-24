@@ -9,6 +9,7 @@ import type { Channel, StreamSource } from '../types/index.ts';
 import { fastCache, FastCacheManager } from '../cache/FastCacheManager.ts';
 import { iptvOrgService, IPTV_ORG_ENDPOINTS } from './iptvOrg.ts';
 import { INITIAL_MOCK_CHANNELS } from '../mockData.ts';
+import { MASTER_CHANNELS_CATALOG } from '../masterCatalog.ts';
 
 export type CatalogUpdateListener = (
   channels: Channel[],
@@ -114,19 +115,26 @@ export class CatalogManager {
 
   /**
    * 0ms Instant Load (Cache Once)
-   * If channels are already cached in IndexedDB, returns immediately.
+   * Returns complete master catalog instantly in 0ms without network pre-fetch delay,
+   * avoiding any stale local cache glitches.
    */
   public async loadInstantCache(): Promise<{ channels: Channel[]; isFresh: boolean }> {
-    const cached = await this.cache.loadFastCache();
-
-    if (cached.channels.length > 30) {
-      // Catalog is already cached locally with a rich channel set!
-      return { channels: cached.channels, isFresh: true };
+    try {
+      const cached = await this.cache.loadFastCache();
+      if (cached.channels.length >= MASTER_CHANNELS_CATALOG.length) {
+        return { channels: cached.channels, isFresh: true };
+      }
+    } catch (err) {
+      console.warn('[CatalogManager] FastCache read error:', err);
     }
 
-    // First launch or sparse cache: seed with baseline mock channels
-    await this.cache.saveChannels(INITIAL_MOCK_CHANNELS, 1);
-    return { channels: INITIAL_MOCK_CHANNELS, isFresh: false };
+    // Persist all 91+ master channels immediately into IndexedDB
+    try {
+      await this.cache.saveChannels(MASTER_CHANNELS_CATALOG, 2);
+    } catch (e) {
+      console.warn('[CatalogManager] FastCache write error:', e);
+    }
+    return { channels: MASTER_CHANNELS_CATALOG, isFresh: true };
   }
 
   /**

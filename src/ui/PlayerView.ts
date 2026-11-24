@@ -89,8 +89,9 @@ export class PlayerView {
           <iframe
             id="nova-iframe"
             style="display: none; width: 100%; aspect-ratio: 16 / 9; border: 0;"
-            allow="autoplay; fullscreen; picture-in-picture"
+            allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
             allowfullscreen
+            referrerpolicy="no-referrer"
           ></iframe>
         </div>
 
