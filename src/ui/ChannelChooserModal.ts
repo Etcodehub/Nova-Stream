@@ -163,6 +163,65 @@ export class ChannelChooserModal {
       return;
     }
 
+    // Featured Best Big Channels (beIN Sports & TNT Sports + 1 2 3 4 below them)
+    if (!this.searchQuery && (this.currentCategory === 'ALL' || this.currentCategory === 'TOP' || this.currentCategory === 'Sports')) {
+      const beinIds = ['auto-bein-sports-mena-1', 'auto-bein-sports-mena-2', 'auto-bein-sports-mena-3', 'auto-bein-sports-mena-4'];
+      const tntIds = ['auto-tnt-sports-1', 'auto-tnt-sports-2', 'auto-tnt-sports-3', 'auto-tnt-sports-4'];
+      const beinList = beinIds.map((id) => this.channels.find((c) => c.id === id)).filter(Boolean) as Channel[];
+      const tntList = tntIds.map((id) => this.channels.find((c) => c.id === id)).filter(Boolean) as Channel[];
+
+      if (beinList.length > 0 || tntList.length > 0) {
+        const featuredSection = document.createElement('div');
+        featuredSection.className = 'modal-best-section';
+
+        const makeBigGroup = (title: string, mainCh: Channel, numbered: Channel[]) => {
+          const box = document.createElement('div');
+          box.className = 'modal-big-channel-group';
+
+          const bigCard = document.createElement('button');
+          bigCard.className = `modal-big-card ${this.activeChannelId === mainCh.id ? 'active' : ''}`;
+          bigCard.innerHTML = `
+            <img class="modal-big-logo" src="${mainCh.logoUrl}" alt="${mainCh.name}" />
+            <div class="modal-big-info">
+              <div class="modal-big-title">${title}</div>
+              <div class="modal-big-sub">Featured Big Channel • FHD Live</div>
+            </div>
+            <span class="item-action-badge"><span class="item-live-dot"></span> LIVE</span>
+          `;
+          bigCard.addEventListener('click', () => {
+            this.activeChannelId = mainCh.id;
+            this.onSelect(mainCh);
+            this.close();
+          });
+          box.appendChild(bigCard);
+
+          const numGrid = document.createElement('div');
+          numGrid.className = 'modal-num-row';
+          numbered.forEach((ch, idx) => {
+            const nBtn = document.createElement('button');
+            nBtn.className = `modal-num-btn ${this.activeChannelId === ch.id ? 'active' : ''}`;
+            nBtn.innerHTML = `
+              <img class="modal-num-logo" src="${ch.logoUrl}" alt="${ch.name}" />
+              <span>${idx + 1}</span>
+            `;
+            nBtn.title = ch.name;
+            nBtn.addEventListener('click', () => {
+              this.activeChannelId = ch.id;
+              this.onSelect(ch);
+              this.close();
+            });
+            numGrid.appendChild(nBtn);
+          });
+          box.appendChild(numGrid);
+          return box;
+        };
+
+        if (beinList.length > 0) featuredSection.appendChild(makeBigGroup('beIN Sports', beinList[0], beinList));
+        if (tntList.length > 0) featuredSection.appendChild(makeBigGroup('TNT Sports', tntList[0], tntList));
+        listContainer.appendChild(featuredSection);
+      }
+    }
+
     filtered.forEach((channel) => {
       const item = document.createElement('div');
       const isActive = this.activeChannelId === channel.id;

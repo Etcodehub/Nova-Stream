@@ -182,6 +182,18 @@ export class PlayerView {
                   referrerpolicy="no-referrer"
                 ></iframe>
 
+                <!-- Custom NovaStream Fullscreen Overlay Button (replaces zlive fullscreen=0) -->
+                <button
+                  class="player-custom-fs-btn"
+                  id="btn-custom-fullscreen"
+                  title="Fullscreen (NovaStream)"
+                  aria-label="Toggle Fullscreen"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                  </svg>
+                </button>
+
                 <!-- Error Overlay -->
                 <div class="player-error-overlay" id="player-error-overlay" style="display: none;">
                   <div class="nm-card error-dialog-card">
@@ -273,12 +285,17 @@ export class PlayerView {
       this.onOpenChooserCallback?.();
     });
 
-    this.btnFullscreen.addEventListener('click', () => {
+    const toggleFs = () => {
       const viewport = this.container.querySelector('#player-viewport');
-      if (viewport?.requestFullscreen) {
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      } else if (viewport?.requestFullscreen) {
         viewport.requestFullscreen().catch(() => {});
       }
-    });
+    };
+
+    this.btnFullscreen.addEventListener('click', toggleFs);
+    this.container.querySelector('#btn-custom-fullscreen')?.addEventListener('click', toggleFs);
 
     this.btnErrorRetry.addEventListener('click', () => {
       this.errorOverlayElement.style.display = 'none';
@@ -354,7 +371,7 @@ export class PlayerView {
     const cat = this.currentChannel?.category || 'Sports';
 
     if (this.renderedSidebarCategory === cat && this.quickChannelListEl.children.length > 0) {
-      this.quickChannelListEl.querySelectorAll('.quick-ch-item').forEach((el) => {
+      this.quickChannelListEl.querySelectorAll('[data-channel-id]').forEach((el) => {
         const item = el as HTMLElement;
         item.classList.toggle('active', item.dataset.channelId === this.currentChannel?.id);
       });
@@ -362,18 +379,73 @@ export class PlayerView {
     }
 
     this.renderedSidebarCategory = cat;
-    const related = this.allChannels
-      .filter((c) => c.category === cat)
-      .slice(0, 25);
-
     this.quickChannelListEl.innerHTML = '';
+
+    const beinIds = ['auto-bein-sports-mena-1', 'auto-bein-sports-mena-2', 'auto-bein-sports-mena-3', 'auto-bein-sports-mena-4'];
+    const tntIds = ['auto-tnt-sports-1', 'auto-tnt-sports-2', 'auto-tnt-sports-3', 'auto-tnt-sports-4'];
+
+    const beinList = beinIds.map((id) => this.allChannels.find((c) => c.id === id)).filter(Boolean) as Channel[];
+    const tntList = tntIds.map((id) => this.allChannels.find((c) => c.id === id)).filter(Boolean) as Channel[];
+
+    // 1. Best Big Channels: beIN Sports & TNT Sports + 1 2 3 4 below each
+    if (beinList.length > 0 || tntList.length > 0) {
+      const featuredWrap = document.createElement('div');
+      featuredWrap.className = 'sidebar-featured-groups';
+
+      const buildGroup = (title: string, mainCh: Channel, numbered: Channel[]) => {
+        const group = document.createElement('div');
+        group.className = 'sidebar-big-group';
+
+        const bigBtn = document.createElement('button');
+        bigBtn.className = `sidebar-big-card ${this.currentChannel?.id === mainCh.id ? 'active' : ''}`;
+        bigBtn.dataset.channelId = mainCh.id;
+        bigBtn.innerHTML = `
+          <img class="sidebar-big-logo" src="${mainCh.logoUrl}" alt="${mainCh.name}" />
+          <div class="sidebar-big-meta">
+            <div class="sidebar-big-name">${title}</div>
+            <div class="sidebar-big-sub">Top Live Sports • HD</div>
+          </div>
+          <span class="live-pulse-sm"></span>
+        `;
+        bigBtn.addEventListener('click', () => this.onSelectChannelCallback?.(mainCh));
+        group.appendChild(bigBtn);
+
+        const numRow = document.createElement('div');
+        numRow.className = 'sidebar-num-row';
+        numbered.forEach((ch, idx) => {
+          const nBtn = document.createElement('button');
+          nBtn.className = `sidebar-num-btn ${this.currentChannel?.id === ch.id ? 'active' : ''}`;
+          nBtn.dataset.channelId = ch.id;
+          nBtn.title = ch.name;
+          nBtn.innerHTML = `
+            <img class="sidebar-num-logo" src="${ch.logoUrl}" alt="${ch.name}" />
+            <span>${idx + 1}</span>
+          `;
+          nBtn.addEventListener('click', () => this.onSelectChannelCallback?.(ch));
+          numRow.appendChild(nBtn);
+        });
+        group.appendChild(numRow);
+        return group;
+      };
+
+      if (beinList.length > 0) featuredWrap.appendChild(buildGroup('beIN Sports', beinList[0], beinList));
+      if (tntList.length > 0) featuredWrap.appendChild(buildGroup('TNT Sports', tntList[0], tntList));
+      this.quickChannelListEl.appendChild(featuredWrap);
+    }
+
+    // 2. Remaining category channels
+    const featuredSet = new Set([...beinIds, ...tntIds]);
+    const related = this.allChannels
+      .filter((c) => c.category === cat && !featuredSet.has(c.id))
+      .slice(0, 20);
+
     related.forEach((ch) => {
       const item = document.createElement('button');
       const isActive = this.currentChannel?.id === ch.id;
       item.className = `quick-ch-item ${isActive ? 'active' : ''}`;
       item.dataset.channelId = ch.id;
       item.innerHTML = `
-        <img class="quick-ch-logo" src="${ch.logoUrl || ''}" alt="${ch.name}" onerror="this.style.display='none'" />
+        <img class="quick-ch-logo" src="${ch.logoUrl || ''}" alt="${ch.name}" />
         <div class="quick-ch-info">
           <div class="quick-ch-name">${ch.name}</div>
           <div class="quick-ch-cat">${ch.network || ch.category}</div>

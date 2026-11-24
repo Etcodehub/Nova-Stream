@@ -1208,6 +1208,195 @@ button {
 }
 
 /* =========================================================
+   CUSTOM FULLSCREEN BUTTON & BEST CHANNELS (beIN / TNT 1-4)
+   ========================================================= */
+.player-custom-fs-btn {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 20;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(26, 18, 48, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--line-strong);
+  color: var(--fg);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  transition: transform 0.15s var(--ease), background 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+
+.player-custom-fs-btn:hover {
+  background: var(--gradient-cta);
+  border-color: transparent;
+  transform: scale(1.06);
+}
+
+.sidebar-featured-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.sidebar-big-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-big-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, rgba(123, 77, 255, 0.16), rgba(26, 18, 48, 0.9));
+  border: 1px solid var(--line-strong);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.sidebar-big-card:hover,
+.sidebar-big-card.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.sidebar-big-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.sidebar-big-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebar-big-name {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--fg);
+}
+
+.sidebar-big-sub {
+  font-size: 0.7rem;
+  color: var(--accent-text);
+}
+
+.sidebar-num-row,
+.modal-num-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.sidebar-num-btn,
+.modal-num-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px 4px;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-raised-sm);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--fg);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.sidebar-num-btn:hover,
+.modal-num-btn:hover {
+  border-color: var(--accent);
+}
+
+.sidebar-num-btn.active,
+.modal-num-btn.active {
+  background: var(--gradient-cta);
+  border-color: transparent;
+  color: #fff;
+}
+
+.sidebar-num-logo,
+.modal-num-logo {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.modal-best-section {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  padding-bottom: 14px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.modal-big-channel-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-big-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, rgba(123, 77, 255, 0.2), var(--surface));
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow-raised-sm);
+  cursor: pointer;
+  text-align: left;
+}
+
+.modal-big-card:hover,
+.modal-big-card.active {
+  border-color: var(--accent);
+}
+
+.modal-big-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.modal-big-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.modal-big-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--fg);
+}
+
+.modal-big-sub {
+  font-size: 0.74rem;
+  color: var(--accent-text);
+}
+
+/* =========================================================
    FOOTER
    ========================================================= */
 .prime-footer {

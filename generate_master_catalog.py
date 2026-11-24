@@ -1,5 +1,5 @@
 import json
-import re
+import urllib.parse
 
 with open('zlive_channels.json', encoding='utf-8') as f:
     zlive_list = json.load(f)
@@ -12,28 +12,38 @@ except FileNotFoundError:
 
 print(f"Loaded {len(zlive_list)} channels from zlive_channels.json ({len(matched_playlists)} playlist matches)")
 
-# Build a clean master catalog
-catalog = []
+def svg_logo(label, bg1, bg2, fg="#ffffff", sub=""):
+    sub_el = f'<text x="64" y="92" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="18" fill="rgba(255,255,255,0.85)">{sub}</text>' if sub else ""
+    y_main = "66" if sub else "74"
+    fs = "30" if len(label) <= 5 else ("22" if len(label) <= 8 else "17")
+    svg = (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">'
+        f'<defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">'
+        f'<stop offset="0%" stop-color="{bg1}"/><stop offset="100%" stop-color="{bg2}"/>'
+        f'</linearGradient></defs>'
+        f'<rect width="128" height="128" rx="26" fill="url(#g)"/>'
+        f'<text x="64" y="{y_main}" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="900" font-size="{fs}" fill="{fg}">{label}</text>'
+        f'{sub_el}</svg>'
+    )
+    return "data:image/svg+xml;utf8," + urllib.parse.quote(svg)
 
-# Sport icons / category mapping
 def get_category(c):
     sport = (c.get('sport') or '').lower()
     name = (c.get('name') or '').lower()
     cid = (c.get('id') or '').lower()
-    
+
     if sport in ['sports', 'f1'] or any(k in name or k in cid for k in ['sport', 'tnt', 'sky', 'premier', 'football', 'soccer', 'espn', 'bein', 'dazn', 'nba', 'nfl', 'ufc', 'tennis', 'cricket', 'rugby', 'golf', 'racing', 'bundesliga', 'laliga']):
         return 'Sports'
     if sport == 'kids' or any(k in name or k in cid for k in ['kid', 'cartoon', 'disney', 'nickelodeon', 'boomerang', 'treehouse', 'cbeebies', 'ytv', 'adult swim']):
         return 'Kids'
     if any(k in name or k in cid for k in ['movie', 'cinema', 'hbo', 'film', 'starz', 'showtime', 'amc', 'paramount', 'cine', 'tnt']):
         return 'Movies'
-    if sport == 'entertainment' or any(k in name for k in ['comedy', 'drama', 'series', 'tlc', 'mtv', 'vh1', 'bravo', 'e!', 'fx']):
+    if sport == 'entertainment' or any(k in name for k in ['comedy', 'drama', 'series', 'tlc', 'mtv', 'vh1', 'bravo', 'fx']):
         return 'Entertainment'
     if any(k in name for k in ['news', 'cnn', 'bbc', 'fox news', 'bloomberg', 'cnbc', 'msnbc']):
         return 'News'
     return 'General'
 
-# Network extraction
 def get_network(name):
     lower = name.lower()
     if 'sky sport' in lower: return 'Sky Sports'
@@ -52,64 +62,67 @@ def get_network(name):
     if 'cartoon' in lower: return 'Cartoon Network'
     return 'Live TV'
 
-# Logos lookup
 def get_logo(cid, name, category):
     lower = (name + ' ' + cid).lower()
     if 'tnt' in lower:
-        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/TNT_Sports_logo.svg/512px-TNT_Sports_logo.svg.png'
-    if 'sky sport' in lower or 'skysport' in lower:
-        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Sky_Sports_logo_2020.svg/512px-Sky_Sports_logo_2020.svg.png'
+        num = ''.join(ch for ch in name if ch.isdigit())[:1]
+        return svg_logo("TNT", "#0c2b6b", "#e11d74", "#ffffff", f"SPORTS {num}" if num else "SPORTS")
     if 'bein' in lower:
-        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/BeIN_Sports_logo.svg/512px-BeIN_Sports_logo.svg.png'
+        num = ''.join(ch for ch in name if ch.isdigit())[:1]
+        return svg_logo("beIN", "#5b1d82", "#9333ea", "#ffffff", f"SPORTS {num}" if num else "SPORTS")
+    if 'sky sport' in lower or 'skysport' in lower:
+        return svg_logo("SKY", "#003399", "#e11d48", "#ffffff", "SPORTS")
     if 'supersport' in lower or 'spersport' in lower:
-        return 'https://upload.wikimedia.org/wikipedia/en/thumb/3/30/SuperSport_logo.svg/512px-SuperSport_logo.svg.png'
+        return svg_logo("SS", "#0f4c81", "#0284c7", "#ffffff", "SUPERSPORT")
     if 'dazn' in lower:
-        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/DAZN_Logo_Master.svg/512px-DAZN_Logo_Master.svg.png'
+        return svg_logo("DAZN", "#111827", "#374151", "#facc15", "LIVE")
     if 'espn' in lower:
-        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/ESPN_wordmark.svg/512px-ESPN_wordmark.svg.png'
+        return svg_logo("ESPN", "#991b1b", "#dc2626", "#ffffff", "SPORTS")
     if 'f1' in lower:
-        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/512px-F1.svg.png'
+        return svg_logo("F1", "#b91c1c", "#ef4444", "#ffffff", "RACING")
     if 'canal' in lower:
-        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Canal%2B_2009.svg/512px-Canal%2B_2009.svg.png'
+        return svg_logo("CANAL+", "#18181b", "#3f3f46", "#ffffff", "SPORT")
     if 'cartoon' in lower:
-        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cartoon_Network_2010_logo.svg/512px-Cartoon_Network_2010_logo.svg.png'
+        return svg_logo("CN", "#09090b", "#27272a", "#38bdf8", "CARTOON")
     if 'boomerang' in lower:
-        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Boomerang_2014_logo.svg/512px-Boomerang_2014_logo.svg.png'
+        return svg_logo("BOOM", "#1d4ed8", "#3b82f6", "#fde047", "KIDS")
+    if 'disney' in lower:
+        return svg_logo("DISNEY", "#1e3a8a", "#3b82f6", "#ffffff", "CHANNEL")
     if 'bbc' in lower:
-        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/BBC_Logo_2021.svg/512px-BBC_Logo_2021.svg.png'
+        return svg_logo("BBC", "#18181b", "#3f3f46", "#ffffff", "LIVE")
     if 'abc' in lower:
-        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/American_Broadcasting_Company_Logo.svg/512px-American_Broadcasting_Company_Logo.svg.png'
+        return svg_logo("ABC", "#111827", "#1f2937", "#ffffff", "NETWORK")
     if 'cnn' in lower:
-        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/CNN.svg/512px-CNN.svg.png'
+        return svg_logo("CNN", "#991b1b", "#dc2626", "#ffffff", "NEWS")
     if 'fox' in lower:
-        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Fox_Broadcasting_Company_logo_%282019%29.svg/512px-Fox_Broadcasting_Company_logo_%282019%29.svg.png'
-    return 'https://images.unsplash.com/photo-1594909122845-11baa439b7bf?auto=format&fit=crop&w=256&q=80'
+        return svg_logo("FOX", "#0f172a", "#1e3a8a", "#ffffff", "SPORTS")
+    initials = ''.join([w[0] for w in name.split()[:2] if w])[:2].upper() or "TV"
+    return svg_logo(initials, "#3b1d72", "#6d28d9", "#f3eeff", category.upper()[:6])
 
-# Top priority sports channels
 top_slugs = {
-    'auto-tnt-sports-1', 'auto-tnt-sports-2', 'auto-sky-sports-premier-league',
-    'auto-sky-sports-main-event', 'auto-sky-sports-football', 'auto-sky-sports-f1',
-    'auto-bein-sports-mena-1', 'auto-bein-sports-mena-2', 'auto-supersport-premier-league',
-    'auto-supersport-laliga', 'auto-espn', 'auto-espn-2', 'auto-dazn-1-es',
-    'auto-abc', 'auto-cartoon-network', 'auto-boomerang'
+    'auto-tnt-sports-1', 'auto-tnt-sports-2', 'auto-tnt-sports-3', 'auto-tnt-sports-4',
+    'auto-bein-sports-mena-1', 'auto-bein-sports-mena-2', 'auto-bein-sports-mena-3', 'auto-bein-sports-mena-4',
+    'auto-sky-sports-premier-league', 'auto-sky-sports-main-event', 'auto-sky-sports-football',
+    'auto-sky-sports-f1', 'auto-supersport-premier-league', 'auto-supersport-laliga',
+    'auto-espn', 'auto-espn-2', 'auto-dazn-1-es', 'auto-abc', 'auto-cartoon-network', 'auto-boomerang'
 }
 
+catalog = []
 seen_ids = set()
 for c in zlive_list:
     cid = c['id']
-    if cid in seen_ids or cid == 'sky-sports-f1-4k': # skip known broken
+    if cid in seen_ids or cid == 'sky-sports-f1-4k':
         continue
     seen_ids.add(cid)
-    
+
     name = c.get('name') or cid
     cat = get_category(c)
     network = get_network(name)
     logo = get_logo(cid, name, cat)
     is_top = cid in top_slugs or c.get('quality') == '4K' or 'premier' in name.lower() or 'main event' in name.lower()
-    
-    # Server 1: Direct Live (zlive.st embed, no proxy needed)
-    # Server 2: Playlist HLS (real matched IPTV-org .m3u8 via Cloudflare Proxy)
-    direct_url = f"https://zlive.st/embed/{cid}?radius=7&frame=0&brand=0"
+
+    # Server 1: Direct Live with fullscreen=0 (hides zlive's own fullscreen button)
+    direct_url = f"https://zlive.st/embed/{cid}?radius=7&frame=0&brand=0&fullscreen=0"
     sources = [
         {
             "id": f"src_{cid}_direct",
@@ -132,8 +145,8 @@ for c in zlive_list:
             "requiresProxy": True,
             "state": "HEALTHY"
         })
-    
-    channel_obj = {
+
+    catalog.append({
         "id": cid,
         "name": name,
         "category": cat,
@@ -153,14 +166,13 @@ for c in zlive_list:
             "endTime": 1700007200000
         },
         "updatedAt": 1700000000000
-    }
-    catalog.append(channel_obj)
+    })
 
 print(f"Generated {len(catalog)} master channels!")
 ts_content = f"""/**
  * NovaStream Master Channels Catalog
- * Ingested from verified official edge channel directory (278 channels).
- * Verified official slugs for 100% fail-free playback (TNT Sports 1-4, Sky Sports Premier/F1/Main Event, beIN Sports MENA 1-9, SuperSport, etc.)
+ * Ingested from verified official edge channel directory (277 channels).
+ * Includes fullscreen=0 embed parameter & crisp inline SVG network logos.
  */
 
 import type {{ Channel }} from './types/index.ts';
@@ -170,5 +182,4 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = {json.dumps(catalog, indent=2)
 
 with open('src/masterCatalog.ts', 'w', encoding='utf-8') as f:
     f.write(ts_content)
-
 print("Saved src/masterCatalog.ts successfully!")
