@@ -87,6 +87,7 @@ export class PlayerView {
     if (!viewport) return;
     this.isCleanFullscreen = true;
     viewport.classList.add('is-clean-fullscreen');
+    document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
     this.updateFullscreenButtonIcon(true);
     if (withNative && !document.fullscreenElement && viewport.requestFullscreen) {
@@ -101,6 +102,7 @@ export class PlayerView {
     }
     this.isCleanFullscreen = false;
     viewport?.classList.remove('is-clean-fullscreen');
+    document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
     this.updateFullscreenButtonIcon(false);
     if (document.fullscreenElement) {
