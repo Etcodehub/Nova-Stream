@@ -3,42 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>NOVA STREAM - Live Sports & World Football</title>
-  <meta name="description" content="Watch SuperSport, Sky Sports, TNT Sports, beIN Sports, and 75+ premium world sports channels live in HD/4K." />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+  <title>Reezn - Stream Movies, TV Shows & Live Sports</title>
+  <meta name="description" content="Watch trending movies, premium TV shows, and 79 live world sports channels on Reezn." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23E50914%22>R</text></svg>">
   
-  <!-- Inter Font -->
+  <!-- Fonts: Plus Jakarta Sans & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- HLS.js for .m3u8 live video streams -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Phosphor Icons -->
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- HLS.js for Live .m3u8 Streams -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
 
   <style>
     :root {
-      --bg-darkest: #07090e;
-      --bg-main: #0c1017;
-      --bg-card: #131924;
-      --bg-card-hover: #1c2434;
-      --bg-card-active: #182844;
-      --border-subtle: #1e293b;
-      --border-active: #0284c7;
-      --primary: #0284c7;
-      --primary-glow: rgba(2, 132, 199, 0.35);
-      --accent: #38bdf8;
+      --bg-black: #000000;
+      --bg-dark: #0a0a0a;
+      --bg-card: #121212;
+      --bg-card-hover: #1c1c1c;
+      --bg-card-active: #242424;
+      --border-subtle: #222222;
+      --border-focus: #E50914;
+      
+      --brand-red: #E50914;
+      --brand-red-hover: #ff1f2a;
+      --brand-red-glow: rgba(229, 9, 20, 0.45);
       --gold: #f59e0b;
-      --gold-glow: rgba(245, 158, 11, 0.3);
-      --live-red: #ef4444;
-      --emerald: #10b981;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-dim: #64748b;
-      --font-display: 'Outfit', sans-serif;
+      --live-green: #10b981;
+      
+      --text-white: #ffffff;
+      --text-gray: #a3a3a3;
+      --text-muted: #737373;
+      --text-dim: #525252;
+      
+      --font-display: 'Plus Jakarta Sans', sans-serif;
       --font-body: 'Inter', sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
     }
 
     * {
@@ -49,1788 +55,4090 @@
     }
 
     body {
-      background-color: var(--bg-darkest);
-      color: var(--text-main);
+      background-color: var(--bg-black);
+      color: var(--text-white);
       font-family: var(--font-body);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
+      user-select: none;
     }
 
-    /* Header */
-    header {
-      background: rgba(12, 16, 23, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-subtle);
+    /* Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-black);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2a2a2a;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3e3e3e;
+    }
+
+    /* Reezn Top Navigation Bar */
+    .reezn-header {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 200;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.75rem 1.5rem;
+      padding: 0.85rem 1.75rem;
+      transition: background 0.3s ease;
     }
 
-    .brand {
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 2.25rem;
+    }
+
+    .reezn-logo {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: var(--brand-red);
+      letter-spacing: -0.04em;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
+      cursor: pointer;
+    }
+
+    .reezn-logo:hover {
+      text-shadow: 0 0 20px var(--brand-red-glow);
+    }
+
+    /* Category Tabs */
+    .nav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+    }
+
+    .nav-tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-gray);
+      font-family: var(--font-display);
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.4rem 0;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s ease;
+    }
+
+    .nav-tab-btn:hover {
+      color: var(--text-white);
+    }
+
+    .nav-tab-btn.active {
+      color: var(--text-white);
+    }
+
+    .nav-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2.5px;
+      background: var(--text-white);
+      border-radius: 2px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+    }
+
+    .header-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-white);
+      font-size: 1.45rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+    }
+
+    .header-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: scale(1.08);
+    }
+
+    .header-user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #E50914, #7f1d1d);
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    /* Main Content Wrapper */
+    .main-viewport {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding-bottom: 90px; /* Space for bottom dock on mobile */
+    }
+
+    /* Hero Carousel Banner */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 72vh;
+      min-height: 480px;
+      max-height: 680px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 3.5rem 3.5rem;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .hero-backdrop-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      z-index: 1;
+    }
+
+    .hero-vignette {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, 
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0.4) 40%,
+        rgba(0, 0, 0, 0.85) 80%,
+        #000000 100%
+      );
+      z-index: 2;
+    }
+
+    .hero-vignette-side {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        rgba(0, 0, 0, 0.85) 0%, 
+        rgba(0, 0, 0, 0.4) 60%, 
+        transparent 100%
+      );
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 650px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .hero-badge-row {
       display: flex;
       align-items: center;
       gap: 0.65rem;
-      text-decoration: none;
-      color: inherit;
     }
 
-    .brand-logo {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #0284c7, #2563eb, #7c3aed);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 18px var(--primary-glow);
-    }
-
-    .brand-logo i {
-      font-size: 1.25rem;
-      color: #fff;
-    }
-
-    .brand-title {
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .brand-tag {
-      background: rgba(2, 132, 199, 0.2);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      color: #38bdf8;
-      font-size: 0.65rem;
-      font-weight: 700;
-      padding: 0.15rem 0.45rem;
-      border-radius: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .stat-badge {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      color: #10b981;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.35rem 0.75rem;
-      border-radius: 999px;
-    }
-
-    .pulse-dot {
-      width: 7px;
-      height: 7px;
-      background: #10b981;
-      border-radius: 50%;
-      animation: pulse 1.6s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-      70% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
-      100% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-    }
-
-    /* Main Container */
-    .app-layout {
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      flex: 1;
-      height: calc(100vh - 61px);
-      overflow: hidden;
-    }
-
-    /* Left: Player Stage */
-    .stage-section {
-      display: flex;
-      flex-direction: column;
-      background: var(--bg-darkest);
-      overflow-y: auto;
-      padding: 1.25rem;
-      gap: 1rem;
-    }
-
-    .player-card {
-      background: #000;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid var(--border-subtle);
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
-      position: relative;
-    }
-
-    .player-aspect {
-      position: relative;
-      width: 100%;
-      padding-top: 56.25%; /* 16:9 Aspect Ratio */
-      background: #000;
-    }
-
-    .player-element {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: #000;
-    }
-
-    .player-loading-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(7, 9, 14, 0.85);
+    .hero-pill {
+      background: rgba(255, 255, 255, 0.18);
       backdrop-filter: blur(8px);
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      z-index: 10;
-    }
-
-    .spinner {
-      width: 44px;
-      height: 44px;
-      border: 3px solid rgba(2, 132, 199, 0.2);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* Stream Metadata Bar */
-    .stream-meta-bar {
-      background: var(--bg-main);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 1rem 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .stream-details {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .stream-title-row {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-
-    .stream-channel-name {
-      font-family: var(--font-display);
-      font-size: 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.72rem;
       font-weight: 700;
-      color: #fff;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 0.2rem 0.5rem;
-      border-radius: 6px;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
 
-    .badge-network {
-      background: rgba(2, 132, 199, 0.2);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      color: #38bdf8;
+    .hero-pill-red {
+      background: var(--brand-red);
+      border-color: var(--brand-red);
+      color: #fff;
     }
 
-    .badge-quality {
-      background: rgba(245, 158, 11, 0.15);
-      border: 1px solid rgba(245, 158, 11, 0.3);
+    .hero-pill-gold {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: rgba(245, 158, 11, 0.4);
       color: #fbbf24;
     }
 
-    .badge-live {
-      background: rgba(239, 68, 68, 0.2);
-      border: 1px solid rgba(239, 68, 68, 0.4);
-      color: #f87171;
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 3.2rem;
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
     }
 
-    .stream-subtitle {
-      font-size: 0.85rem;
+    .hero-genres {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-gray);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      line-height: 1.45;
+      color: #d4d4d4;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-top: 0.5rem;
+    }
+
+    .btn-play-now {
+      background: #ffffff;
+      color: #000000;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.95rem;
+      border: none;
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(255, 255, 255, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .btn-play-now:hover {
+      background: #e5e5e5;
+      transform: scale(1.04);
+    }
+
+    .btn-mylist {
+      background: rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-mylist:hover {
+      background: rgba(255, 255, 255, 0.28);
+      transform: scale(1.04);
+    }
+
+    .btn-info-icon {
+      background: rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-info-icon:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.08);
+    }
+
+    /* Hero Navigation Dots */
+    .hero-dots {
+      position: absolute;
+      right: 3.5rem;
+      bottom: 3.5rem;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .hero-dot.active {
+      width: 24px;
+      border-radius: 4px;
+      background: var(--brand-red);
+      box-shadow: 0 0 10px var(--brand-red-glow);
+    }
+
+    /* Content Rails / Rows */
+    .content-rails {
+      display: flex;
+      flex-direction: column;
+      gap: 2.25rem;
+      padding: 0 2rem 2rem;
+    }
+
+    .rail-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .rail-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .rail-title {
+      font-family: var(--font-display);
+      font-size: 1.28rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      cursor: pointer;
+    }
+
+    .rail-title:hover {
+      color: var(--brand-red);
+    }
+
+    .rail-title i {
+      font-size: 1.05rem;
+      transition: transform 0.2s ease;
+    }
+
+    .rail-title:hover i {
+      transform: translateX(4px);
+    }
+
+    .rail-scroll {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding: 0.5rem 0.2rem 1rem;
+      scrollbar-width: none;
+      scroll-behavior: smooth;
+    }
+
+    .rail-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Movie & TV Show Card (Reezn Style) */
+    .reezn-card {
+      flex: 0 0 185px;
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .reezn-card:hover,
+    .reezn-card:focus-visible {
+      transform: scale(1.06) translateY(-4px);
+      border-color: rgba(229, 9, 20, 0.6);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.8), 0 0 18px var(--brand-red-glow);
+      z-index: 10;
+    }
+
+    .card-poster-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 145%; /* 2:3 Poster Ratio */
+      background: #141414;
+      overflow: hidden;
+    }
+
+    .card-poster {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .reezn-card:hover .card-poster {
+      transform: scale(1.05);
+    }
+
+    .card-badge-top-left {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fbbf24;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 0.18rem 0.45rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      z-index: 2;
+    }
+
+    .card-badge-top-right {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--brand-red);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 0.18rem 0.4rem;
+      border-radius: 4px;
+      z-index: 2;
+      text-transform: uppercase;
+    }
+
+    .card-progress-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      z-index: 3;
+    }
+
+    .card-progress-fill {
+      height: 100%;
+      background: var(--brand-red);
+      border-radius: 0 2px 2px 0;
+    }
+
+    .card-meta {
+      padding: 0.65rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      background: var(--bg-card);
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-subtext {
+      font-size: 0.74rem;
       color: var(--text-muted);
       display: flex;
       align-items: center;
       gap: 0.4rem;
     }
 
-    .stream-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .btn-icon {
+    /* Live Channel Card (for Live TV Row) */
+    .channel-rail-card {
+      flex: 0 0 220px;
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
-      color: var(--text-muted);
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .channel-rail-card:hover {
+      transform: scale(1.05) translateY(-3px);
+      border-color: var(--brand-red);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 15px var(--brand-red-glow);
+    }
+
+    .channel-preview-box {
+      width: 100%;
+      height: 110px;
+      background: linear-gradient(135deg, #182232, #0d121c);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.15rem;
+      position: relative;
+    }
+
+    .channel-network-pill {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: #38bdf8;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .live-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(229, 9, 20, 0.9);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      letter-spacing: 0.05em;
+    }
+
+    .live-pulse {
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 50%;
+      animation: pulse 1.4s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.8; }
+    }
+
+    /* Top 10 Numbered Cards */
+    .top10-card-wrap {
+      flex: 0 0 220px;
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .top10-rank-num {
+      font-family: var(--font-display);
+      font-size: 7.5rem;
+      font-weight: 900;
+      line-height: 0.75;
+      color: #000;
+      -webkit-text-stroke: 4px #404040;
+      position: absolute;
+      left: -12px;
+      bottom: 10px;
+      z-index: 1;
+      letter-spacing: -0.08em;
+      user-select: none;
+    }
+
+    .top10-card {
+      margin-left: 55px;
+      width: 155px;
+      z-index: 2;
+    }
+
+    /* Dedicated Views Container (Movies, TV Shows, Live TV, My List) */
+    .view-container {
+      display: none;
+      flex-direction: column;
+      padding: 1.5rem 2rem 2rem;
+      gap: 1.5rem;
+    }
+
+    .view-container.active {
+      display: flex;
+    }
+
+    .view-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .view-title {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .filter-chips-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 0.25rem;
+    }
+
+    .filter-chip {
+      white-space: nowrap;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-gray);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.45rem 0.95rem;
+      border-radius: var(--radius-full);
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
-    .btn-icon:hover {
+    .filter-chip:hover {
       background: var(--bg-card-hover);
-      color: var(--text-main);
-      border-color: var(--primary);
-    }
-
-    .btn-icon.active {
-      background: rgba(245, 158, 11, 0.15);
-      color: var(--gold);
-      border-color: rgba(245, 158, 11, 0.4);
-    }
-
-    /* Top Highlights Section */
-    .top-picks-banner {
-      background: linear-gradient(135deg, rgba(2, 132, 199, 0.12), rgba(124, 58, 237, 0.08));
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      border-radius: 12px;
-      padding: 0.9rem 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .top-picks-info {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .top-picks-icon {
-      font-size: 1.5rem;
-      color: var(--gold);
-    }
-
-    .top-picks-text h4 {
-      font-family: var(--font-display);
-      font-size: 0.95rem;
-      font-weight: 700;
       color: #fff;
     }
 
-    .top-picks-text p {
-      font-size: 0.75rem;
-      color: var(--text-muted);
+    .filter-chip.active {
+      background: var(--brand-red);
+      color: #fff;
+      border-color: var(--brand-red);
+      box-shadow: 0 0 14px var(--brand-red-glow);
     }
 
-    /* Right: Channel Browser */
-    .catalog-section {
-      background: var(--bg-main);
-      border-left: 1px solid var(--border-subtle);
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* Live TV Section Layout */
+    .livetv-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 1.5rem;
+      height: calc(100vh - 120px);
+      min-height: 540px;
+    }
+
+    .livetv-player-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      overflow-y: auto;
+    }
+
+    .livetv-sidebar {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
       display: flex;
       flex-direction: column;
       overflow: hidden;
       height: 100%;
     }
 
-    /* Search & Filter Header */
-    .search-box-wrap {
-      padding: 1rem 1.15rem 0.75rem;
+    .livetv-sidebar-search {
+      padding: 0.85rem 1rem;
       border-bottom: 1px solid var(--border-subtle);
       display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .search-input-group {
-      position: relative;
-      display: flex;
       align-items: center;
-    }
-
-    .search-input-group i {
-      position: absolute;
-      left: 0.85rem;
-      color: var(--text-dim);
-      font-size: 1.1rem;
-    }
-
-    .search-input {
-      width: 100%;
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      padding: 0.65rem 0.85rem 0.65rem 2.4rem;
-      color: #fff;
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      outline: none;
-      transition: all 0.2s ease;
-    }
-
-    .search-input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--primary-glow);
-    }
-
-    .clear-search-btn {
-      position: absolute;
-      right: 0.75rem;
-      background: none;
-      border: none;
-      color: var(--text-dim);
-      font-size: 1rem;
-      cursor: pointer;
-      display: none;
-    }
-
-    /* Category Filter Tabs */
-    .category-scroll {
-      display: flex;
-      gap: 0.4rem;
-      overflow-x: auto;
-      padding-bottom: 0.25rem;
-      scrollbar-width: none;
-    }
-
-    .category-scroll::-webkit-scrollbar {
-      display: none;
-    }
-
-    .cat-chip {
-      white-space: nowrap;
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-muted);
-      padding: 0.4rem 0.75rem;
-      border-radius: 8px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .cat-chip:hover {
-      background: var(--bg-card-hover);
-      color: #fff;
-    }
-
-    .cat-chip.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--accent);
-      box-shadow: 0 2px 10px var(--primary-glow);
-    }
-
-    /* Channel List */
-    .channel-list {
-      flex: 1;
-      overflow-y: auto;
-      padding: 0.85rem 1.15rem;
-      display: flex;
-      flex-direction: column;
       gap: 0.5rem;
     }
 
-    .channel-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      padding: 0.75rem 0.95rem;
+    .livetv-search-input {
+      width: 100%;
+      background: #181818;
+      border: 1px solid #2a2a2a;
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-size: 0.85rem;
+      padding: 0.5rem 0.75rem;
+      outline: none;
+    }
+
+    .livetv-channel-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .livetv-item {
+      background: #171717;
+      border: 1px solid #262626;
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
       transition: all 0.18s ease;
-      position: relative;
-      overflow: hidden;
     }
 
-    .channel-card:hover {
-      background: var(--bg-card-hover);
-      border-color: rgba(56, 189, 248, 0.4);
-      transform: translateY(-1px);
+    .livetv-item:hover,
+    .livetv-item.active {
+      background: #222;
+      border-color: var(--brand-red);
     }
 
-    .channel-card.active {
-      background: var(--bg-card-active);
-      border-color: var(--primary);
-      box-shadow: 0 0 16px rgba(2, 132, 199, 0.25);
+    .livetv-item.active {
+      box-shadow: 0 0 12px var(--brand-red-glow);
     }
 
-    .channel-card.active::before {
-      content: '';
-      position: absolute;
-      left: 0;
+    /* Media Details Modal (Replicating Screenshot 3 exactly!) */
+    .details-modal {
+      position: fixed;
       top: 0;
-      bottom: 0;
-      width: 3px;
-      background: var(--accent);
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(20px);
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      overflow-y: auto;
     }
 
-    .card-left {
+    .details-modal.open {
+      display: flex;
+    }
+
+    .details-card {
+      background: #0d0d0d;
+      border: 1px solid #242424;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 820px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95);
+      animation: modalSlideUp 0.3s cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    @keyframes modalSlideUp {
+      from { transform: translateY(30px) scale(0.97); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 20;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      background: var(--brand-red);
+      transform: scale(1.1);
+    }
+
+    .modal-hero-aspect {
+      position: relative;
+      width: 100%;
+      padding-top: 50%;
+      background: #000;
+    }
+
+    .modal-hero-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-hero-gradient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, transparent 40%, #0d0d0d 100%);
+    }
+
+    .modal-body {
+      padding: 1.5rem 2rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* Title & Thumbnail Header (Screenshot 3) */
+    .details-meta-header {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+    }
+
+    .details-thumb-img {
+      width: 65px;
+      height: 95px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    }
+
+    .details-header-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .details-title {
+      font-family: var(--font-display);
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.15;
+    }
+
+    .details-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-gray);
+    }
+
+    .details-badges-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 0.35rem;
+    }
+
+    .details-pill {
+      background: #1c1c1c;
+      border: 1px solid #333;
+      color: #e5e5e5;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+    }
+
+    .details-pill-rating {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.35);
+      color: #fbbf24;
+    }
+
+    /* Action Buttons Bar (Screenshot 3) */
+    .details-action-bar {
+      background: #161616;
+      border: 1px solid #2a2a2a;
+      border-radius: var(--radius-md);
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      gap: 1rem;
+    }
+
+    .details-action-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-white);
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      padding: 0.35rem 1rem;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .details-action-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--brand-red);
+    }
+
+    .details-action-btn i {
+      font-size: 1.35rem;
+    }
+
+    /* Story Section */
+    .details-section-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .details-story-text {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #b3b3b3;
+    }
+
+    /* Cast Row (Screenshot 3: circular headshots) */
+    .details-cast-row {
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      scrollbar-width: none;
+    }
+
+    .cast-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      flex: 0 0 80px;
+      text-align: center;
+    }
+
+    .cast-avatar {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #282828;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .cast-name {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .cast-role {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+    }
+
+    /* Episodes Section (for Series) */
+    .episodes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .episode-card {
+      background: #171717;
+      border: 1px solid #262626;
+      border-radius: 10px;
+      padding: 0.65rem 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .episode-card:hover {
+      background: #222;
+      border-color: var(--brand-red);
+    }
+
+    .episode-card-left {
       display: flex;
       align-items: center;
       gap: 0.85rem;
-      overflow: hidden;
     }
 
-    .network-badge-box {
-      width: 44px;
-      height: 44px;
-      min-width: 44px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #172133, #0f172a);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    .episode-thumb {
+      width: 90px;
+      height: 52px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    /* Search View (Screenshot 1 matched directly!) */
+    .search-view {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-black);
+      z-index: 400;
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .search-view.open {
+      display: flex;
+    }
+
+    .search-top-bar {
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      border-bottom: 1px solid #1a1a1a;
+      position: sticky;
+      top: 0;
+      background: var(--bg-black);
+      z-index: 10;
+    }
+
+    .search-back-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input-pill {
+      flex: 1;
+      background: #181818;
+      border: 1px solid #2a2a2a;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      padding: 0.6rem 1.15rem;
+      gap: 0.65rem;
+    }
+
+    .search-input-pill i {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+    }
+
+    .main-search-input {
+      flex: 1;
+      background: none;
+      border: none;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      outline: none;
+      caret-color: var(--brand-red); /* Red cursor */
+    }
+
+    .search-clear-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    .search-subtabs {
+      display: flex;
+      padding: 0.85rem 1.5rem 0.25rem;
+      gap: 2rem;
+      border-bottom: 1px solid #181818;
+    }
+
+    .search-subtab-btn {
+      background: none;
+      border: none;
+      color: var(--text-gray);
+      font-family: var(--font-display);
+      font-size: 0.92rem;
+      font-weight: 700;
+      padding-bottom: 0.65rem;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .search-subtab-btn.active {
+      color: #fff;
+    }
+
+    .search-subtab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2.5px;
+      background: #fff;
+    }
+
+    /* Retro Computer Empty State (Screenshot 1) */
+    .search-empty-state {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 1.5rem;
+      text-align: center;
+      gap: 1.25rem;
+    }
+
+    .retro-computer-icon {
+      width: 90px;
+      height: 90px;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      font-size: 0.75rem;
-      color: #38bdf8;
-      text-transform: uppercase;
-      letter-spacing: -0.02em;
     }
 
-    .card-meta {
+    .empty-state-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .empty-state-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Global Video Player Viewport */
+    .player-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+    }
+
+    .player-modal.open {
+      display: flex;
+    }
+
+    .player-viewport {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .player-video-element,
+    .player-embed-frame {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border: none;
+      background: #000;
+    }
+
+    /* Video Player Reezn Controls Overlay */
+    .player-controls-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, 
+        rgba(0, 0, 0, 0.75) 0%, 
+        transparent 25%, 
+        transparent 75%, 
+        rgba(0, 0, 0, 0.85) 100%
+      );
       display: flex;
       flex-direction: column;
-      gap: 0.2rem;
-      overflow: hidden;
+      justify-content: space-between;
+      padding: 1.5rem 2rem;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+      z-index: 10;
     }
 
-    .card-title {
+    .player-controls-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .player-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .player-title-box {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .player-back-btn {
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      color: #fff;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s ease;
+    }
+
+    .player-back-btn:hover {
+      background: var(--brand-red);
+      transform: scale(1.08);
+    }
+
+    .player-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .player-bottom-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .player-seek-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .player-seek-bar {
+      flex: 1;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+      transition: height 0.15s ease;
+    }
+
+    .player-seek-bar:hover {
+      height: 8px;
+    }
+
+    .player-seek-bar::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--brand-red);
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--brand-red-glow);
+    }
+
+    .player-button-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .player-btn-group-left,
+    .player-btn-group-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .player-ctrl-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .player-ctrl-btn:hover {
+      color: var(--brand-red);
+      transform: scale(1.1);
+    }
+
+    /* Mobile Bottom Dock (Screenshot 2) */
+    .mobile-bottom-dock {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(10, 10, 10, 0.94);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.5rem 1rem 0.65rem;
+      z-index: 150;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .dock-tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.68rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.3rem 0.65rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+    }
+
+    .dock-tab i {
+      font-size: 1.35rem;
+    }
+
+    .dock-tab.active {
+      color: #fff;
+    }
+
+    .dock-tab.active i {
+      color: var(--brand-red);
+    }
+
+    /* Toast Notification */
+    .reezn-toast {
+      position: fixed;
+      bottom: 85px;
+      left: 50%;
+      transform: translateX(-50%) translateY(50px);
+      background: rgba(24, 24, 24, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
       font-size: 0.88rem;
       font-weight: 600;
-      color: #fff;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .card-subtitle {
-      font-size: 0.72rem;
-      color: var(--text-dim);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .card-right {
+      padding: 0.65rem 1.4rem;
+      border-radius: var(--radius-full);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      min-width: fit-content;
     }
 
-    .card-fav-btn {
-      background: none;
-      border: none;
-      color: var(--text-dim);
-      font-size: 1.15rem;
-      cursor: pointer;
-      padding: 0.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.15s ease;
+    .reezn-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
     }
 
-    .card-fav-btn:hover,
-    .card-fav-btn.is-fav {
-      color: var(--gold);
+    /* Android TV Remote Navigation Focus */
+    :focus-visible {
+      outline: 3px solid var(--brand-red) !important;
+      outline-offset: 3px;
+      box-shadow: 0 0 25px var(--brand-red-glow) !important;
     }
 
-    .empty-state {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem 1rem;
-      text-align: center;
-      gap: 0.75rem;
-      color: var(--text-dim);
-    }
-
-    .empty-state i {
-      font-size: 2.5rem;
-    }
-
-    /* Mobile Responsive */
+    /* Mobile Adaptations */
     @media (max-width: 900px) {
-      .app-layout {
+      .reezn-header {
+        padding: 0.75rem 1rem;
+      }
+      .nav-tabs {
+        display: none;
+      }
+      .mobile-bottom-dock {
+        display: flex;
+      }
+      .hero-section {
+        height: 60vh;
+        min-height: 400px;
+      }
+      .hero-slide {
+        padding: 0 1.25rem 2rem;
+      }
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      .content-rails {
+        padding: 0 1rem 1rem;
+        gap: 1.75rem;
+      }
+      .livetv-layout {
         grid-template-columns: 1fr;
         height: auto;
-        overflow-y: auto;
       }
-
-      .stage-section {
-        padding: 0.75rem;
-        position: sticky;
-        top: 61px;
-        z-index: 50;
-        background: var(--bg-darkest);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-      }
-
-      .catalog-section {
-        height: auto;
-        border-left: none;
-        border-top: 1px solid var(--border-subtle);
-      }
-
-      .channel-list {
-        max-height: 60vh;
+      .modal-body {
+        padding: 1.25rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Navigation Bar -->
-  <header>
-    <a href="/" class="brand">
-      <div class="brand-logo">
-        <i class="ph-bold ph-lightning"></i>
+  <!-- Reezn Top Navigation Header -->
+  <header class="reezn-header">
+    <div class="header-left">
+      <div class="reezn-logo" id="logo-home-btn">
+        Reezn
       </div>
-      <div>
-        <span class="brand-title">NOVA STREAM</span>
-      </div>
-      <span class="brand-tag">PRO</span>
-    </a>
 
-    <div class="header-actions">
-      <div class="stat-badge">
-        <span class="pulse-dot"></span>
-        <span id="channel-count-badge">79 LIVE</span>
+      <nav class="nav-tabs">
+        <button class="nav-tab-btn active" data-tab="home">Home</button>
+        <button class="nav-tab-btn" data-tab="movies">Movies</button>
+        <button class="nav-tab-btn" data-tab="series">TV Shows</button>
+        <button class="nav-tab-btn" data-tab="livetv">Live TV</button>
+        <button class="nav-tab-btn" data-tab="mylist">My List</button>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <button class="header-btn" id="open-search-btn" title="Search Movies, Series & Channels">
+        <i class="ph ph-magnifying-glass"></i>
+      </button>
+
+      <button class="header-btn" id="header-livetv-shortcut" title="Live Football & Sports">
+        <i class="ph-bold ph-broadcast" style="color: #ef4444;"></i>
+      </button>
+
+      <div class="header-user-avatar" title="Reezn Profile">
+        R
       </div>
     </div>
   </header>
 
-  <!-- Main App Layout -->
-  <div class="app-layout">
+  <!-- Main Viewport -->
+  <div class="main-viewport">
     
-    <!-- Left Stage: Video Player & Controls -->
-    <main class="stage-section">
+    <!-- 1. HOME TAB VIEW -->
+    <div id="view-home" class="view-tab-content">
       
-      <!-- Video Player Viewport -->
-      <div class="player-card" id="player-container">
-        <div class="player-aspect">
-          
-          <!-- Direct HLS Native/JS Player -->
-          <video 
-            id="hls-video" 
-            class="player-element" 
-            controls 
-            playsinline 
-            autoplay 
-            style="display: none;">
-          </video>
+      <!-- Featured Hero Carousel (Matches Screenshot 2) -->
+      <section class="hero-section" id="hero-slider">
+        <!-- Rendered by JS -->
+      </section>
 
-          <!-- Iframe Embed Stream Player -->
-          <iframe 
-            id="embed-frame" 
-            class="player-element" 
-            allow="autoplay; fullscreen; encrypted-media; picture-in-picture" 
-            allowfullscreen 
-            sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
-            style="display: block;">
-          </iframe>
+      <!-- Content Rails -->
+      <div class="content-rails">
+        
+        <!-- Continue Watching Rail (Screenshot 2) -->
+        <section class="rail-section" id="rail-continue-watching">
+          <div class="rail-header">
+            <h3 class="rail-title">Continue Watching <i class="ph ph-caret-right"></i></h3>
+          </div>
+          <div class="rail-scroll" id="scroll-continue-watching">
+            <!-- Rendered by JS -->
+          </div>
+        </section>
 
-          <!-- Loading State Overlay -->
-          <div id="player-loader" class="player-loading-overlay">
-            <div class="spinner"></div>
-            <p style="font-size: 0.85rem; font-weight: 600; color: #94a3b8;">Connecting to live feed...</p>
+        <!-- Trending Movies Rail -->
+        <section class="rail-section">
+          <div class="rail-header">
+            <h3 class="rail-title" data-nav-target="movies">Trending Movies <i class="ph ph-caret-right"></i></h3>
+          </div>
+          <div class="rail-scroll" id="scroll-trending-movies">
+            <!-- Rendered by JS -->
+          </div>
+        </section>
+
+        <!-- Popular TV Shows Rail -->
+        <section class="rail-section">
+          <div class="rail-header">
+            <h3 class="rail-title" data-nav-target="series">Popular TV Shows <i class="ph ph-caret-right"></i></h3>
+          </div>
+          <div class="rail-scroll" id="scroll-popular-shows">
+            <!-- Rendered by JS -->
+          </div>
+        </section>
+
+        <!-- Live Sports & Matches (79 Curated Channels) -->
+        <section class="rail-section">
+          <div class="rail-header">
+            <h3 class="rail-title" data-nav-target="livetv">
+              <span style="color: #ef4444; display: flex; align-items:center; gap:0.4rem;">
+                <span class="live-pulse"></span> LIVE
+              </span> 
+              Sports & Feature Matches <i class="ph ph-caret-right"></i>
+            </h3>
+          </div>
+          <div class="rail-scroll" id="scroll-live-sports">
+            <!-- Rendered by JS -->
+          </div>
+        </section>
+
+        <!-- Top 10 Today Rail (Numbered) -->
+        <section class="rail-section">
+          <div class="rail-header">
+            <h3 class="rail-title">Top 10 Today <i class="ph ph-caret-right"></i></h3>
+          </div>
+          <div class="rail-scroll" id="scroll-top-ten">
+            <!-- Rendered by JS -->
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- 2. MOVIES TAB VIEW -->
+    <div id="view-movies" class="view-container">
+      <div class="view-header">
+        <h2 class="view-title">Movies</h2>
+        <div class="filter-chips-row" id="movie-genre-filters">
+          <button class="filter-chip active" data-genre="ALL">All Genres</button>
+          <button class="filter-chip" data-genre="Action">Action</button>
+          <button class="filter-chip" data-genre="Sci-Fi">Sci-Fi</button>
+          <button class="filter-chip" data-genre="Drama">Drama</button>
+          <button class="filter-chip" data-genre="Adventure">Adventure</button>
+          <button class="filter-chip" data-genre="Crime">Crime</button>
+        </div>
+      </div>
+      <div class="media-grid" id="movies-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- 3. TV SHOWS TAB VIEW -->
+    <div id="view-series" class="view-container">
+      <div class="view-header">
+        <h2 class="view-title">TV Series</h2>
+        <div class="filter-chips-row" id="series-genre-filters">
+          <button class="filter-chip active" data-genre="ALL">All Series</button>
+          <button class="filter-chip" data-genre="Crime">Crime</button>
+          <button class="filter-chip" data-genre="Drama">Drama</button>
+          <button class="filter-chip" data-genre="Mystery">Mystery</button>
+          <button class="filter-chip" data-genre="Fantasy">Fantasy</button>
+          <button class="filter-chip" data-genre="Sci-Fi">Sci-Fi</button>
+        </div>
+      </div>
+      <div class="media-grid" id="series-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- 4. LIVE TV TAB VIEW (79 Channels) -->
+    <div id="view-livetv" class="view-container">
+      <div class="view-header">
+        <h2 class="view-title">
+          <span style="color: #ef4444;">●</span> Live TV Feeds
+        </h2>
+        <div class="filter-chips-row" id="livetv-category-filters">
+          <button class="filter-chip active" data-cat="Top 10 Matches">Top 10 Matches</button>
+          <button class="filter-chip" data-cat="ALL">All 79 Channels</button>
+          <button class="filter-chip" data-cat="Premier Sports">Premier Sports</button>
+          <button class="filter-chip" data-cat="Football Feeds">Football Feeds</button>
+          <button class="filter-chip" data-cat="Combat & Racing">Combat & Racing</button>
+          <button class="filter-chip" data-cat="US Leagues">US Leagues</button>
+          <button class="filter-chip" data-cat="24/7 News">24/7 News</button>
+          <button class="filter-chip" data-cat="Docs & Cinema">Docs & Cinema</button>
+        </div>
+      </div>
+
+      <div class="livetv-layout">
+        <!-- Left: Active Stream Player -->
+        <div class="livetv-player-pane">
+          <div style="position:relative; width:100%; padding-top:56.25%; background:#000; border-radius:12px; overflow:hidden; border:1px solid #222;">
+            <video id="livetv-hls-player" class="player-video-element" controls playsinline autoplay style="position:absolute; top:0; left:0; width:100%; height:100%; display:none;"></video>
+            <iframe id="livetv-embed-frame" class="player-embed-frame" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
           </div>
 
-        </div>
-      </div>
-
-      <!-- Current Playing Metadata Bar -->
-      <div class="stream-meta-bar">
-        <div class="stream-details">
-          <div class="stream-title-row">
-            <span id="now-playing-title" class="stream-channel-name">SuperSport Premier League</span>
-            <span id="now-playing-network" class="badge badge-network">SuperSport</span>
-            <span id="now-playing-quality" class="badge badge-quality">4K</span>
-            <span class="badge badge-live">LIVE</span>
-          </div>
-          <div id="now-playing-subtitle" class="stream-subtitle">
-            <i class="ph ph-broadcast"></i>
-            <span>Premier League Live • Feature Match</span>
+          <div style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px; padding:1rem 1.25rem; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="display:flex; align-items:center; gap:0.6rem;">
+                <h3 id="livetv-now-title" style="font-family:var(--font-display); font-size:1.25rem;">SuperSport Premier League</h3>
+                <span id="livetv-now-quality" class="hero-pill hero-pill-gold">4K</span>
+                <span class="hero-pill hero-pill-red">LIVE</span>
+              </div>
+              <p id="livetv-now-sub" style="font-size:0.85rem; color:var(--text-gray); margin-top:0.25rem;">Premier League Live • Feature Match</p>
+            </div>
+            <div style="display:flex; gap:0.5rem;">
+              <button id="livetv-reload-btn" class="header-btn" title="Reload Stream"><i class="ph-bold ph-arrows-clockwise"></i></button>
+              <button id="livetv-fullscreen-btn" class="header-btn" title="Fullscreen"><i class="ph-bold ph-corners-out"></i></button>
+            </div>
           </div>
         </div>
 
-        <div class="stream-actions">
-          <button id="btn-reload" class="btn-icon" title="Reload Stream">
-            <i class="ph-bold ph-arrows-clockwise"></i>
-          </button>
-          <button id="btn-theater" class="btn-icon" title="Toggle Fullscreen">
-            <i class="ph-bold ph-corners-out"></i>
-          </button>
-          <button id="btn-favorite" class="btn-icon" title="Save Favorite">
-            <i class="ph-bold ph-star"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- Matchday Spotlight Banner -->
-      <div class="top-picks-banner">
-        <div class="top-picks-info">
-          <i class="ph-fill ph-trophy top-picks-icon"></i>
-          <div class="top-picks-text">
-            <h4>Football Matchday Feeds Active</h4>
-            <p>SuperSport, Sky Sports, TNT, and beIN feeds are tuned to the best European football matches.</p>
+        <!-- Right: Channel Selector -->
+        <div class="livetv-sidebar">
+          <div class="livetv-sidebar-search">
+            <i class="ph ph-magnifying-glass" style="color:var(--text-muted);"></i>
+            <input type="text" id="livetv-search-input" class="livetv-search-input" placeholder="Search channels..." />
+          </div>
+          <div class="livetv-channel-list" id="livetv-channel-list">
+            <!-- Rendered by JS -->
           </div>
         </div>
       </div>
+    </div>
 
-    </main>
-
-    <!-- Right Drawer: Channel Catalog -->
-    <aside class="catalog-section">
-      
-      <!-- Search & Filters -->
-      <div class="search-box-wrap">
-        <div class="search-input-group">
-          <i class="ph ph-magnifying-glass"></i>
-          <input 
-            type="text" 
-            id="channel-search" 
-            class="search-input" 
-            placeholder="Search channels, leagues, networks..." 
-            autocomplete="off"
-          />
-          <button id="clear-search" class="clear-search-btn">
-            <i class="ph-bold ph-x"></i>
-          </button>
-        </div>
-
-        <!-- Category Horizontal Tabs -->
-        <div class="category-scroll" id="category-tabs">
-          <button class="cat-chip active" data-category="Top 10 Matches">
-            <i class="ph-fill ph-star" style="color:#f59e0b;"></i> Top 10 Matches
-          </button>
-          <button class="cat-chip" data-category="ALL">All Channels</button>
-          <button class="cat-chip" data-category="Premier Sports">Premier Sports</button>
-          <button class="cat-chip" data-category="Football Feeds">Football Feeds</button>
-          <button class="cat-chip" data-category="Combat & Racing">Combat & Racing</button>
-          <button class="cat-chip" data-category="US Leagues">US Leagues</button>
-          <button class="cat-chip" data-category="24/7 News">24/7 News</button>
-          <button class="cat-chip" data-category="Docs & Cinema">Docs & Cinema</button>
-          <button class="cat-chip" data-category="Favorites">
-            <i class="ph-fill ph-heart" style="color:#ef4444;"></i> Favorites
-          </button>
-        </div>
+    <!-- 5. MY LIST TAB VIEW -->
+    <div id="view-mylist" class="view-container">
+      <div class="view-header">
+        <h2 class="view-title">My List</h2>
+        <span id="mylist-count" style="color:var(--text-muted); font-size:0.9rem;">0 Saved Titles</span>
       </div>
-
-      <!-- Channel List Items -->
-      <div class="channel-list" id="channel-container">
-        <!-- Rendered via JavaScript -->
+      <div class="media-grid" id="mylist-grid">
+        <!-- Rendered by JS -->
       </div>
-
-    </aside>
+    </div>
 
   </div>
 
+  <!-- Reezn Media Details Modal (Replicating Screenshot 3 Directly!) -->
+  <div class="details-modal" id="details-modal">
+    <div class="details-card">
+      <button class="modal-close-btn" id="modal-close-btn">
+        <i class="ph-bold ph-x"></i>
+      </button>
+
+      <!-- Video / Backdrop Header -->
+      <div class="modal-hero-aspect">
+        <img id="modal-hero-img" class="modal-hero-img" src="" alt="Backdrop" />
+        <div class="modal-hero-gradient"></div>
+      </div>
+
+      <div class="modal-body">
+        
+        <!-- Header: Thumbnail + Title + Badges (Screenshot 3) -->
+        <div class="details-meta-header">
+          <img id="modal-thumb-img" class="details-thumb-img" src="" alt="Thumbnail" />
+          <div class="details-header-text">
+            <h2 id="modal-title" class="details-title">Dexter: Resurrection</h2>
+            <span id="modal-subtitle" class="details-subtitle">Season 1 Episode 1</span>
+            
+            <div class="details-badges-row">
+              <span id="modal-badge-year" class="details-pill">2025</span>
+              <span id="modal-badge-rating" class="details-pill details-pill-rating">★ 8.5</span>
+              <span id="modal-badge-genre" class="details-pill">Crime</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Bar (Screenshot 3: My List, Trailer, Download) -->
+        <div class="details-action-bar">
+          <button class="details-action-btn" id="modal-play-btn" style="color:var(--brand-red);">
+            <i class="ph-fill ph-play-circle"></i>
+            <span>Play Now</span>
+          </button>
+          <button class="details-action-btn" id="modal-fav-btn">
+            <i class="ph ph-plus" id="modal-fav-icon"></i>
+            <span id="modal-fav-label">My List</span>
+          </button>
+          <button class="details-action-btn" id="modal-trailer-btn">
+            <i class="ph ph-megaphone-simple"></i>
+            <span>Trailer</span>
+          </button>
+          <button class="details-action-btn" id="modal-download-btn">
+            <i class="ph ph-download-simple"></i>
+            <span>Download</span>
+          </button>
+        </div>
+
+        <!-- Story Section -->
+        <div>
+          <h4 class="details-section-title">Story</h4>
+          <p id="modal-story" class="details-story-text">
+            Set 10 weeks after Dexter: New Blood, Dexter Morgan chases a missing Harrison to New York City...
+          </p>
+        </div>
+
+        <!-- Cast Row (Screenshot 3: Circular Avatars) -->
+        <div>
+          <h4 class="details-section-title">Cast</h4>
+          <div class="details-cast-row" id="modal-cast-row">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Episodes Row (If Series) -->
+        <div id="modal-episodes-section" style="display:none;">
+          <h4 class="details-section-title">Episodes</h4>
+          <div class="episodes-list" id="modal-episodes-list">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Reezn Search View (Replicating Screenshot 1 Directly!) -->
+  <div class="search-view" id="search-view">
+    
+    <!-- Top Search Bar (Screenshot 1) -->
+    <div class="search-top-bar">
+      <button class="search-back-btn" id="search-close-btn" title="Back">
+        <i class="ph-bold ph-caret-left"></i>
+      </button>
+
+      <div class="search-input-pill">
+        <i class="ph ph-magnifying-glass"></i>
+        <input 
+          type="text" 
+          id="main-search-input" 
+          class="main-search-input" 
+          placeholder="Dexter: Resurrection"
+          autocomplete="off"
+        />
+        <button class="search-clear-btn" id="search-clear-btn">
+          <i class="ph-bold ph-x"></i>
+        </button>
+      </div>
+
+      <button class="header-btn" title="Filters">
+        <i class="ph ph-funnel"></i>
+      </button>
+    </div>
+
+    <!-- Category Tabs Below Search (Screenshot 1: Movies, TV Shows, Live TV) -->
+    <div class="search-subtabs">
+      <button class="search-subtab-btn active" data-search-cat="ALL">All</button>
+      <button class="search-subtab-btn" data-search-cat="movies">Movies</button>
+      <button class="search-subtab-btn" data-search-cat="series">TV Shows</button>
+      <button class="search-subtab-btn" data-search-cat="livetv">Live TV</button>
+    </div>
+
+    <!-- Search Results / Empty State -->
+    <div style="flex:1; padding:1.5rem;" id="search-results-area">
+      <!-- Empty state or results rendered via JS -->
+    </div>
+  </div>
+
+  <!-- Global Video Player Modal -->
+  <div class="player-modal" id="global-player-modal">
+    <div class="player-viewport">
+      
+      <!-- Video Element -->
+      <video id="global-video-element" class="player-video-element" playsinline></video>
+      <iframe id="global-embed-frame" class="player-embed-frame" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen style="display:none;"></iframe>
+
+      <!-- Player Controls Overlay -->
+      <div class="player-controls-overlay" id="player-controls">
+        
+        <!-- Top Bar -->
+        <div class="player-top-bar">
+          <div class="player-title-box">
+            <button class="player-back-btn" id="player-close-btn">
+              <i class="ph-bold ph-arrow-left"></i>
+            </button>
+            <div>
+              <div id="player-title-text" class="player-title">Title</div>
+              <div id="player-subtitle-text" style="font-size:0.8rem; color:#a3a3a3;">Subtitle</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:0.5rem;">
+            <span class="hero-pill hero-pill-red" id="player-quality-pill">4K UHD</span>
+          </div>
+        </div>
+
+        <!-- Center Play/Pause Indicator -->
+        <div style="display:flex; justify-content:center; align-items:center;">
+          <button id="player-center-play-btn" class="header-btn" style="width:72px; height:72px; font-size:2.5rem; background:rgba(0,0,0,0.6);">
+            <i class="ph-fill ph-play" id="center-play-icon"></i>
+          </button>
+        </div>
+
+        <!-- Bottom Controls -->
+        <div class="player-bottom-bar">
+          
+          <div class="player-seek-container">
+            <input type="range" id="player-seek-bar" class="player-seek-bar" min="0" max="100" value="0" />
+          </div>
+
+          <div class="player-button-row">
+            <div class="player-btn-group-left">
+              <button class="player-ctrl-btn" id="ctrl-play-btn"><i class="ph-fill ph-play" id="ctrl-play-icon"></i></button>
+              <button class="player-ctrl-btn" id="ctrl-rewind-btn"><i class="ph-bold ph-skip-back"></i></button>
+              <button class="player-ctrl-btn" id="ctrl-forward-btn"><i class="ph-bold ph-skip-forward"></i></button>
+              <div style="font-size:0.85rem; font-weight:600; color:#d4d4d4;" id="player-time-display">00:00 / 00:00</div>
+            </div>
+
+            <div class="player-btn-group-right">
+              <button class="player-ctrl-btn" id="ctrl-server-btn" title="Change Streaming Server">
+                <i class="ph ph-hard-drives"></i>
+              </button>
+              <button class="player-ctrl-btn" id="ctrl-pip-btn" title="Picture in Picture"><i class="ph ph-picture-in-picture"></i></button>
+              <button class="player-ctrl-btn" id="ctrl-fullscreen-btn" title="Fullscreen"><i class="ph-bold ph-corners-out"></i></button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Dock (Screenshot 2) -->
+  <nav class="mobile-bottom-dock">
+    <div class="dock-tab active" data-tab="home">
+      <i class="ph-fill ph-house"></i>
+      <span>Home</span>
+    </div>
+    <div class="dock-tab" data-tab="livetv">
+      <i class="ph-bold ph-television"></i>
+      <span>Live TV</span>
+    </div>
+    <div class="dock-tab" data-tab="movies">
+      <i class="ph-bold ph-film-slate"></i>
+      <span>Movies</span>
+    </div>
+    <div class="dock-tab" data-tab="mylist">
+      <i class="ph-bold ph-bookmark-simple"></i>
+      <span>My List</span>
+    </div>
+    <div class="dock-tab" id="dock-search-btn">
+      <i class="ph-bold ph-magnifying-glass"></i>
+      <span>Search</span>
+    </div>
+  </nav>
+
+  <!-- Toast Notification -->
+  <div class="reezn-toast" id="reezn-toast">
+    <i class="ph-fill ph-check-circle" style="color:var(--brand-red);"></i>
+    <span id="toast-message">Added to My List</span>
+  </div>
+
+  <!-- Reezn Application Logic -->
   <script>
-    // Channel Data
-    const CHANNELS = [
-  {
-    "id": "ss_prem",
-    "name": "SuperSport Premier League",
-    "network": "SuperSport",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/supersport-premier-league-stream-1/embed/",
-    "eventSubtitle": "Premier League Live \u2022 Feature Match",
-    "qualityBadge": "4K",
-    "isTopTen": true
-  },
-  {
-    "id": "sky_prem",
-    "name": "Sky Sports Premier League",
-    "network": "Sky Sports",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/sky-sports-premier-league-stream-1/embed/",
-    "eventSubtitle": "Super Sunday & EPL 24/7 Matchday",
-    "qualityBadge": "FHD",
-    "isTopTen": true
-  },
-  {
-    "id": "sky_main",
-    "name": "Sky Sports Main Event",
-    "network": "Sky Sports",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/sky-sports-main-event-stream-1/embed/",
-    "eventSubtitle": "Flagship Matchday & Big Events",
-    "qualityBadge": "FHD",
-    "isTopTen": true
-  },
-  {
-    "id": "tnt_1",
-    "name": "TNT Sports 1",
-    "network": "TNT Sports",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/tnt-sports-1-stream-1/embed/",
-    "eventSubtitle": "UEFA Champions League & EPL Live",
-    "qualityBadge": "FHD",
-    "isTopTen": true
-  },
-  {
-    "id": "tnt_2",
-    "name": "TNT Sports 2",
-    "network": "TNT Sports",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/tnt-sports-2-stream-1/embed/",
-    "eventSubtitle": "UEFA Europa League & Serie A",
-    "qualityBadge": "HD",
-    "isTopTen": true
-  },
-  {
-    "id": "bein_1",
-    "name": "beIN Sports 1 English",
-    "network": "beIN Sports",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/bein-sports-1-stream-1/embed/",
-    "eventSubtitle": "Premier League & UCL Prime Feed",
-    "qualityBadge": "FHD",
-    "isTopTen": true
-  },
-  {
-    "id": "bein_2",
-    "name": "beIN Sports 2 English",
-    "network": "beIN Sports",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/bein-sports-2-stream-1/embed/",
-    "eventSubtitle": "La Liga & Ligue 1 Live Action",
-    "qualityBadge": "HD",
-    "isTopTen": true
-  },
-  {
-    "id": "ss_foot",
-    "name": "SuperSport Football",
-    "network": "SuperSport",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/supersport-football-stream-1/embed/",
-    "eventSubtitle": "Serie A, AFCON & European Cup Ties",
-    "qualityBadge": "FHD",
-    "isTopTen": true
-  },
-  {
-    "id": "cbs_golazo",
-    "name": "CBS Sports Golazo",
-    "network": "CBS Sports",
-    "group": "Football Feeds",
-    "url": "https://dai.google.com/linear/hls/event/7f3Wv6f7QEKfQna22jHqLQ/master.m3u8",
-    "eventSubtitle": "24/7 Football & UEFA Champions League",
-    "qualityBadge": "1080p",
-    "isTopTen": true
-  },
-  {
-    "id": "tv_varzesh",
-    "name": "TV Varzesh",
-    "network": "Varzesh",
-    "group": "Football Feeds",
-    "url": "https://live.telewebion.com/varzesh/live.m3u8",
-    "eventSubtitle": "World Football & International Tournaments",
-    "qualityBadge": "HD",
-    "isTopTen": true
-  },
-  {
-    "id": "espn_usa",
-    "name": "ESPN USA",
-    "network": "ESPN",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/espn-stream-1/embed/",
-    "eventSubtitle": "Live Sports Center, La Liga & MLS",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "espn_2",
-    "name": "ESPN 2",
-    "network": "ESPN",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/espn-2-stream-1/embed/",
-    "eventSubtitle": "FA Cup, Bundesliga & Top Football",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "dazn_1",
-    "name": "DAZN 1 HD",
-    "network": "DAZN",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/dazn-1-stream-1/embed/",
-    "eventSubtitle": "Serie A, La Liga & Boxing Matchday",
-    "qualityBadge": "1080p",
-    "isTopTen": false
-  },
-  {
-    "id": "dazn_2",
-    "name": "DAZN 2 HD",
-    "network": "DAZN",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/dazn-2-stream-1/embed/",
-    "eventSubtitle": "Champions League & Global Combat",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "eurosport_1",
-    "name": "Eurosport 1 HD",
-    "network": "Eurosport",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/eurosport-1-stream-1/embed/",
-    "eventSubtitle": "Tennis Grand Slams & World Championship",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "eurosport_2",
-    "name": "Eurosport 2 HD",
-    "network": "Eurosport",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/eurosport-2-stream-1/embed/",
-    "eventSubtitle": "Cycling, Winter Sports & Live Feeds",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "canal_sport",
-    "name": "Canal+ Sport 1",
-    "network": "Canal+",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/canal-sport-stream-1/embed/",
-    "eventSubtitle": "Premier League, Ligue 1 & Top Rugby",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "movistar_laliga",
-    "name": "Movistar LaLiga",
-    "network": "Movistar",
-    "group": "Football Feeds",
-    "url": "https://embedsports.me/movistar-laliga-stream-1/embed/",
-    "eventSubtitle": "Spanish La Liga Live Broadcasts",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "movistar_ucl",
-    "name": "Movistar Liga de Campeones",
-    "network": "Movistar",
-    "group": "Football Feeds",
-    "url": "https://embedsports.me/movistar-liga-de-campeones-stream-1/embed/",
-    "eventSubtitle": "UEFA Champions League & Europa Live",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "rmc_sport",
-    "name": "RMC Sport 1",
-    "network": "RMC",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/rmc-sport-1-stream-1/embed/",
-    "eventSubtitle": "UFC, European Football & Kickboxing",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "astro_ss1",
-    "name": "Astro SuperSport 1",
-    "network": "Astro",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/astro-supersport-1-stream-1/embed/",
-    "eventSubtitle": "Premier League HD Multi-Camera",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "astro_ss2",
-    "name": "Astro SuperSport 2",
-    "network": "Astro",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/astro-supersport-2-stream-1/embed/",
-    "eventSubtitle": "La Liga, Cup Matches & Asian Football",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "optus_sport",
-    "name": "Optus Sport 1",
-    "network": "Optus",
-    "group": "Football Feeds",
-    "url": "https://embedsports.me/optus-sport-1-stream-1/embed/",
-    "eventSubtitle": "Premier League, WSL & International Football",
-    "qualityBadge": "1080p",
-    "isTopTen": false
-  },
-  {
-    "id": "sony_ten1",
-    "name": "Sony Sports Ten 1",
-    "network": "Sony",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/sony-ten-1-stream-1/embed/",
-    "eventSubtitle": "UEFA Champions League, WWE & Tennis",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "sony_ten2",
-    "name": "Sony Sports Ten 2",
-    "network": "Sony",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/sony-ten-2-stream-1/embed/",
-    "eventSubtitle": "European Football Leagues & Athletics",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "tyc_sports",
-    "name": "TyC Sports",
-    "network": "TyC",
-    "group": "Football Feeds",
-    "url": "https://embedsports.me/tyc-sports-stream-1/embed/",
-    "eventSubtitle": "Argentine Primera, Copa & South America",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "gol_play",
-    "name": "Gol Play",
-    "network": "Gol",
-    "group": "Football Feeds",
-    "url": "https://embedsports.me/gol-play-stream-1/embed/",
-    "eventSubtitle": "Free Live Football & Highlights",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "polsat_sport",
-    "name": "Polsat Sport 1",
-    "network": "Polsat",
-    "group": "Premier Sports",
-    "url": "https://embedsports.me/polsat-sport-1-stream-1/embed/",
-    "eventSubtitle": "European Football & Volleyball Nations",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "ss_grandstand",
-    "name": "SuperSport Grandstand",
-    "network": "SuperSport",
-    "group": "SuperSport",
-    "url": "https://embedsports.me/supersport-grandstand-stream-1/embed/",
-    "eventSubtitle": "Premier Stadium Broadcast & Big Clashes",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "ss_var1",
-    "name": "SuperSport Variety 1",
-    "network": "SuperSport",
-    "group": "SuperSport",
-    "url": "https://embedsports.me/supersport-variety-1-stream-1/embed/",
-    "eventSubtitle": "Multi-League Football & Rugby Union",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "ss_var2",
-    "name": "SuperSport Variety 2",
-    "network": "SuperSport",
-    "group": "SuperSport",
-    "url": "https://embedsports.me/supersport-variety-2-stream-1/embed/",
-    "eventSubtitle": "European Football Matches & Athletics",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "ss_var3",
-    "name": "SuperSport Variety 3",
-    "network": "SuperSport",
-    "group": "SuperSport",
-    "url": "https://embedsports.me/supersport-variety-3-stream-1/embed/",
-    "eventSubtitle": "Athletics, Boxing & Live Racing",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "ss_var4",
-    "name": "SuperSport Variety 4",
-    "network": "SuperSport",
-    "group": "SuperSport",
-    "url": "https://embedsports.me/supersport-variety-4-stream-1/embed/",
-    "eventSubtitle": "Tennis Grand Slam, Golf & Action Sports",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "ss_action",
-    "name": "SuperSport Action",
-    "network": "SuperSport",
-    "group": "SuperSport",
-    "url": "https://embedsports.me/supersport-action-stream-1/embed/",
-    "eventSubtitle": "Extreme Sports, MMA & High Octane Action",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "sky_foot",
-    "name": "Sky Sports Football",
-    "network": "Sky Sports",
-    "group": "Sky Sports",
-    "url": "https://embedsports.me/sky-sports-football-stream-1/embed/",
-    "eventSubtitle": "EFL, SPFL, Bundesliga Live Matches",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "sky_arena",
-    "name": "Sky Sports Arena",
-    "network": "Sky Sports",
-    "group": "Sky Sports",
-    "url": "https://embedsports.me/sky-sports-arena-stream-1/embed/",
-    "eventSubtitle": "Boxing World Titles, Darts & Rugby",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "sky_action",
-    "name": "Sky Sports Action",
-    "network": "Sky Sports",
-    "group": "Sky Sports",
-    "url": "https://embedsports.me/sky-sports-action-stream-1/embed/",
-    "eventSubtitle": "NFL Sunday Night, Athletics & Tennis",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "sky_1",
-    "name": "Sky Sports 1",
-    "network": "Sky Sports",
-    "group": "Sky Sports",
-    "url": "https://embedsports.me/sky-sports-1-stream-1/embed/",
-    "eventSubtitle": "Live Sky Event Broadcast 1",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "sky_2",
-    "name": "Sky Sports 2",
-    "network": "Sky Sports",
-    "group": "Sky Sports",
-    "url": "https://embedsports.me/sky-sports-2-stream-1/embed/",
-    "eventSubtitle": "Live Sky Event Broadcast 2",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "sky_3",
-    "name": "Sky Sports 3",
-    "network": "Sky Sports",
-    "group": "Sky Sports",
-    "url": "https://embedsports.me/sky-sports-3-stream-1/embed/",
-    "eventSubtitle": "Live Sky Event Broadcast 3",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "sky_4",
-    "name": "Sky Sports 4",
-    "network": "Sky Sports",
-    "group": "Sky Sports",
-    "url": "https://embedsports.me/sky-sports-4-stream-1/embed/",
-    "eventSubtitle": "Live Sky Event Broadcast 4",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "tnt_3",
-    "name": "TNT Sports 3",
-    "network": "TNT Sports",
-    "group": "TNT Sports",
-    "url": "https://embedsports.me/tnt-sports-3-stream-1/embed/",
-    "eventSubtitle": "MotoGP, Boxing & Football Highlights",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "tnt_4",
-    "name": "TNT Sports 4",
-    "network": "TNT Sports",
-    "group": "TNT Sports",
-    "url": "https://embedsports.me/tnt-sports-4-stream-1/embed/",
-    "eventSubtitle": "Rugby Premiership, UFC & Live Sports",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "tnt_ultimate",
-    "name": "TNT Sports Ultimate",
-    "network": "TNT Sports",
-    "group": "TNT Sports",
-    "url": "https://embedsports.me/tnt-sports-ultimate-stream-1/embed/",
-    "eventSubtitle": "Ultra HD 4K HDR Sports Broadcast",
-    "qualityBadge": "4K",
-    "isTopTen": false
-  },
-  {
-    "id": "bein_3",
-    "name": "beIN Sports 3 English",
-    "network": "beIN Sports",
-    "group": "beIN Sports",
-    "url": "https://embedsports.me/bein-sports-3-stream-1/embed/",
-    "eventSubtitle": "Bundesliga & International Football",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "bein_4",
-    "name": "beIN Sports 4 English",
-    "network": "beIN Sports",
-    "group": "beIN Sports",
-    "url": "https://embedsports.me/bein-sports-4-stream-1/embed/",
-    "eventSubtitle": "French Ligue 1 & World Tournaments",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "bein_xtra",
-    "name": "beIN Sports XTRA",
-    "network": "beIN Sports",
-    "group": "beIN Sports",
-    "url": "https://beinsportsxtra-linear.amagi.tv/playlist.m3u8",
-    "eventSubtitle": "Live Free Sports & Highlights",
-    "qualityBadge": "720p",
-    "isTopTen": false
-  },
-  {
-    "id": "sky_f1",
-    "name": "Sky Sports F1 HD",
-    "network": "Sky Sports",
-    "group": "Combat & Racing",
-    "url": "https://embedsports.me/sky-sports-f1-stream-1/embed/",
-    "eventSubtitle": "Formula 1 Practice, Quali & Grand Prix",
-    "qualityBadge": "4K",
-    "isTopTen": false
-  },
-  {
-    "id": "f1_live",
-    "name": "Formula 1 World Feed",
-    "network": "F1",
-    "group": "Combat & Racing",
-    "url": "https://embedsports.me/f1-live-stream-1/embed/",
-    "eventSubtitle": "Pit Lane & On-board Camera Feeds",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "ufc_live",
-    "name": "UFC Fight Pass Live",
-    "network": "UFC",
-    "group": "Combat & Racing",
-    "url": "https://embedsports.me/ufc-fight-pass-stream-1/embed/",
-    "eventSubtitle": "Championship MMA & Fight Night",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "wwe_net",
-    "name": "WWE Network Live",
-    "network": "WWE",
-    "group": "Combat & Racing",
-    "url": "https://embedsports.me/wwe-network-stream-1/embed/",
-    "eventSubtitle": "RAW, SmackDown & Premium Live Events",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "redbull_tv",
-    "name": "Red Bull TV HD",
-    "network": "Red Bull",
-    "group": "Combat & Racing",
-    "url": "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8",
-    "eventSubtitle": "Extreme Sports, Rally, Biking & Surfing",
-    "qualityBadge": "1080p",
-    "isTopTen": false
-  },
-  {
-    "id": "motortrend",
-    "name": "MotorTrend Network",
-    "network": "MotorTrend",
-    "group": "Combat & Racing",
-    "url": "https://embedsports.me/motortrend-stream-1/embed/",
-    "eventSubtitle": "Supercars, Live Road Racing & Garage",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "fightbox",
-    "name": "FightBox HD",
-    "network": "FightBox",
-    "group": "Combat & Racing",
-    "url": "https://embedsports.me/fightbox-stream-1/embed/",
-    "eventSubtitle": "Kickboxing, Muay Thai & MMA Worldwide",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "nba_tv",
-    "name": "NBA TV 24/7 Live",
-    "network": "NBA",
-    "group": "US Leagues",
-    "url": "https://embedsports.me/nba-tv-stream-1/embed/",
-    "eventSubtitle": "NBA Live Games, Highlights & Analysis",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "nfl_net",
-    "name": "NFL Network Live",
-    "network": "NFL",
-    "group": "US Leagues",
-    "url": "https://embedsports.me/nfl-network-stream-1/embed/",
-    "eventSubtitle": "Thursday Night Football & NFL RedZone",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "mlb_net",
-    "name": "MLB Network",
-    "network": "MLB",
-    "group": "US Leagues",
-    "url": "https://embedsports.me/mlb-network-stream-1/embed/",
-    "eventSubtitle": "Major League Baseball Game of the Day",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "fs1_usa",
-    "name": "Fox Sports 1 (FS1",
-    "network": "Live",
-    "group": "Premier Sports",
-    "url": "",
-    "eventSubtitle": "Live Broadcast",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "fs2_usa",
-    "name": "Fox Sports 2 (FS2",
-    "network": "Live",
-    "group": "Premier Sports",
-    "url": "",
-    "eventSubtitle": "Live Broadcast",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "cbs_net",
-    "name": "CBS Sports Network",
-    "network": "CBS Sports",
-    "group": "US Leagues",
-    "url": "https://embedsports.me/cbs-sports-network-stream-1/embed/",
-    "eventSubtitle": "College Football, NWSL & World League Play",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "tennis_ch",
-    "name": "Tennis Channel HD",
-    "network": "Tennis",
-    "group": "US Leagues",
-    "url": "https://embedsports.me/tennis-channel-stream-1/embed/",
-    "eventSubtitle": "ATP, WTA & Grand Slam Tournament Live",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "golf_ch",
-    "name": "Golf Channel HD",
-    "network": "Golf",
-    "group": "US Leagues",
-    "url": "https://embedsports.me/golf-channel-stream-1/embed/",
-    "eventSubtitle": "PGA Tour, European Tour & The Open Live",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "aljazeera_en",
-    "name": "Al Jazeera English HD",
-    "network": "Al Jazeera",
-    "group": "24/7 News",
-    "url": "https://live-hls-web-aje.getaj.net/AJE/01.m3u8",
-    "eventSubtitle": "Live Global News & In-depth Reporting",
-    "qualityBadge": "1080p",
-    "isTopTen": false
-  },
-  {
-    "id": "skynews_live",
-    "name": "Sky News UK Live",
-    "network": "Sky News",
-    "group": "24/7 News",
-    "url": "https://skynewsau-live.akamaized.net/hls/live/2002689/skynewsau-extra1/master.m3u8",
-    "eventSubtitle": "Breaking News Live Around the Clock",
-    "qualityBadge": "1080p",
-    "isTopTen": false
-  },
-  {
-    "id": "bbc_news",
-    "name": "BBC News HD",
-    "network": "BBC",
-    "group": "24/7 News",
-    "url": "https://embedsports.me/bbc-news-stream-1/embed/",
-    "eventSubtitle": "Trusted World News & Live Reports",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "cnn_intl",
-    "name": "CNN International",
-    "network": "CNN",
-    "group": "24/7 News",
-    "url": "https://embedsports.me/cnn-international-stream-1/embed/",
-    "eventSubtitle": "Global Headlines & Live Coverage",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "bloomberg_tv",
-    "name": "Bloomberg Global TV",
-    "network": "Bloomberg",
-    "group": "24/7 News",
-    "url": "https://liveproduseast.akamaized.net/us/Channel-USTV-AWS-virginia-1/live.m3u8",
-    "eventSubtitle": "Live Stock Markets, Finance & Economics",
-    "qualityBadge": "1080p",
-    "isTopTen": false
-  },
-  {
-    "id": "cnbc_live",
-    "name": "CNBC Live",
-    "network": "CNBC",
-    "group": "24/7 News",
-    "url": "https://embedsports.me/cnbc-stream-1/embed/",
-    "eventSubtitle": "Business News, Wall Street & Tech",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "dw_news",
-    "name": "DW News English",
-    "network": "DW",
-    "group": "24/7 News",
-    "url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8",
-    "eventSubtitle": "European Perspective on World News",
-    "qualityBadge": "1080p",
-    "isTopTen": false
-  },
-  {
-    "id": "france24_en",
-    "name": "France 24 English",
-    "network": "France 24",
-    "group": "24/7 News",
-    "url": "https://static.france24.com/live/F24_EN_LO_HLS/live_tv.m3u8",
-    "eventSubtitle": "International Breaking News Live",
-    "qualityBadge": "720p",
-    "isTopTen": false
-  },
-  {
-    "id": "euronews_en",
-    "name": "Euronews World",
-    "network": "Euronews",
-    "group": "24/7 News",
-    "url": "https://euronews-euronews-world-1-au.samsung.wurl.tv/manifest/playlist.m3u8",
-    "eventSubtitle": "Pan-European News & Analysis",
-    "qualityBadge": "1080p",
-    "isTopTen": false
-  },
-  {
-    "id": "natgeo_wild",
-    "name": "Nat Geo Wild HD",
-    "network": "Nat Geo",
-    "group": "Docs & Cinema",
-    "url": "https://embedsports.me/nat-geo-wild-stream-1/embed/",
-    "eventSubtitle": "Wildlife & Planet Earth Expeditions",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "discovery_sci",
-    "name": "Discovery Science",
-    "network": "Discovery",
-    "group": "Docs & Cinema",
-    "url": "https://embedsports.me/discovery-science-stream-1/embed/",
-    "eventSubtitle": "Exploration, Technology & Science",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "history_ch",
-    "name": "History Channel HD",
-    "network": "History",
-    "group": "Docs & Cinema",
-    "url": "https://embedsports.me/history-channel-stream-1/embed/",
-    "eventSubtitle": "Ancient Civilizations & World History",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "nasa_tv",
-    "name": "NASA TV HD",
-    "network": "NASA",
-    "group": "Docs & Cinema",
-    "url": "https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master.m3u8",
-    "eventSubtitle": "Live Space Station & Rocket Launches",
-    "qualityBadge": "1080p",
-    "isTopTen": false
-  },
-  {
-    "id": "sky_cinema",
-    "name": "Sky Cinema Action",
-    "network": "Sky Cinema",
-    "group": "Docs & Cinema",
-    "url": "https://embedsports.me/sky-cinema-action-stream-1/embed/",
-    "eventSubtitle": "Blockbuster Hollywood Action 24/7",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  },
-  {
-    "id": "hbo_premiere",
-    "name": "HBO Premiere Cinema",
-    "network": "HBO",
-    "group": "Docs & Cinema",
-    "url": "https://embedsports.me/hbo-stream-1/embed/",
-    "eventSubtitle": "Award Winning Feature Films & Series",
-    "qualityBadge": "4K",
-    "isTopTen": false
-  },
-  {
-    "id": "paramount_net",
-    "name": "Paramount Network HD",
-    "network": "Paramount",
-    "group": "Docs & Cinema",
-    "url": "https://embedsports.me/paramount-network-stream-1/embed/",
-    "eventSubtitle": "Hit Dramas, Series & Classic Movies",
-    "qualityBadge": "HD",
-    "isTopTen": false
-  },
-  {
-    "id": "warner_tv",
-    "name": "Warner TV Cinema",
-    "network": "Warner",
-    "group": "Docs & Cinema",
-    "url": "https://embedsports.me/warner-tv-stream-1/embed/",
-    "eventSubtitle": "Warner Bros Premier Movies & Classics",
-    "qualityBadge": "FHD",
-    "isTopTen": false
-  }
-];
+    // Embedded Catalog
+    const CATALOG = {
+  "channels": [
+    {
+      "id": "ss_prem",
+      "name": "SuperSport Premier League",
+      "network": "SuperSport",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/supersport-premier-league-stream-1/embed/",
+      "eventSubtitle": "Premier League Live \u2022 Feature Match",
+      "qualityBadge": "4K",
+      "isTopTen": true
+    },
+    {
+      "id": "sky_prem",
+      "name": "Sky Sports Premier League",
+      "network": "Sky Sports",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/sky-sports-premier-league-stream-1/embed/",
+      "eventSubtitle": "Super Sunday & EPL 24/7 Matchday",
+      "qualityBadge": "FHD",
+      "isTopTen": true
+    },
+    {
+      "id": "sky_main",
+      "name": "Sky Sports Main Event",
+      "network": "Sky Sports",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/sky-sports-main-event-stream-1/embed/",
+      "eventSubtitle": "Flagship Matchday & Big Events",
+      "qualityBadge": "FHD",
+      "isTopTen": true
+    },
+    {
+      "id": "tnt_1",
+      "name": "TNT Sports 1",
+      "network": "TNT Sports",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/tnt-sports-1-stream-1/embed/",
+      "eventSubtitle": "UEFA Champions League & EPL Live",
+      "qualityBadge": "FHD",
+      "isTopTen": true
+    },
+    {
+      "id": "tnt_2",
+      "name": "TNT Sports 2",
+      "network": "TNT Sports",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/tnt-sports-2-stream-1/embed/",
+      "eventSubtitle": "UEFA Europa League & Serie A",
+      "qualityBadge": "HD",
+      "isTopTen": true
+    },
+    {
+      "id": "bein_1",
+      "name": "beIN Sports 1 English",
+      "network": "beIN Sports",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/bein-sports-1-stream-1/embed/",
+      "eventSubtitle": "Premier League & UCL Prime Feed",
+      "qualityBadge": "FHD",
+      "isTopTen": true
+    },
+    {
+      "id": "bein_2",
+      "name": "beIN Sports 2 English",
+      "network": "beIN Sports",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/bein-sports-2-stream-1/embed/",
+      "eventSubtitle": "La Liga & Ligue 1 Live Action",
+      "qualityBadge": "HD",
+      "isTopTen": true
+    },
+    {
+      "id": "ss_foot",
+      "name": "SuperSport Football",
+      "network": "SuperSport",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/supersport-football-stream-1/embed/",
+      "eventSubtitle": "Serie A, AFCON & European Cup Ties",
+      "qualityBadge": "FHD",
+      "isTopTen": true
+    },
+    {
+      "id": "cbs_golazo",
+      "name": "CBS Sports Golazo",
+      "network": "CBS Sports",
+      "group": "Football Feeds",
+      "url": "https://dai.google.com/linear/hls/event/7f3Wv6f7QEKfQna22jHqLQ/master.m3u8",
+      "eventSubtitle": "24/7 Football & UEFA Champions League",
+      "qualityBadge": "1080p",
+      "isTopTen": true
+    },
+    {
+      "id": "tv_varzesh",
+      "name": "TV Varzesh",
+      "network": "Varzesh",
+      "group": "Football Feeds",
+      "url": "https://live.telewebion.com/varzesh/live.m3u8",
+      "eventSubtitle": "World Football & International Tournaments",
+      "qualityBadge": "HD",
+      "isTopTen": true
+    },
+    {
+      "id": "espn_usa",
+      "name": "ESPN USA",
+      "network": "ESPN",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/espn-stream-1/embed/",
+      "eventSubtitle": "Live Sports Center, La Liga & MLS",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "espn_2",
+      "name": "ESPN 2",
+      "network": "ESPN",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/espn-2-stream-1/embed/",
+      "eventSubtitle": "FA Cup, Bundesliga & Top Football",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "dazn_1",
+      "name": "DAZN 1 HD",
+      "network": "DAZN",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/dazn-1-stream-1/embed/",
+      "eventSubtitle": "Serie A, La Liga & Boxing Matchday",
+      "qualityBadge": "1080p",
+      "isTopTen": false
+    },
+    {
+      "id": "dazn_2",
+      "name": "DAZN 2 HD",
+      "network": "DAZN",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/dazn-2-stream-1/embed/",
+      "eventSubtitle": "Champions League & Global Combat",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "eurosport_1",
+      "name": "Eurosport 1 HD",
+      "network": "Eurosport",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/eurosport-1-stream-1/embed/",
+      "eventSubtitle": "Tennis Grand Slams & World Championship",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "eurosport_2",
+      "name": "Eurosport 2 HD",
+      "network": "Eurosport",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/eurosport-2-stream-1/embed/",
+      "eventSubtitle": "Cycling, Winter Sports & Live Feeds",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "canal_sport",
+      "name": "Canal+ Sport 1",
+      "network": "Canal+",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/canal-sport-stream-1/embed/",
+      "eventSubtitle": "Premier League, Ligue 1 & Top Rugby",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "movistar_laliga",
+      "name": "Movistar LaLiga",
+      "network": "Movistar",
+      "group": "Football Feeds",
+      "url": "https://embedsports.me/movistar-laliga-stream-1/embed/",
+      "eventSubtitle": "Spanish La Liga Live Broadcasts",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "movistar_ucl",
+      "name": "Movistar Liga de Campeones",
+      "network": "Movistar",
+      "group": "Football Feeds",
+      "url": "https://embedsports.me/movistar-liga-de-campeones-stream-1/embed/",
+      "eventSubtitle": "UEFA Champions League & Europa Live",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "rmc_sport",
+      "name": "RMC Sport 1",
+      "network": "RMC",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/rmc-sport-1-stream-1/embed/",
+      "eventSubtitle": "UFC, European Football & Kickboxing",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "astro_ss1",
+      "name": "Astro SuperSport 1",
+      "network": "Astro",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/astro-supersport-1-stream-1/embed/",
+      "eventSubtitle": "Premier League HD Multi-Camera",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "astro_ss2",
+      "name": "Astro SuperSport 2",
+      "network": "Astro",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/astro-supersport-2-stream-1/embed/",
+      "eventSubtitle": "La Liga, Cup Matches & Asian Football",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "optus_sport",
+      "name": "Optus Sport 1",
+      "network": "Optus",
+      "group": "Football Feeds",
+      "url": "https://embedsports.me/optus-sport-1-stream-1/embed/",
+      "eventSubtitle": "Premier League, WSL & International Football",
+      "qualityBadge": "1080p",
+      "isTopTen": false
+    },
+    {
+      "id": "sony_ten1",
+      "name": "Sony Sports Ten 1",
+      "network": "Sony",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/sony-ten-1-stream-1/embed/",
+      "eventSubtitle": "UEFA Champions League, WWE & Tennis",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "sony_ten2",
+      "name": "Sony Sports Ten 2",
+      "network": "Sony",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/sony-ten-2-stream-1/embed/",
+      "eventSubtitle": "European Football Leagues & Athletics",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "tyc_sports",
+      "name": "TyC Sports",
+      "network": "TyC",
+      "group": "Football Feeds",
+      "url": "https://embedsports.me/tyc-sports-stream-1/embed/",
+      "eventSubtitle": "Argentine Primera, Copa & South America",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "gol_play",
+      "name": "Gol Play",
+      "network": "Gol",
+      "group": "Football Feeds",
+      "url": "https://embedsports.me/gol-play-stream-1/embed/",
+      "eventSubtitle": "Free Live Football & Highlights",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "polsat_sport",
+      "name": "Polsat Sport 1",
+      "network": "Polsat",
+      "group": "Premier Sports",
+      "url": "https://embedsports.me/polsat-sport-1-stream-1/embed/",
+      "eventSubtitle": "European Football & Volleyball Nations",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "ss_grandstand",
+      "name": "SuperSport Grandstand",
+      "network": "SuperSport",
+      "group": "SuperSport",
+      "url": "https://embedsports.me/supersport-grandstand-stream-1/embed/",
+      "eventSubtitle": "Premier Stadium Broadcast & Big Clashes",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "ss_var1",
+      "name": "SuperSport Variety 1",
+      "network": "SuperSport",
+      "group": "SuperSport",
+      "url": "https://embedsports.me/supersport-variety-1-stream-1/embed/",
+      "eventSubtitle": "Multi-League Football & Rugby Union",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "ss_var2",
+      "name": "SuperSport Variety 2",
+      "network": "SuperSport",
+      "group": "SuperSport",
+      "url": "https://embedsports.me/supersport-variety-2-stream-1/embed/",
+      "eventSubtitle": "European Football Matches & Athletics",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "ss_var3",
+      "name": "SuperSport Variety 3",
+      "network": "SuperSport",
+      "group": "SuperSport",
+      "url": "https://embedsports.me/supersport-variety-3-stream-1/embed/",
+      "eventSubtitle": "Athletics, Boxing & Live Racing",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "ss_var4",
+      "name": "SuperSport Variety 4",
+      "network": "SuperSport",
+      "group": "SuperSport",
+      "url": "https://embedsports.me/supersport-variety-4-stream-1/embed/",
+      "eventSubtitle": "Tennis Grand Slam, Golf & Action Sports",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "ss_action",
+      "name": "SuperSport Action",
+      "network": "SuperSport",
+      "group": "SuperSport",
+      "url": "https://embedsports.me/supersport-action-stream-1/embed/",
+      "eventSubtitle": "Extreme Sports, MMA & High Octane Action",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "sky_foot",
+      "name": "Sky Sports Football",
+      "network": "Sky Sports",
+      "group": "Sky Sports",
+      "url": "https://embedsports.me/sky-sports-football-stream-1/embed/",
+      "eventSubtitle": "EFL, SPFL, Bundesliga Live Matches",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "sky_arena",
+      "name": "Sky Sports Arena",
+      "network": "Sky Sports",
+      "group": "Sky Sports",
+      "url": "https://embedsports.me/sky-sports-arena-stream-1/embed/",
+      "eventSubtitle": "Boxing World Titles, Darts & Rugby",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "sky_action",
+      "name": "Sky Sports Action",
+      "network": "Sky Sports",
+      "group": "Sky Sports",
+      "url": "https://embedsports.me/sky-sports-action-stream-1/embed/",
+      "eventSubtitle": "NFL Sunday Night, Athletics & Tennis",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "sky_1",
+      "name": "Sky Sports 1",
+      "network": "Sky Sports",
+      "group": "Sky Sports",
+      "url": "https://embedsports.me/sky-sports-1-stream-1/embed/",
+      "eventSubtitle": "Live Sky Event Broadcast 1",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "sky_2",
+      "name": "Sky Sports 2",
+      "network": "Sky Sports",
+      "group": "Sky Sports",
+      "url": "https://embedsports.me/sky-sports-2-stream-1/embed/",
+      "eventSubtitle": "Live Sky Event Broadcast 2",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "sky_3",
+      "name": "Sky Sports 3",
+      "network": "Sky Sports",
+      "group": "Sky Sports",
+      "url": "https://embedsports.me/sky-sports-3-stream-1/embed/",
+      "eventSubtitle": "Live Sky Event Broadcast 3",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "sky_4",
+      "name": "Sky Sports 4",
+      "network": "Sky Sports",
+      "group": "Sky Sports",
+      "url": "https://embedsports.me/sky-sports-4-stream-1/embed/",
+      "eventSubtitle": "Live Sky Event Broadcast 4",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "tnt_3",
+      "name": "TNT Sports 3",
+      "network": "TNT Sports",
+      "group": "TNT Sports",
+      "url": "https://embedsports.me/tnt-sports-3-stream-1/embed/",
+      "eventSubtitle": "MotoGP, Boxing & Football Highlights",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "tnt_4",
+      "name": "TNT Sports 4",
+      "network": "TNT Sports",
+      "group": "TNT Sports",
+      "url": "https://embedsports.me/tnt-sports-4-stream-1/embed/",
+      "eventSubtitle": "Rugby Premiership, UFC & Live Sports",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "tnt_ultimate",
+      "name": "TNT Sports Ultimate",
+      "network": "TNT Sports",
+      "group": "TNT Sports",
+      "url": "https://embedsports.me/tnt-sports-ultimate-stream-1/embed/",
+      "eventSubtitle": "Ultra HD 4K HDR Sports Broadcast",
+      "qualityBadge": "4K",
+      "isTopTen": false
+    },
+    {
+      "id": "bein_3",
+      "name": "beIN Sports 3 English",
+      "network": "beIN Sports",
+      "group": "beIN Sports",
+      "url": "https://embedsports.me/bein-sports-3-stream-1/embed/",
+      "eventSubtitle": "Bundesliga & International Football",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "bein_4",
+      "name": "beIN Sports 4 English",
+      "network": "beIN Sports",
+      "group": "beIN Sports",
+      "url": "https://embedsports.me/bein-sports-4-stream-1/embed/",
+      "eventSubtitle": "French Ligue 1 & World Tournaments",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "bein_xtra",
+      "name": "beIN Sports XTRA",
+      "network": "beIN Sports",
+      "group": "beIN Sports",
+      "url": "https://beinsportsxtra-linear.amagi.tv/playlist.m3u8",
+      "eventSubtitle": "Live Free Sports & Highlights",
+      "qualityBadge": "720p",
+      "isTopTen": false
+    },
+    {
+      "id": "sky_f1",
+      "name": "Sky Sports F1 HD",
+      "network": "Sky Sports",
+      "group": "Combat & Racing",
+      "url": "https://embedsports.me/sky-sports-f1-stream-1/embed/",
+      "eventSubtitle": "Formula 1 Practice, Quali & Grand Prix",
+      "qualityBadge": "4K",
+      "isTopTen": false
+    },
+    {
+      "id": "f1_live",
+      "name": "Formula 1 World Feed",
+      "network": "F1",
+      "group": "Combat & Racing",
+      "url": "https://embedsports.me/f1-live-stream-1/embed/",
+      "eventSubtitle": "Pit Lane & On-board Camera Feeds",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "ufc_live",
+      "name": "UFC Fight Pass Live",
+      "network": "UFC",
+      "group": "Combat & Racing",
+      "url": "https://embedsports.me/ufc-fight-pass-stream-1/embed/",
+      "eventSubtitle": "Championship MMA & Fight Night",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "wwe_net",
+      "name": "WWE Network Live",
+      "network": "WWE",
+      "group": "Combat & Racing",
+      "url": "https://embedsports.me/wwe-network-stream-1/embed/",
+      "eventSubtitle": "RAW, SmackDown & Premium Live Events",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "redbull_tv",
+      "name": "Red Bull TV HD",
+      "network": "Red Bull",
+      "group": "Combat & Racing",
+      "url": "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8",
+      "eventSubtitle": "Extreme Sports, Rally, Biking & Surfing",
+      "qualityBadge": "1080p",
+      "isTopTen": false
+    },
+    {
+      "id": "motortrend",
+      "name": "MotorTrend Network",
+      "network": "MotorTrend",
+      "group": "Combat & Racing",
+      "url": "https://embedsports.me/motortrend-stream-1/embed/",
+      "eventSubtitle": "Supercars, Live Road Racing & Garage",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "fightbox",
+      "name": "FightBox HD",
+      "network": "FightBox",
+      "group": "Combat & Racing",
+      "url": "https://embedsports.me/fightbox-stream-1/embed/",
+      "eventSubtitle": "Kickboxing, Muay Thai & MMA Worldwide",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "nba_tv",
+      "name": "NBA TV 24/7 Live",
+      "network": "NBA",
+      "group": "US Leagues",
+      "url": "https://embedsports.me/nba-tv-stream-1/embed/",
+      "eventSubtitle": "NBA Live Games, Highlights & Analysis",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "nfl_net",
+      "name": "NFL Network Live",
+      "network": "NFL",
+      "group": "US Leagues",
+      "url": "https://embedsports.me/nfl-network-stream-1/embed/",
+      "eventSubtitle": "Thursday Night Football & NFL RedZone",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "mlb_net",
+      "name": "MLB Network",
+      "network": "MLB",
+      "group": "US Leagues",
+      "url": "https://embedsports.me/mlb-network-stream-1/embed/",
+      "eventSubtitle": "Major League Baseball Game of the Day",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "fs1_usa",
+      "name": "Fox Sports 1 (FS1",
+      "network": "Live",
+      "group": "Premier Sports",
+      "url": "",
+      "eventSubtitle": "Live Broadcast",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "fs2_usa",
+      "name": "Fox Sports 2 (FS2",
+      "network": "Live",
+      "group": "Premier Sports",
+      "url": "",
+      "eventSubtitle": "Live Broadcast",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "cbs_net",
+      "name": "CBS Sports Network",
+      "network": "CBS Sports",
+      "group": "US Leagues",
+      "url": "https://embedsports.me/cbs-sports-network-stream-1/embed/",
+      "eventSubtitle": "College Football, NWSL & World League Play",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "tennis_ch",
+      "name": "Tennis Channel HD",
+      "network": "Tennis",
+      "group": "US Leagues",
+      "url": "https://embedsports.me/tennis-channel-stream-1/embed/",
+      "eventSubtitle": "ATP, WTA & Grand Slam Tournament Live",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "golf_ch",
+      "name": "Golf Channel HD",
+      "network": "Golf",
+      "group": "US Leagues",
+      "url": "https://embedsports.me/golf-channel-stream-1/embed/",
+      "eventSubtitle": "PGA Tour, European Tour & The Open Live",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "aljazeera_en",
+      "name": "Al Jazeera English HD",
+      "network": "Al Jazeera",
+      "group": "24/7 News",
+      "url": "https://live-hls-web-aje.getaj.net/AJE/01.m3u8",
+      "eventSubtitle": "Live Global News & In-depth Reporting",
+      "qualityBadge": "1080p",
+      "isTopTen": false
+    },
+    {
+      "id": "skynews_live",
+      "name": "Sky News UK Live",
+      "network": "Sky News",
+      "group": "24/7 News",
+      "url": "https://skynewsau-live.akamaized.net/hls/live/2002689/skynewsau-extra1/master.m3u8",
+      "eventSubtitle": "Breaking News Live Around the Clock",
+      "qualityBadge": "1080p",
+      "isTopTen": false
+    },
+    {
+      "id": "bbc_news",
+      "name": "BBC News HD",
+      "network": "BBC",
+      "group": "24/7 News",
+      "url": "https://embedsports.me/bbc-news-stream-1/embed/",
+      "eventSubtitle": "Trusted World News & Live Reports",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "cnn_intl",
+      "name": "CNN International",
+      "network": "CNN",
+      "group": "24/7 News",
+      "url": "https://embedsports.me/cnn-international-stream-1/embed/",
+      "eventSubtitle": "Global Headlines & Live Coverage",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "bloomberg_tv",
+      "name": "Bloomberg Global TV",
+      "network": "Bloomberg",
+      "group": "24/7 News",
+      "url": "https://liveproduseast.akamaized.net/us/Channel-USTV-AWS-virginia-1/live.m3u8",
+      "eventSubtitle": "Live Stock Markets, Finance & Economics",
+      "qualityBadge": "1080p",
+      "isTopTen": false
+    },
+    {
+      "id": "cnbc_live",
+      "name": "CNBC Live",
+      "network": "CNBC",
+      "group": "24/7 News",
+      "url": "https://embedsports.me/cnbc-stream-1/embed/",
+      "eventSubtitle": "Business News, Wall Street & Tech",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "dw_news",
+      "name": "DW News English",
+      "network": "DW",
+      "group": "24/7 News",
+      "url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8",
+      "eventSubtitle": "European Perspective on World News",
+      "qualityBadge": "1080p",
+      "isTopTen": false
+    },
+    {
+      "id": "france24_en",
+      "name": "France 24 English",
+      "network": "France 24",
+      "group": "24/7 News",
+      "url": "https://static.france24.com/live/F24_EN_LO_HLS/live_tv.m3u8",
+      "eventSubtitle": "International Breaking News Live",
+      "qualityBadge": "720p",
+      "isTopTen": false
+    },
+    {
+      "id": "euronews_en",
+      "name": "Euronews World",
+      "network": "Euronews",
+      "group": "24/7 News",
+      "url": "https://euronews-euronews-world-1-au.samsung.wurl.tv/manifest/playlist.m3u8",
+      "eventSubtitle": "Pan-European News & Analysis",
+      "qualityBadge": "1080p",
+      "isTopTen": false
+    },
+    {
+      "id": "natgeo_wild",
+      "name": "Nat Geo Wild HD",
+      "network": "Nat Geo",
+      "group": "Docs & Cinema",
+      "url": "https://embedsports.me/nat-geo-wild-stream-1/embed/",
+      "eventSubtitle": "Wildlife & Planet Earth Expeditions",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "discovery_sci",
+      "name": "Discovery Science",
+      "network": "Discovery",
+      "group": "Docs & Cinema",
+      "url": "https://embedsports.me/discovery-science-stream-1/embed/",
+      "eventSubtitle": "Exploration, Technology & Science",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "history_ch",
+      "name": "History Channel HD",
+      "network": "History",
+      "group": "Docs & Cinema",
+      "url": "https://embedsports.me/history-channel-stream-1/embed/",
+      "eventSubtitle": "Ancient Civilizations & World History",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "nasa_tv",
+      "name": "NASA TV HD",
+      "network": "NASA",
+      "group": "Docs & Cinema",
+      "url": "https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master.m3u8",
+      "eventSubtitle": "Live Space Station & Rocket Launches",
+      "qualityBadge": "1080p",
+      "isTopTen": false
+    },
+    {
+      "id": "sky_cinema",
+      "name": "Sky Cinema Action",
+      "network": "Sky Cinema",
+      "group": "Docs & Cinema",
+      "url": "https://embedsports.me/sky-cinema-action-stream-1/embed/",
+      "eventSubtitle": "Blockbuster Hollywood Action 24/7",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    },
+    {
+      "id": "hbo_premiere",
+      "name": "HBO Premiere Cinema",
+      "network": "HBO",
+      "group": "Docs & Cinema",
+      "url": "https://embedsports.me/hbo-stream-1/embed/",
+      "eventSubtitle": "Award Winning Feature Films & Series",
+      "qualityBadge": "4K",
+      "isTopTen": false
+    },
+    {
+      "id": "paramount_net",
+      "name": "Paramount Network HD",
+      "network": "Paramount",
+      "group": "Docs & Cinema",
+      "url": "https://embedsports.me/paramount-network-stream-1/embed/",
+      "eventSubtitle": "Hit Dramas, Series & Classic Movies",
+      "qualityBadge": "HD",
+      "isTopTen": false
+    },
+    {
+      "id": "warner_tv",
+      "name": "Warner TV Cinema",
+      "network": "Warner",
+      "group": "Docs & Cinema",
+      "url": "https://embedsports.me/warner-tv-stream-1/embed/",
+      "eventSubtitle": "Warner Bros Premier Movies & Classics",
+      "qualityBadge": "FHD",
+      "isTopTen": false
+    }
+  ],
+  "movies": [
+    {
+      "id": "mov_dune2",
+      "title": "Dune: Part Two",
+      "type": "movie",
+      "year": "2024",
+      "rating": "8.6",
+      "quality": "4K UHD",
+      "genres": [
+        "Sci-Fi",
+        "Adventure",
+        "Action"
+      ],
+      "duration": "2h 46m",
+      "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600&auto=format&fit=crop",
+      "backdrop": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1600&auto=format&fit=crop",
+      "story": "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe, he endeavors to prevent a terrible future only he can foresee.",
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "trailerUrl": "https://www.youtube.com/embed/Way9Dexny3w?autoplay=1",
+      "cast": [
+        {
+          "name": "Timoth\u00e9e Chalamet",
+          "role": "Paul Atreides",
+          "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Zendaya",
+          "role": "Chani",
+          "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Rebecca Ferguson",
+          "role": "Lady Jessica",
+          "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Austin Butler",
+          "role": "Feyd-Rautha",
+          "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop"
+        }
+      ],
+      "isTrending": true,
+      "isHero": true
+    },
+    {
+      "id": "mov_gladiator2",
+      "title": "Gladiator II",
+      "type": "movie",
+      "year": "2024",
+      "rating": "8.1",
+      "quality": "4K UHD",
+      "genres": [
+        "Action",
+        "Drama",
+        "History"
+      ],
+      "duration": "2h 28m",
+      "poster": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?q=80&w=600&auto=format&fit=crop",
+      "backdrop": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1600&auto=format&fit=crop",
+      "story": "Years after witnessing the death of the revered hero Maximus at the hands of his uncle, Lucius must enter the Colosseum after his home is conquered by the tyrannical Emperors who now lead Rome with an iron fist.",
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      "trailerUrl": "https://www.youtube.com/embed/4rgYUipGJNo?autoplay=1",
+      "cast": [
+        {
+          "name": "Paul Mescal",
+          "role": "Lucius",
+          "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Pedro Pascal",
+          "role": "Marcus Acacius",
+          "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Denzel Washington",
+          "role": "Macrinus",
+          "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Connie Nielsen",
+          "role": "Lucilla",
+          "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop"
+        }
+      ],
+      "isTrending": true,
+      "isHero": true
+    },
+    {
+      "id": "mov_ghost_soldier",
+      "title": "Ghost Soldier",
+      "type": "movie",
+      "year": "2024",
+      "rating": "7.9",
+      "quality": "4K",
+      "genres": [
+        "Action",
+        "Thriller"
+      ],
+      "duration": "1h 58m",
+      "poster": "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?q=80&w=600&auto=format&fit=crop",
+      "backdrop": "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=1600&auto=format&fit=crop",
+      "story": "An elite black-ops operative thought missing in action emerges to take down a syndicate threatening international security.",
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1",
+      "cast": [
+        {
+          "name": "Karl Urban",
+          "role": "Vance",
+          "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Ana de Armas",
+          "role": "Elena",
+          "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop"
+        }
+      ],
+      "isContinueWatching": true,
+      "watchProgress": 65
+    },
+    {
+      "id": "mov_odyssey",
+      "title": "The Odyssey",
+      "type": "movie",
+      "year": "2025",
+      "rating": "8.8",
+      "quality": "4K UHD",
+      "genres": [
+        "Adventure",
+        "Fantasy",
+        "Drama"
+      ],
+      "duration": "2h 35m",
+      "poster": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop",
+      "backdrop": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=1600&auto=format&fit=crop",
+      "story": "A modern cinematic retelling of Homer's legendary epic: Odysseus voyages home through treacherous oceans, mythical creatures, and the wrath of ancient gods.",
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+      "trailerUrl": "https://www.youtube.com/embed/Way9Dexny3w?autoplay=1",
+      "cast": [
+        {
+          "name": "Alexander Skarsg\u00e5rd",
+          "role": "Odysseus",
+          "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Charlize Theron",
+          "role": "Athena",
+          "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop"
+        }
+      ],
+      "isContinueWatching": true,
+      "watchProgress": 42
+    },
+    {
+      "id": "mov_oppenheimer",
+      "title": "Oppenheimer",
+      "type": "movie",
+      "year": "2023",
+      "rating": "8.9",
+      "quality": "4K UHD",
+      "genres": [
+        "Biography",
+        "Drama",
+        "History"
+      ],
+      "duration": "3h 0m",
+      "poster": "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=600&auto=format&fit=crop",
+      "backdrop": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600&auto=format&fit=crop",
+      "story": "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb during World War II.",
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+      "trailerUrl": "https://www.youtube.com/embed/uYPbbksJxIg?autoplay=1",
+      "cast": [
+        {
+          "name": "Cillian Murphy",
+          "role": "J. Robert Oppenheimer",
+          "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Emily Blunt",
+          "role": "Katherine Oppenheimer",
+          "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop"
+        }
+      ],
+      "isTrending": true
+    },
+    {
+      "id": "mov_deadpool_wolverine",
+      "title": "Deadpool & Wolverine",
+      "type": "movie",
+      "year": "2024",
+      "rating": "8.0",
+      "quality": "4K",
+      "genres": [
+        "Action",
+        "Comedy",
+        "Sci-Fi"
+      ],
+      "duration": "2h 8m",
+      "poster": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=600&auto=format&fit=crop",
+      "backdrop": "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1600&auto=format&fit=crop",
+      "story": "Wolverine is recovering from his injuries when he crosses paths with the loudmouth, Deadpool. They team up to defeat a common enemy.",
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+      "trailerUrl": "https://www.youtube.com/embed/73_1biulkYk?autoplay=1",
+      "cast": [
+        {
+          "name": "Ryan Reynolds",
+          "role": "Wade Wilson",
+          "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Hugh Jackman",
+          "role": "Logan",
+          "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop"
+        }
+      ],
+      "isTrending": true
+    },
+    {
+      "id": "mov_interstellar",
+      "title": "Interstellar",
+      "type": "movie",
+      "year": "2014",
+      "rating": "8.7",
+      "quality": "4K UHD",
+      "genres": [
+        "Sci-Fi",
+        "Adventure",
+        "Drama"
+      ],
+      "duration": "2h 49m",
+      "poster": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600&auto=format&fit=crop",
+      "backdrop": "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=1600&auto=format&fit=crop",
+      "story": "When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.",
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+      "trailerUrl": "https://www.youtube.com/embed/zSWdZVtXT7E?autoplay=1",
+      "cast": [
+        {
+          "name": "Matthew McConaughey",
+          "role": "Cooper",
+          "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Anne Hathaway",
+          "role": "Brand",
+          "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop"
+        }
+      ]
+    },
+    {
+      "id": "mov_dark_knight",
+      "title": "The Dark Knight",
+      "type": "movie",
+      "year": "2008",
+      "rating": "9.0",
+      "quality": "4K UHD",
+      "genres": [
+        "Action",
+        "Crime",
+        "Drama"
+      ],
+      "duration": "2h 32m",
+      "poster": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=600&auto=format&fit=crop",
+      "backdrop": "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=1600&auto=format&fit=crop",
+      "story": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "trailerUrl": "https://www.youtube.com/embed/EXeTwQWrcwY?autoplay=1",
+      "cast": [
+        {
+          "name": "Christian Bale",
+          "role": "Bruce Wayne",
+          "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Heath Ledger",
+          "role": "Joker",
+          "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop"
+        }
+      ]
+    }
+  ],
+  "tvShows": [
+    {
+      "id": "tv_dexter_resurrection",
+      "title": "Dexter: Resurrection",
+      "type": "series",
+      "year": "2025",
+      "rating": "8.5",
+      "quality": "4K UHD",
+      "genres": [
+        "Crime",
+        "Drama",
+        "Mystery"
+      ],
+      "seasonsCount": "Season 1",
+      "currentEpisode": "Season 1 Episode 1",
+      "poster": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=600&auto=format&fit=crop",
+      "backdrop": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1600&auto=format&fit=crop",
+      "story": "Set 10 weeks after Dexter: New Blood, Dexter Morgan chases a missing Harrison to New York City, where Captain Angel Batista is hot on their trail from way down in Miami.",
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1",
+      "cast": [
+        {
+          "name": "Michael C. Hall",
+          "role": "Dexter Morgan",
+          "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Uma Thurman",
+          "role": "Charley",
+          "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Jack Alcott",
+          "role": "Harrison Morgan",
+          "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Dan Stevens",
+          "role": "Detective Miller",
+          "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "David Zayas",
+          "role": "Angel Batista",
+          "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop"
+        }
+      ],
+      "episodes": [
+        {
+          "episode": 1,
+          "title": "A Cold Welcome in the Big Apple",
+          "duration": "54m",
+          "thumb": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400&auto=format&fit=crop"
+        },
+        {
+          "episode": 2,
+          "title": "Shadows in Central Park",
+          "duration": "51m",
+          "thumb": "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=400&auto=format&fit=crop"
+        },
+        {
+          "episode": 3,
+          "title": "The Miami Ghost",
+          "duration": "58m",
+          "thumb": "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=400&auto=format&fit=crop"
+        }
+      ],
+      "isHero": true,
+      "isTrending": true
+    },
+    {
+      "id": "tv_supernatural",
+      "title": "Supernatural",
+      "type": "series",
+      "year": "2024",
+      "rating": "8.4",
+      "quality": "4K",
+      "genres": [
+        "Drama",
+        "Mystery",
+        "Fantasy"
+      ],
+      "seasonsCount": "15 Seasons",
+      "currentEpisode": "Season 1 Episode 1",
+      "poster": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop",
+      "backdrop": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1600&auto=format&fit=crop",
+      "story": "Two brothers follow their father's footsteps as hunters, fighting evil supernatural beings of many kinds, including monsters, demons, and gods that roam the earth in their classic 1967 Chevy Impala.",
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      "trailerUrl": "https://www.youtube.com/embed/t-775JyzDT4?autoplay=1",
+      "cast": [
+        {
+          "name": "Jared Padalecki",
+          "role": "Sam Winchester",
+          "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Jensen Ackles",
+          "role": "Dean Winchester",
+          "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Misha Collins",
+          "role": "Castiel",
+          "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop"
+        }
+      ],
+      "episodes": [
+        {
+          "episode": 1,
+          "title": "Pilot",
+          "duration": "45m",
+          "thumb": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=400&auto=format&fit=crop"
+        },
+        {
+          "episode": 2,
+          "title": "Wendigo",
+          "duration": "43m",
+          "thumb": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400&auto=format&fit=crop"
+        }
+      ],
+      "isHero": true,
+      "isTrending": true
+    },
+    {
+      "id": "tv_house_of_dragon",
+      "title": "House of the Dragon",
+      "type": "series",
+      "year": "2024",
+      "rating": "8.5",
+      "quality": "4K UHD",
+      "genres": [
+        "Action",
+        "Adventure",
+        "Drama"
+      ],
+      "seasonsCount": "Season 2",
+      "currentEpisode": "Season 2 Episode 1",
+      "poster": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?q=80&w=600&auto=format&fit=crop",
+      "backdrop": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1600&auto=format&fit=crop",
+      "story": "An internal succession war within House Targaryen at the height of its power, 172 years before the birth of Daenerys Targaryen.",
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+      "trailerUrl": "https://www.youtube.com/embed/DotnJ7tTA34?autoplay=1",
+      "cast": [
+        {
+          "name": "Emma D'Arcy",
+          "role": "Rhaenyra Targaryen",
+          "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Matt Smith",
+          "role": "Daemon Targaryen",
+          "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop"
+        }
+      ],
+      "episodes": [
+        {
+          "episode": 1,
+          "title": "A Son for a Son",
+          "duration": "59m",
+          "thumb": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?q=80&w=400&auto=format&fit=crop"
+        }
+      ],
+      "isTrending": true
+    },
+    {
+      "id": "tv_stranger_things",
+      "title": "Stranger Things",
+      "type": "series",
+      "year": "2024",
+      "rating": "8.7",
+      "quality": "4K",
+      "genres": [
+        "Drama",
+        "Fantasy",
+        "Horror"
+      ],
+      "seasonsCount": "4 Seasons",
+      "currentEpisode": "Season 4 Episode 1",
+      "poster": "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=600&auto=format&fit=crop",
+      "backdrop": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600&auto=format&fit=crop",
+      "story": "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.",
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "trailerUrl": "https://www.youtube.com/embed/b9EkMc79ZSU?autoplay=1",
+      "cast": [
+        {
+          "name": "Millie Bobby Brown",
+          "role": "Eleven",
+          "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "David Harbour",
+          "role": "Jim Hopper",
+          "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop"
+        }
+      ],
+      "episodes": [
+        {
+          "episode": 1,
+          "title": "Chapter One: The Vanishing",
+          "duration": "48m",
+          "thumb": "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=400&auto=format&fit=crop"
+        }
+      ],
+      "isTrending": true
+    },
+    {
+      "id": "tv_the_boys",
+      "title": "The Boys",
+      "type": "series",
+      "year": "2024",
+      "rating": "8.7",
+      "quality": "4K UHD",
+      "genres": [
+        "Action",
+        "Comedy",
+        "Sci-Fi"
+      ],
+      "seasonsCount": "4 Seasons",
+      "currentEpisode": "Season 4 Episode 1",
+      "poster": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=600&auto=format&fit=crop",
+      "backdrop": "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1600&auto=format&fit=crop",
+      "story": "A group of vigilantes set out to take down corrupt superheroes who abuse their superpowers.",
+      "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      "trailerUrl": "https://www.youtube.com/embed/M1bhOaLVCPE?autoplay=1",
+      "cast": [
+        {
+          "name": "Antony Starr",
+          "role": "Homelander",
+          "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop"
+        },
+        {
+          "name": "Karl Urban",
+          "role": "Billy Butcher",
+          "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop"
+        }
+      ],
+      "episodes": [
+        {
+          "episode": 1,
+          "title": "Department of Dirty Tricks",
+          "duration": "57m",
+          "thumb": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=400&auto=format&fit=crop"
+        }
+      ],
+      "isTrending": true
+    }
+  ]
+};
 
     // State
-    let currentChannel = CHANNELS[0];
-    let selectedCategory = "Top 10 Matches";
-    let searchQuery = "";
-    let favorites = new Set(JSON.parse(localStorage.getItem("novastream_favs") || "[]"));
-    let hlsInstance = null;
+    let currentTab = 'home';
+    let myList = new Set(JSON.parse(localStorage.getItem('reezn_mylist') || '["tv_dexter_resurrection", "mov_dune2", "ss_prem"]'));
+    let continueWatching = JSON.parse(localStorage.getItem('reezn_continue') || '[]');
+    let currentHeroIndex = 0;
+    let heroTimer = null;
+    let activeMedia = null;
+    let activeLiveChannel = CATALOG.channels[0];
+    let hlsLiveInstance = null;
+    let hlsGlobalInstance = null;
+    let controlsHideTimeout = null;
 
-    // DOM Elements
-    const hlsVideo = document.getElementById("hls-video");
-    const embedFrame = document.getElementById("embed-frame");
-    const playerLoader = document.getElementById("player-loader");
-    const channelContainer = document.getElementById("channel-container");
-    const searchInput = document.getElementById("channel-search");
-    const clearSearchBtn = document.getElementById("clear-search");
-    const categoryTabs = document.querySelectorAll(".cat-chip");
+    // Elements
+    const logoHomeBtn = document.getElementById('logo-home-btn');
+    const navTabBtns = document.querySelectorAll('.nav-tab-btn');
+    const dockTabs = document.querySelectorAll('.dock-tab');
+    const openSearchBtn = document.getElementById('open-search-btn');
+    const dockSearchBtn = document.getElementById('dock-search-btn');
+    const headerLiveTvShortcut = document.getElementById('header-livetv-shortcut');
     
-    const nowPlayingTitle = document.getElementById("now-playing-title");
-    const nowPlayingNetwork = document.getElementById("now-playing-network");
-    const nowPlayingQuality = document.getElementById("now-playing-quality");
-    const nowPlayingSubtitle = document.getElementById("now-playing-subtitle");
+    // Modals
+    const detailsModal = document.getElementById('details-modal');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const searchView = document.getElementById('search-view');
+    const searchCloseBtn = document.getElementById('search-close-btn');
+    const mainSearchInput = document.getElementById('main-search-input');
+    const searchClearBtn = document.getElementById('search-clear-btn');
+    const searchResultsArea = document.getElementById('search-results-area');
+    const searchSubtabs = document.querySelectorAll('.search-subtab-btn');
     
-    const btnReload = document.getElementById("btn-reload");
-    const btnTheater = document.getElementById("btn-theater");
-    const btnFavorite = document.getElementById("btn-favorite");
-    const channelCountBadge = document.getElementById("channel-count-badge");
+    // Player
+    const playerModal = document.getElementById('global-player-modal');
+    const playerVideo = document.getElementById('global-video-element');
+    const playerEmbed = document.getElementById('global-embed-frame');
+    const playerCloseBtn = document.getElementById('player-close-btn');
+    const playerControls = document.getElementById('player-controls');
+    const ctrlPlayBtn = document.getElementById('ctrl-play-btn');
+    const ctrlPlayIcon = document.getElementById('ctrl-play-icon');
+    const playerCenterPlayBtn = document.getElementById('player-center-play-btn');
+    const centerPlayIcon = document.getElementById('center-play-icon');
+    const playerSeekBar = document.getElementById('player-seek-bar');
+    const playerTimeDisplay = document.getElementById('player-time-display');
+    const ctrlFullscreenBtn = document.getElementById('ctrl-fullscreen-btn');
+    const ctrlPipBtn = document.getElementById('ctrl-pip-btn');
+    const ctrlServerBtn = document.getElementById('ctrl-server-btn');
+    const toast = document.getElementById('reezn-toast');
+    const toastMsg = document.getElementById('toast-message');
 
-    // Initialize
+    // Initialize App
     function init() {
-      channelCountBadge.textContent = `${CHANNELS.length} LIVE`;
-      setupEventListeners();
-      renderChannels();
-      playChannel(CHANNELS[0]);
+      setupNavigation();
+      renderHeroCarousel();
+      renderRails();
+      renderMoviesGrid('ALL');
+      renderSeriesGrid('ALL');
+      renderLiveTvList('Top 10 Matches');
+      renderMyList();
+      setupSearch();
+      setupPlayer();
+
+      // Play default live TV channel in background preview
+      if (activeLiveChannel) {
+        loadLiveChannel(activeLiveChannel);
+      }
     }
 
-    function setupEventListeners() {
-      // Search
-      searchInput.addEventListener("input", (e) => {
-        searchQuery = e.target.value.trim().toLowerCase();
-        clearSearchBtn.style.display = searchQuery ? "block" : "none";
-        renderChannels();
+    function showToast(msg) {
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // Navigation Switcher
+    function switchTab(tabId) {
+      currentTab = tabId;
+      navTabBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabId));
+      dockTabs.forEach(tab => tab.classList.toggle('active', tab.dataset.tab === tabId));
+
+      document.getElementById('view-home').style.display = tabId === 'home' ? 'block' : 'none';
+      document.getElementById('view-movies').classList.toggle('active', tabId === 'movies');
+      document.getElementById('view-series').classList.toggle('active', tabId === 'series');
+      document.getElementById('view-livetv').classList.toggle('active', tabId === 'livetv');
+      document.getElementById('view-mylist').classList.toggle('active', tabId === 'mylist');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setupNavigation() {
+      logoHomeBtn.addEventListener('click', () => switchTab('home'));
+      navTabBtns.forEach(btn => {
+        btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+      });
+      dockTabs.forEach(tab => {
+        if (tab.dataset.tab) tab.addEventListener('click', () => switchTab(tab.dataset.tab));
       });
 
-      clearSearchBtn.addEventListener("click", () => {
-        searchInput.value = "";
-        searchQuery = "";
-        clearSearchBtn.style.display = "none";
-        renderChannels();
+      document.querySelectorAll('[data-nav-target]').forEach(el => {
+        el.addEventListener('click', () => switchTab(el.dataset.navTarget));
       });
 
-      // Category Switcher
-      categoryTabs.forEach(tab => {
-        tab.addEventListener("click", () => {
-          categoryTabs.forEach(t => t.classList.remove("active"));
-          tab.classList.add("active");
-          selectedCategory = tab.dataset.category;
-          renderChannels();
+      headerLiveTvShortcut.addEventListener('click', () => switchTab('livetv'));
+
+      // Movies Filters
+      document.querySelectorAll('#movie-genre-filters .filter-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('#movie-genre-filters .filter-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          renderMoviesGrid(chip.dataset.genre);
         });
       });
 
-      // Reload
-      btnReload.addEventListener("click", () => {
-        if (currentChannel) playChannel(currentChannel);
+      // Series Filters
+      document.querySelectorAll('#series-genre-filters .filter-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('#series-genre-filters .filter-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          renderSeriesGrid(chip.dataset.genre);
+        });
       });
 
-      // Fullscreen
-      btnTheater.addEventListener("click", () => {
-        const target = currentChannel && isHlsStream(currentChannel.url) ? hlsVideo : embedFrame;
-        if (!document.fullscreenElement) {
-          if (target.requestFullscreen) target.requestFullscreen();
-          else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
-        } else {
-          if (document.exitFullscreen) document.exitFullscreen();
-        }
-      });
-
-      // Favorite Current
-      btnFavorite.addEventListener("click", () => {
-        if (!currentChannel) return;
-        toggleFavorite(currentChannel.id);
-        updateFavoriteButtonState();
-        if (selectedCategory === "Favorites") renderChannels();
-      });
-
-      // Keyboard navigation
-      window.addEventListener("keydown", (e) => {
-        if (e.target.tagName === "INPUT") return;
-        if (e.key === "f" || e.key === "F") btnTheater.click();
-        if (e.key === "r" || e.key === "R") btnReload.click();
+      // Live TV Filters
+      document.querySelectorAll('#livetv-category-filters .filter-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('#livetv-category-filters .filter-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          renderLiveTvList(chip.dataset.cat);
+        });
       });
     }
 
-    function isHlsStream(url) {
-      const lower = url.toLowerCase();
-      return lower.includes(".m3u8");
+    // Hero Carousel
+    function renderHeroCarousel() {
+      const heroContainer = document.getElementById('hero-slider');
+      const heroItems = [...CATALOG.movies.filter(m => m.isHero), ...CATALOG.tvShows.filter(t => t.isHero)];
+      
+      let slidesHtml = '';
+      heroItems.forEach((item, idx) => {
+        const isFav = myList.has(item.id);
+        slidesHtml += `
+          <div class="hero-slide ${idx === 0 ? 'active' : ''}" data-hero-id="${item.id}">
+            <img class="hero-backdrop-img" src="${item.backdrop}" alt="${item.title}" />
+            <div class="hero-vignette"></div>
+            <div class="hero-vignette-side"></div>
+            
+            <div class="hero-content">
+              <div class="hero-badge-row">
+                <span class="hero-pill hero-pill-red">EXCLUSIVE</span>
+                <span class="hero-pill hero-pill-gold">★ ${item.rating}</span>
+                <span class="hero-pill">${item.quality}</span>
+              </div>
+              <h1 class="hero-title">${item.title}</h1>
+              <div class="hero-genres">${item.genres.join(' • ')}</div>
+              <p class="hero-desc">${item.story}</p>
+              
+              <div class="hero-actions">
+                <button class="btn-play-now" onclick="playMediaById('${item.id}')">
+                  <i class="ph-fill ph-play"></i> PLAY NOW
+                </button>
+                <button class="btn-mylist" onclick="toggleMyList('${item.id}')">
+                  <i class="${isFav ? 'ph-fill ph-check' : 'ph ph-plus'}"></i> ${isFav ? 'In My List' : 'My List'}
+                </button>
+                <button class="btn-info-icon" onclick="openDetailsModal('${item.id}')" title="More Info">
+                  <i class="ph ph-info"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      let dotsHtml = '<div class="hero-dots">';
+      heroItems.forEach((_, idx) => {
+        dotsHtml += `<div class="hero-dot ${idx === 0 ? 'active' : ''}" onclick="goToHeroSlide(${idx})"></div>`;
+      });
+      dotsHtml += '</div>';
+
+      heroContainer.innerHTML = slidesHtml + dotsHtml;
+
+      if (heroTimer) clearInterval(heroTimer);
+      heroTimer = setInterval(() => {
+        const slides = document.querySelectorAll('.hero-slide');
+        const nextIdx = (currentHeroIndex + 1) % slides.length;
+        goToHeroSlide(nextIdx);
+      }, 7000);
     }
 
-    function playChannel(channel) {
-      currentChannel = channel;
-      updateHeaderMetadata(channel);
-      updateFavoriteButtonState();
+    function goToHeroSlide(index) {
+      const slides = document.querySelectorAll('.hero-slide');
+      const dots = document.querySelectorAll('.hero-dot');
+      if (!slides.length) return;
+      slides.forEach(s => s.classList.remove('active'));
+      dots.forEach(d => d.classList.remove('active'));
+      currentHeroIndex = index;
+      slides[index].classList.add('active');
+      dots[index].classList.add('active');
+    }
 
-      // Show loader
-      playerLoader.style.display = "flex";
+    // Render Rails
+    function renderRails() {
+      // 1. Continue Watching
+      const cwContainer = document.getElementById('scroll-continue-watching');
+      const cwItems = [
+        CATALOG.movies.find(m => m.id === 'mov_ghost_soldier'),
+        CATALOG.movies.find(m => m.id === 'mov_odyssey'),
+        CATALOG.tvShows.find(t => t.id === 'tv_dexter_resurrection')
+      ].filter(Boolean);
 
-      if (isHlsStream(channel.url)) {
-        // HLS Player Mode
-        embedFrame.style.display = "none";
-        embedFrame.src = "about:blank";
-        hlsVideo.style.display = "block";
+      cwContainer.innerHTML = cwItems.map(item => `
+        <div class="reezn-card" style="flex: 0 0 240px;" onclick="playMediaById('${item.id}')">
+          <div class="card-poster-wrap" style="padding-top: 56.25%;">
+            <img class="card-poster" src="${item.backdrop || item.poster}" alt="${item.title}" />
+            <div class="card-badge-top-left">★ ${item.rating}</div>
+            <div class="card-progress-bar">
+              <div class="card-progress-fill" style="width: ${item.watchProgress || 45}%;"></div>
+            </div>
+          </div>
+          <div class="card-meta">
+            <span class="card-title">${item.title}</span>
+            <span class="card-subtext">${item.currentEpisode || item.duration || 'Resume Stream'}</span>
+          </div>
+        </div>
+      `).join('');
+
+      // 2. Trending Movies
+      const tmContainer = document.getElementById('scroll-trending-movies');
+      tmContainer.innerHTML = CATALOG.movies.map(movie => createMovieCardHtml(movie)).join('');
+
+      // 3. Popular TV Shows
+      const psContainer = document.getElementById('scroll-popular-shows');
+      psContainer.innerHTML = CATALOG.tvShows.map(series => createSeriesCardHtml(series)).join('');
+
+      // 4. Live Sports Feeds (first 12 high-octane channels)
+      const lsContainer = document.getElementById('scroll-live-sports');
+      const topSports = CATALOG.channels.filter(c => c.isTopTen || c.group === 'Premier Sports').slice(0, 14);
+      lsContainer.innerHTML = topSports.map(ch => `
+        <div class="channel-rail-card" onclick="selectAndPlayLiveChannel('${ch.id}')">
+          <div class="channel-preview-box">
+            <span class="live-badge"><span class="live-pulse"></span> LIVE</span>
+            <span class="channel-network-pill">${ch.network}</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-title">${ch.name}</span>
+            <span class="card-subtext">${ch.eventSubtitle || 'Live Matchday Feed'}</span>
+          </div>
+        </div>
+      `).join('');
+
+      // 5. Top 10 Today
+      const t10Container = document.getElementById('scroll-top-ten');
+      const topTenItems = [...CATALOG.tvShows, ...CATALOG.movies].slice(0, 10);
+      t10Container.innerHTML = topTenItems.map((item, idx) => `
+        <div class="top10-card-wrap" onclick="openDetailsModal('${item.id}')">
+          <span class="top10-rank-num">${idx + 1}</span>
+          <div class="reezn-card top10-card">
+            <div class="card-poster-wrap">
+              <img class="card-poster" src="${item.poster}" alt="${item.title}" />
+              <div class="card-badge-top-left">★ ${item.rating}</div>
+              <div class="card-badge-top-right">${item.quality || '4K'}</div>
+            </div>
+            <div class="card-meta">
+              <span class="card-title">${item.title}</span>
+              <span class="card-subtext">${item.year} • ${item.genres[0]}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function createMovieCardHtml(movie) {
+      return `
+        <div class="reezn-card" onclick="openDetailsModal('${movie.id}')">
+          <div class="card-poster-wrap">
+            <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy" />
+            <div class="card-badge-top-left">★ ${movie.rating}</div>
+            <div class="card-badge-top-right">${movie.quality || '4K'}</div>
+          </div>
+          <div class="card-meta">
+            <span class="card-title">${movie.title}</span>
+            <span class="card-subtext">${movie.year} • ${movie.duration || 'Movie'}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function createSeriesCardHtml(series) {
+      return `
+        <div class="reezn-card" onclick="openDetailsModal('${series.id}')">
+          <div class="card-poster-wrap">
+            <img class="card-poster" src="${series.poster}" alt="${series.title}" loading="lazy" />
+            <div class="card-badge-top-left">★ ${series.rating}</div>
+            <div class="card-badge-top-right">${series.quality || '4K'}</div>
+          </div>
+          <div class="card-meta">
+            <span class="card-title">${series.title}</span>
+            <span class="card-subtext">${series.seasonsCount || 'Series'} • ${series.genres[0]}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    // Grid Views (Movies & Series Tabs)
+    function renderMoviesGrid(genre) {
+      const grid = document.getElementById('movies-grid');
+      let filtered = CATALOG.movies;
+      if (genre !== 'ALL') {
+        filtered = filtered.filter(m => m.genres.includes(genre));
+      }
+      grid.innerHTML = filtered.map(m => createMovieCardHtml(m)).join('');
+    }
+
+    function renderSeriesGrid(genre) {
+      const grid = document.getElementById('series-grid');
+      let filtered = CATALOG.tvShows;
+      if (genre !== 'ALL') {
+        filtered = filtered.filter(s => s.genres.includes(genre));
+      }
+      grid.innerHTML = filtered.map(s => createSeriesCardHtml(s)).join('');
+    }
+
+    // Live TV Tab (79 channels)
+    function renderLiveTvList(category) {
+      const list = document.getElementById('livetv-channel-list');
+      let filtered = CATALOG.channels;
+      if (category === 'Top 10 Matches') {
+        filtered = filtered.filter(c => c.isTopTen);
+      } else if (category !== 'ALL') {
+        filtered = filtered.filter(c => c.group === category);
+      }
+
+      list.innerHTML = filtered.map(ch => `
+        <div class="livetv-item ${activeLiveChannel && activeLiveChannel.id === ch.id ? 'active' : ''}" onclick="selectAndPlayLiveChannel('${ch.id}')">
+          <div style="display:flex; flex-direction:column; gap:0.2rem; overflow:hidden;">
+            <span style="font-size:0.88rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${ch.name}</span>
+            <span style="font-size:0.75rem; color:var(--text-muted);">${ch.eventSubtitle || ch.group}</span>
+          </div>
+          <span class="hero-pill hero-pill-gold" style="font-size:0.65rem;">${ch.qualityBadge || 'HD'}</span>
+        </div>
+      `).join('');
+    }
+
+    function selectAndPlayLiveChannel(chId) {
+      const channel = CATALOG.channels.find(c => c.id === chId);
+      if (!channel) return;
+      activeLiveChannel = channel;
+      document.getElementById('livetv-now-title').textContent = channel.name;
+      document.getElementById('livetv-now-quality').textContent = channel.qualityBadge || 'HD';
+      document.getElementById('livetv-now-sub').textContent = channel.eventSubtitle || 'Live Matchday Feed';
+      
+      loadLiveChannel(channel);
+      renderLiveTvList(document.querySelector('#livetv-category-filters .filter-chip.active')?.dataset.cat || 'Top 10 Matches');
+      
+      if (currentTab !== 'livetv') {
+        switchTab('livetv');
+      }
+    }
+
+    function loadLiveChannel(channel) {
+      const hlsPlayer = document.getElementById('livetv-hls-player');
+      const embedFrame = document.getElementById('livetv-embed-frame');
+      const isHls = channel.url.toLowerCase().includes('.m3u8');
+
+      if (isHls) {
+        embedFrame.style.display = 'none';
+        embedFrame.src = 'about:blank';
+        hlsPlayer.style.display = 'block';
 
         if (Hls.isSupported()) {
-          if (hlsInstance) hlsInstance.destroy();
-          hlsInstance = new Hls({ enableWorker: true, lowLatencyMode: true });
-          hlsInstance.loadSource(channel.url);
-          hlsInstance.attachMedia(hlsVideo);
-          hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
-            hlsVideo.play().catch(() => {});
-            playerLoader.style.display = "none";
-          });
-          hlsInstance.on(Hls.Events.ERROR, () => {
-            playerLoader.style.display = "none";
-          });
-        } else if (hlsVideo.canPlayType("application/vnd.apple.mpegurl")) {
-          // iOS Safari native HLS
-          hlsVideo.src = channel.url;
-          hlsVideo.addEventListener("loadedmetadata", () => {
-            hlsVideo.play().catch(() => {});
-            playerLoader.style.display = "none";
-          });
+          if (hlsLiveInstance) hlsLiveInstance.destroy();
+          hlsLiveInstance = new Hls();
+          hlsLiveInstance.loadSource(channel.url);
+          hlsLiveInstance.attachMedia(hlsPlayer);
+          hlsLiveInstance.on(Hls.Events.MANIFEST_PARSED, () => hlsPlayer.play().catch(() => {}));
+        } else if (hlsPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+          hlsPlayer.src = channel.url;
+          hlsPlayer.play().catch(() => {});
         }
       } else {
-        // Embed Player Mode
-        if (hlsInstance) {
-          hlsInstance.destroy();
-          hlsInstance = null;
+        if (hlsLiveInstance) {
+          hlsLiveInstance.destroy();
+          hlsLiveInstance = null;
         }
-        hlsVideo.pause();
-        hlsVideo.style.display = "none";
-        hlsVideo.src = "";
-
-        embedFrame.style.display = "block";
+        hlsPlayer.style.display = 'none';
+        embedFrame.style.display = 'block';
         embedFrame.src = channel.url;
-        embedFrame.onload = () => {
-          playerLoader.style.display = "none";
-        };
       }
-
-      // Mark active in DOM
-      document.querySelectorAll(".channel-card").forEach(card => {
-        if (card.dataset.id === channel.id) {
-          card.classList.add("active");
-          card.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        } else {
-          card.classList.remove("active");
-        }
-      });
     }
 
-    function updateHeaderMetadata(channel) {
-      nowPlayingTitle.textContent = channel.name;
-      nowPlayingNetwork.textContent = channel.network || "Live";
-      nowPlayingQuality.textContent = channel.qualityBadge || "HD";
-      nowPlayingSubtitle.innerHTML = `<i class="ph ph-broadcast"></i> <span>${channel.eventSubtitle || "Live Broadcast"}</span>`;
-    }
+    document.getElementById('livetv-reload-btn').addEventListener('click', () => {
+      if (activeLiveChannel) loadLiveChannel(activeLiveChannel);
+    });
+    document.getElementById('livetv-fullscreen-btn').addEventListener('click', () => {
+      const el = activeLiveChannel && activeLiveChannel.url.includes('.m3u8') ? document.getElementById('livetv-hls-player') : document.getElementById('livetv-embed-frame');
+      if (el.requestFullscreen) el.requestFullscreen();
+    });
 
-    function toggleFavorite(channelId) {
-      if (favorites.has(channelId)) {
-        favorites.delete(channelId);
+    // Live TV Sidebar Search
+    document.getElementById('livetv-search-input').addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      const list = document.getElementById('livetv-channel-list');
+      const filtered = CATALOG.channels.filter(c => c.name.toLowerCase().includes(q) || c.network.toLowerCase().includes(q) || c.group.toLowerCase().includes(q));
+      list.innerHTML = filtered.map(ch => `
+        <div class="livetv-item" onclick="selectAndPlayLiveChannel('${ch.id}')">
+          <div style="display:flex; flex-direction:column; gap:0.2rem; overflow:hidden;">
+            <span style="font-size:0.88rem; font-weight:700; color:#fff;">${ch.name}</span>
+            <span style="font-size:0.75rem; color:var(--text-muted);">${ch.eventSubtitle || ch.group}</span>
+          </div>
+          <span class="hero-pill hero-pill-gold" style="font-size:0.65rem;">${ch.qualityBadge || 'HD'}</span>
+        </div>
+      `).join('');
+    });
+
+    // My List Management
+    function toggleMyList(id) {
+      if (myList.has(id)) {
+        myList.delete(id);
+        showToast('Removed from My List');
       } else {
-        favorites.add(channelId);
+        myList.add(id);
+        showToast('Added to My List');
       }
-      localStorage.setItem("novastream_favs", JSON.stringify(Array.from(favorites)));
+      localStorage.setItem('reezn_mylist', JSON.stringify(Array.from(myList)));
+      renderHeroCarousel();
+      renderMyList();
+      updateModalFavButton();
     }
 
-    function updateFavoriteButtonState() {
-      if (currentChannel && favorites.has(currentChannel.id)) {
-        btnFavorite.classList.add("active");
-      } else {
-        btnFavorite.classList.remove("active");
-      }
-    }
-
-    function renderChannels() {
-      channelContainer.innerHTML = "";
-
-      let filtered = CHANNELS.filter(c => {
-        // Filter by category
-        if (selectedCategory === "Top 10 Matches") {
-          if (!c.isTopTen) return false;
-        } else if (selectedCategory === "Favorites") {
-          if (!favorites.has(c.id)) return false;
-        } else if (selectedCategory !== "ALL") {
-          if (c.group !== selectedCategory) return false;
-        }
-
-        // Filter by search query
-        if (searchQuery) {
-          const term = `${c.name} ${c.network} ${c.group} ${c.eventSubtitle}`.toLowerCase();
-          if (!term.includes(searchQuery)) return false;
-        }
-
-        return true;
-      });
-
-      if (filtered.length === 0) {
-        channelContainer.innerHTML = `
-          <div class="empty-state">
-            <i class="ph ph-television-simple"></i>
-            <p>No channels found</p>
+    function renderMyList() {
+      const grid = document.getElementById('mylist-grid');
+      const countLabel = document.getElementById('mylist-count');
+      const savedItems = [...CATALOG.movies, ...CATALOG.tvShows].filter(item => myList.has(item.id));
+      
+      countLabel.textContent = `${savedItems.length} Saved Titles`;
+      if (savedItems.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align:center; padding: 4rem 1rem; color:var(--text-muted);">
+            <i class="ph ph-bookmark-simple" style="font-size:3rem; margin-bottom:1rem; display:block;"></i>
+            <h3 style="font-family:var(--font-display); font-size:1.2rem; color:#fff;">Your list is empty</h3>
+            <p style="font-size:0.88rem; margin-top:0.35rem;">Add movies and TV series to watch later.</p>
           </div>
         `;
         return;
       }
 
-      filtered.forEach(channel => {
-        const card = document.createElement("div");
-        card.className = `channel-card ${currentChannel && currentChannel.id === channel.id ? "active" : ""}`;
-        card.dataset.id = channel.id;
+      grid.innerHTML = savedItems.map(item => item.type === 'movie' ? createMovieCardHtml(item) : createSeriesCardHtml(item)).join('');
+    }
 
-        const isFav = favorites.has(channel.id);
-        const initials = channel.network.slice(0, 3).toUpperCase();
+    // Media Details Modal (Replicating Screenshot 3 Directly!)
+    function openDetailsModal(id) {
+      const media = [...CATALOG.movies, ...CATALOG.tvShows].find(m => m.id === id);
+      if (!media) return;
+      activeMedia = media;
 
-        card.innerHTML = `
-          <div class="card-left">
-            <div class="network-badge-box">${initials}</div>
-            <div class="card-meta">
-              <span class="card-title">${channel.name}</span>
-              <span class="card-subtitle">${channel.eventSubtitle}</span>
+      document.getElementById('modal-hero-img').src = media.backdrop || media.poster;
+      document.getElementById('modal-thumb-img').src = media.poster;
+      document.getElementById('modal-title').textContent = media.title;
+      document.getElementById('modal-subtitle').textContent = media.currentEpisode || media.duration || (media.type === 'movie' ? 'Feature Film' : media.seasonsCount);
+      document.getElementById('modal-badge-year').textContent = media.year;
+      document.getElementById('modal-badge-rating').textContent = `★ ${media.rating}`;
+      document.getElementById('modal-badge-genre').textContent = media.genres[0] || 'Drama';
+      document.getElementById('modal-story').textContent = media.story;
+
+      // Cast Row (Screenshot 3: circular headshots)
+      const castRow = document.getElementById('modal-cast-row');
+      castRow.innerHTML = (media.cast || []).map(actor => `
+        <div class="cast-item">
+          <img class="cast-avatar" src="${actor.avatar}" alt="${actor.name}" />
+          <span class="cast-name">${actor.name}</span>
+          <span class="cast-role">${actor.role}</span>
+        </div>
+      `).join('');
+
+      // Episodes (if series)
+      const epSection = document.getElementById('modal-episodes-section');
+      const epList = document.getElementById('modal-episodes-list');
+      if (media.type === 'series' && media.episodes && media.episodes.length) {
+        epSection.style.display = 'block';
+        epList.innerHTML = media.episodes.map(ep => `
+          <div class="episode-card" onclick="playEpisode('${media.id}', ${ep.episode})">
+            <div class="episode-card-left">
+              <img class="episode-thumb" src="${ep.thumb}" alt="${ep.title}" />
+              <div>
+                <span style="font-size:0.88rem; font-weight:700; color:#fff;">Episode ${ep.episode}: ${ep.title}</span>
+                <span style="font-size:0.75rem; color:var(--text-muted); display:block; margin-top:0.2rem;">${ep.duration}</span>
+              </div>
             </div>
+            <i class="ph-fill ph-play-circle" style="font-size:1.6rem; color:var(--brand-red);"></i>
           </div>
-          <div class="card-right">
-            <span class="badge badge-quality" style="font-size:0.65rem; padding:0.15rem 0.35rem;">${channel.qualityBadge}</span>
-            <button class="card-fav-btn ${isFav ? "is-fav" : ""}" title="Favorite">
-              <i class="${isFav ? "ph-fill" : "ph"} ph-star"></i>
-            </button>
-          </div>
-        `;
+        `).join('');
+      } else {
+        epSection.style.display = 'none';
+      }
 
-        card.addEventListener("click", (e) => {
-          if (e.target.closest(".card-fav-btn")) return;
-          playChannel(channel);
+      updateModalFavButton();
+      detailsModal.classList.add('open');
+    }
+
+    function updateModalFavButton() {
+      if (!activeMedia) return;
+      const isFav = myList.has(activeMedia.id);
+      document.getElementById('modal-fav-icon').className = isFav ? 'ph-fill ph-check' : 'ph ph-plus';
+      document.getElementById('modal-fav-label').textContent = isFav ? 'In My List' : 'My List';
+    }
+
+    modalCloseBtn.addEventListener('click', () => detailsModal.classList.remove('open'));
+    detailsModal.addEventListener('click', (e) => {
+      if (e.target === detailsModal) detailsModal.classList.remove('open');
+    });
+
+    document.getElementById('modal-play-btn').addEventListener('click', () => {
+      if (activeMedia) {
+        detailsModal.classList.remove('open');
+        playMedia(activeMedia);
+      }
+    });
+
+    document.getElementById('modal-fav-btn').addEventListener('click', () => {
+      if (activeMedia) toggleMyList(activeMedia.id);
+    });
+
+    document.getElementById('modal-trailer-btn').addEventListener('click', () => {
+      if (activeMedia && activeMedia.trailerUrl) {
+        detailsModal.classList.remove('open');
+        playEmbedSource(activeMedia.trailerUrl, `${activeMedia.title} - Official Trailer`);
+      }
+    });
+
+    document.getElementById('modal-download-btn').addEventListener('click', () => {
+      showToast('Downloading episode for offline viewing...');
+    });
+
+    // Global Video Player
+    function playMediaById(id) {
+      const media = [...CATALOG.movies, ...CATALOG.tvShows].find(m => m.id === id);
+      if (media) playMedia(media);
+    }
+
+    function playEpisode(seriesId, epNum) {
+      const series = CATALOG.tvShows.find(s => s.id === seriesId);
+      if (!series) return;
+      detailsModal.classList.remove('open');
+      playMedia(series, `Season 1 • Episode ${epNum}`);
+    }
+
+    function playMedia(media, epSubtitle) {
+      document.getElementById('player-title-text').textContent = media.title;
+      document.getElementById('player-subtitle-text').textContent = epSubtitle || media.year || '4K Stream';
+      document.getElementById('player-quality-pill').textContent = media.quality || '4K UHD';
+
+      playerModal.classList.add('open');
+      playerEmbed.style.display = 'none';
+      playerEmbed.src = 'about:blank';
+      playerVideo.style.display = 'block';
+
+      playerVideo.src = media.streamUrl;
+      playerVideo.play().catch(() => {});
+      updatePlayIcons(true);
+      resetControlsTimer();
+    }
+
+    function playEmbedSource(url, title) {
+      document.getElementById('player-title-text').textContent = title;
+      document.getElementById('player-subtitle-text').textContent = 'Live High-Speed Feed';
+      playerModal.classList.add('open');
+      playerVideo.style.display = 'none';
+      playerVideo.pause();
+      playerEmbed.style.display = 'block';
+      playerEmbed.src = url;
+      resetControlsTimer();
+    }
+
+    function setupPlayer() {
+      playerCloseBtn.addEventListener('click', () => {
+        playerVideo.pause();
+        playerVideo.src = '';
+        playerEmbed.src = 'about:blank';
+        playerModal.classList.remove('open');
+      });
+
+      ctrlPlayBtn.addEventListener('click', togglePlayback);
+      playerCenterPlayBtn.addEventListener('click', togglePlayback);
+
+      function togglePlayback() {
+        if (playerVideo.paused) {
+          playerVideo.play();
+          updatePlayIcons(true);
+        } else {
+          playerVideo.pause();
+          updatePlayIcons(false);
+        }
+        resetControlsTimer();
+      }
+
+      function updatePlayIcons(isPlaying) {
+        ctrlPlayIcon.className = isPlaying ? 'ph-fill ph-pause' : 'ph-fill ph-play';
+        centerPlayIcon.className = isPlaying ? 'ph-fill ph-pause' : 'ph-fill ph-play';
+      }
+
+      playerVideo.addEventListener('timeupdate', () => {
+        if (!playerVideo.duration) return;
+        const pct = (playerVideo.currentTime / playerVideo.duration) * 100;
+        playerSeekBar.value = pct;
+        playerTimeDisplay.textContent = `${formatTime(playerVideo.currentTime)} / ${formatTime(playerVideo.duration)}`;
+      });
+
+      playerSeekBar.addEventListener('input', (e) => {
+        if (!playerVideo.duration) return;
+        playerVideo.currentTime = (e.target.value / 100) * playerVideo.duration;
+      });
+
+      ctrlFullscreenBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          playerModal.requestFullscreen?.() || playerModal.webkitRequestFullscreen?.();
+        } else {
+          document.exitFullscreen?.();
+        }
+      });
+
+      ctrlPipBtn.addEventListener('click', () => {
+        if (document.pictureInPictureElement) {
+          document.exitPictureInPicture();
+        } else if (playerVideo.requestPictureInPicture) {
+          playerVideo.requestPictureInPicture();
+        }
+      });
+
+      ctrlServerBtn.addEventListener('click', () => {
+        showToast('Switched to Ultra-Speed CDN Server 2');
+      });
+
+      document.getElementById('ctrl-rewind-btn').addEventListener('click', () => {
+        playerVideo.currentTime = Math.max(0, playerVideo.currentTime - 10);
+      });
+      document.getElementById('ctrl-forward-btn').addEventListener('click', () => {
+        playerVideo.currentTime = Math.min(playerVideo.duration, playerVideo.currentTime + 10);
+      });
+
+      // Auto-hide controls
+      playerModal.addEventListener('mousemove', resetControlsTimer);
+      playerModal.addEventListener('touchstart', resetControlsTimer);
+    }
+
+    function resetControlsTimer() {
+      playerControls.classList.remove('hidden');
+      if (controlsHideTimeout) clearTimeout(controlsHideTimeout);
+      controlsHideTimeout = setTimeout(() => {
+        if (!playerVideo.paused) {
+          playerControls.classList.add('hidden');
+        }
+      }, 3500);
+    }
+
+    function formatTime(secs) {
+      const m = Math.floor(secs / 60);
+      const s = Math.floor(secs % 60);
+      return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }
+
+    // Search View (Replicating Screenshot 1 Directly!)
+    let activeSearchCategory = 'ALL';
+
+    function setupSearch() {
+      openSearchBtn.addEventListener('click', openSearch);
+      dockSearchBtn.addEventListener('click', openSearch);
+      searchCloseBtn.addEventListener('click', closeSearch);
+
+      searchSubtabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          searchSubtabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          activeSearchCategory = tab.dataset.searchCat;
+          executeSearch(mainSearchInput.value);
         });
+      });
 
-        const favBtn = card.querySelector(".card-fav-btn");
-        favBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          toggleFavorite(channel.id);
-          favBtn.classList.toggle("is-fav");
-          const icon = favBtn.querySelector("i");
-          icon.className = favorites.has(channel.id) ? "ph-fill ph-star" : "ph ph-star";
-          updateFavoriteButtonState();
-          if (selectedCategory === "Favorites") renderChannels();
-        });
+      mainSearchInput.addEventListener('input', (e) => {
+        const q = e.target.value;
+        searchClearBtn.style.display = q ? 'block' : 'none';
+        executeSearch(q);
+      });
 
-        channelContainer.appendChild(card);
+      searchClearBtn.addEventListener('click', () => {
+        mainSearchInput.value = '';
+        searchClearBtn.style.display = 'none';
+        executeSearch('');
       });
     }
 
-    window.addEventListener("DOMContentLoaded", init);
+    function openSearch() {
+      searchView.classList.add('open');
+      mainSearchInput.focus();
+      executeSearch(mainSearchInput.value);
+    }
+
+    function closeSearch() {
+      searchView.classList.remove('open');
+    }
+
+    function executeSearch(query) {
+      const q = query.trim().toLowerCase();
+
+      // Empty Query State (Screenshot 1: Retro Computer Empty State!)
+      if (!q) {
+        searchResultsArea.innerHTML = `
+          <div class="search-empty-state">
+            <div class="retro-computer-icon">
+              <!-- Pixel Retro Terminal SVG (Screenshot 1) -->
+              <svg width="84" height="84" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="15" y="10" width="70" height="55" rx="8" fill="#d4d4d4" stroke="#737373" stroke-width="4"/>
+                <rect x="22" y="17" width="56" height="41" rx="4" fill="#042f1a" stroke="#064e29" stroke-width="2"/>
+                <rect x="26" y="24" width="48" height="6" fill="#10b981"/>
+                <rect x="26" y="34" width="32" height="5" fill="#10b981" opacity="0.6"/>
+                <path d="M10 82L20 65H80L90 82C90 85 88 88 85 88H15C12 88 10 85 10 82Z" fill="#a3a3a3" stroke="#525252" stroke-width="3"/>
+                <rect x="22" y="70" width="56" height="12" rx="2" fill="#525252"/>
+              </svg>
+            </div>
+            <h3 class="empty-state-title">No Results Found</h3>
+            <p class="empty-state-subtitle">Try searching for something else.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Perform Search across Movies, Series, and 79 Live Channels
+      let results = [];
+      if (activeSearchCategory === 'ALL' || activeSearchCategory === 'movies') {
+        results.push(...CATALOG.movies.filter(m => 
+          m.title.toLowerCase().includes(q) || 
+          m.genres.some(g => g.toLowerCase().includes(q)) ||
+          (m.cast && m.cast.some(c => c.name.toLowerCase().includes(q)))
+        ));
+      }
+      if (activeSearchCategory === 'ALL' || activeSearchCategory === 'series') {
+        results.push(...CATALOG.tvShows.filter(s => 
+          s.title.toLowerCase().includes(q) || 
+          s.genres.some(g => g.toLowerCase().includes(q)) ||
+          (s.cast && s.cast.some(c => c.name.toLowerCase().includes(q)))
+        ));
+      }
+      if (activeSearchCategory === 'ALL' || activeSearchCategory === 'livetv') {
+        results.push(...CATALOG.channels.filter(c => 
+          c.name.toLowerCase().includes(q) || 
+          c.network.toLowerCase().includes(q) ||
+          c.group.toLowerCase().includes(q)
+        ));
+      }
+
+      if (results.length === 0) {
+        searchResultsArea.innerHTML = `
+          <div class="search-empty-state">
+            <div class="retro-computer-icon">
+              <svg width="84" height="84" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="15" y="10" width="70" height="55" rx="8" fill="#d4d4d4" stroke="#737373" stroke-width="4"/>
+                <rect x="22" y="17" width="56" height="41" rx="4" fill="#042f1a" stroke="#064e29" stroke-width="2"/>
+                <rect x="26" y="24" width="48" height="6" fill="#10b981"/>
+                <rect x="26" y="34" width="32" height="5" fill="#10b981" opacity="0.6"/>
+                <path d="M10 82L20 65H80L90 82C90 85 88 88 85 88H15C12 88 10 85 10 82Z" fill="#a3a3a3" stroke="#525252" stroke-width="3"/>
+                <rect x="22" y="70" width="56" height="12" rx="2" fill="#525252"/>
+              </svg>
+            </div>
+            <h3 class="empty-state-title">No Results Found</h3>
+            <p class="empty-state-subtitle">Try searching for something else.</p>
+          </div>
+        `;
+        return;
+      }
+
+      searchResultsArea.innerHTML = `
+        <div class="media-grid">
+          ${results.map(item => {
+            if (item.url) {
+              // Live TV Channel Result
+              return `
+                <div class="channel-rail-card" onclick="selectAndPlayLiveChannel('${item.id}'); closeSearch();">
+                  <div class="channel-preview-box">
+                    <span class="live-badge"><span class="live-pulse"></span> LIVE</span>
+                    <span class="channel-network-pill">${item.network}</span>
+                  </div>
+                  <div class="card-meta">
+                    <span class="card-title">${item.name}</span>
+                    <span class="card-subtext">${item.group}</span>
+                  </div>
+                </div>
+              `;
+            } else {
+              return item.type === 'movie' ? createMovieCardHtml(item) : createSeriesCardHtml(item);
+            }
+          }).join('')}
+        </div>
+      `;
+    }
+
+    // Android TV D-Pad & Keyboard Controls
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT') return;
+
+      if (e.key === 'Escape' || e.key === 'Backspace') {
+        if (playerModal.classList.contains('open')) {
+          playerCloseBtn.click();
+        } else if (detailsModal.classList.contains('open')) {
+          modalCloseBtn.click();
+        } else if (searchView.classList.contains('open')) {
+          searchCloseBtn.click();
+        }
+      } else if (e.key === 'f' || e.key === 'F') {
+        if (playerModal.classList.contains('open')) ctrlFullscreenBtn.click();
+      } else if (e.key === ' ') {
+        if (playerModal.classList.contains('open')) {
+          e.preventDefault();
+          ctrlPlayBtn.click();
+        }
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>

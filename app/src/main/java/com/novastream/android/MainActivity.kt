@@ -75,18 +75,18 @@ import com.novastream.android.data.Channel
 import com.novastream.android.data.curatedSportsChannels
 import com.novastream.android.player.NativePlayer
 
-// SuperSport & Premium Dark Palette
-private val StadiumDark = Color(0xFF070B14)
-private val StadiumSurface = Color(0xFF0F1728)
-private val StadiumCard = Color(0xFF141F36)
-private val StadiumCardActive = Color(0xFF122C28)
-private val AccentGreen = Color(0xFF10B981)
-private val LiveRed = Color(0xFFEF4444)
+// Reezn OTT Premium Dark AMOLED Palette
+private val StadiumDark = Color(0xFF000000)
+private val StadiumSurface = Color(0xFF0A0A0A)
+private val StadiumCard = Color(0xFF141414)
+private val StadiumCardActive = Color(0xFF1F1F1F)
+private val AccentGreen = Color(0xFFE50914) // Reezn Scarlet Red Primary
+private val LiveRed = Color(0xFFE50914)
 private val SkyBlue = Color(0xFF38BDF8)
-private val GoldYellow = Color(0xFFFBBF24)
-private val TextWhite = Color(0xFFF8FAFC)
-private val TextMuted = Color(0xFF94A3B8)
-private val TextSubtle = Color(0xFF64748B)
+private val GoldYellow = Color(0xFFF59E0B)
+private val TextWhite = Color(0xFFFFFFFF)
+private val TextMuted = Color(0xFFA3A3A3)
+private val TextSubtle = Color(0xFF737373)
 
 class MainActivity : ComponentActivity() {
     private lateinit var nativePlayer: NativePlayer
@@ -383,11 +383,11 @@ private fun NovaHeader(channelCount: Int) {
         Column(modifier = Modifier.weight(1f)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = "NOVASTREAM",
-                    color = TextWhite,
+                    text = "REEZN",
+                    color = LiveRed,
                     fontWeight = FontWeight.Black,
-                    fontSize = 15.sp,
-                    letterSpacing = 1.2.sp
+                    fontSize = 17.sp,
+                    letterSpacing = (-0.5).sp
                 )
                 Spacer(Modifier.width(6.dp))
                 Box(
@@ -405,9 +405,10 @@ private fun NovaHeader(channelCount: Int) {
                 }
             }
             Text(
-                text = "PREMIER SPORTS STREAMING",
-                color = AccentGreen,
-                fontSize = 9.sp,
+                text = "STREAM MOVIES, SERIES & SPORTS",
+                color = TextMuted,
+                fontSize = 8.5.sp,
+                fontWeight = FontWeight.Bold
                 fontWeight = FontWeight.SemiBold,
                 letterSpacing = 0.8.sp
             )
