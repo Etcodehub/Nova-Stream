@@ -4,7 +4,13 @@ import re
 with open('zlive_channels.json', encoding='utf-8') as f:
     zlive_list = json.load(f)
 
-print(f"Loaded {len(zlive_list)} channels from zlive_channels.json")
+try:
+    with open('matched_playlists.json', encoding='utf-8') as f:
+        matched_playlists = json.load(f)
+except FileNotFoundError:
+    matched_playlists = {}
+
+print(f"Loaded {len(zlive_list)} channels from zlive_channels.json ({len(matched_playlists)} playlist matches)")
 
 # Build a clean master catalog
 catalog = []
@@ -101,10 +107,31 @@ for c in zlive_list:
     logo = get_logo(cid, name, cat)
     is_top = cid in top_slugs or c.get('quality') == '4K' or 'premier' in name.lower() or 'main event' in name.lower()
     
-    # Server 1: Direct embed (preserves SPA routing, no X-Frame-Options)
-    # Server 2: Cloudflare Edge Proxy (/embed/* route on novastream-gateway.etcodehub.workers.dev)
+    # Server 1: Direct Live (zlive.st embed, no proxy needed)
+    # Server 2: Playlist HLS (real matched IPTV-org .m3u8 via Cloudflare Proxy)
     direct_url = f"https://zlive.st/embed/{cid}?radius=7&frame=0&brand=0"
-    edge_url = f"https://novastream-gateway.etcodehub.workers.dev/embed/{cid}?radius=7&frame=0&brand=0"
+    sources = [
+        {
+            "id": f"src_{cid}_direct",
+            "label": "Server 1 (Direct Live)",
+            "url": direct_url,
+            "priority": 1,
+            "protocol": "embed",
+            "requiresProxy": False,
+            "state": "HEALTHY"
+        }
+    ]
+    playlist_url = matched_playlists.get(cid)
+    if playlist_url:
+        sources.append({
+            "id": f"src_{cid}_playlist",
+            "label": "Server 2 (Playlist HLS)",
+            "url": playlist_url,
+            "priority": 2,
+            "protocol": "hls",
+            "requiresProxy": True,
+            "state": "HEALTHY"
+        })
     
     channel_obj = {
         "id": cid,
@@ -117,26 +144,7 @@ for c in zlive_list:
         "quality": c.get('quality', 'FHD'),
         "tagline": c.get('tagline', ''),
         "region": c.get('region', ''),
-        "sources": [
-            {
-                "id": f"src_{cid}_direct",
-                "label": "Server 1 (Direct Live)",
-                "url": direct_url,
-                "priority": 1,
-                "protocol": "embed",
-                "requiresProxy": False,
-                "state": "HEALTHY"
-            },
-            {
-                "id": f"src_{cid}_proxy",
-                "label": "Server 2 (Cloudflare Proxy)",
-                "url": edge_url,
-                "priority": 2,
-                "protocol": "embed",
-                "requiresProxy": False,
-                "state": "HEALTHY"
-            }
-        ],
+        "sources": sources,
         "currentProgram": {
             "id": f"epg_{cid}",
             "title": f"{name} Live Broadcast",
