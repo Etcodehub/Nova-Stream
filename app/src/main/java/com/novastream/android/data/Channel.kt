@@ -1,5 +1,14 @@
 package com.novastream.android.data
 
+data class StreamSource(
+    val id: String,
+    val label: String,
+    val url: String,
+    val priority: Int = 1,
+    val drmClearKeyId: String? = null,
+    val drmClearKeyVal: String? = null
+)
+
 data class Channel(
     val id: String,
     val name: String,
@@ -10,7 +19,15 @@ data class Channel(
     val network: String = group,
     val eventSubtitle: String = "Live Broadcast",
     val qualityBadge: String = "HD",
-    val isTopTen: Boolean = false
+    val isTopTen: Boolean = false,
+    val sources: List<StreamSource> = listOf(
+        StreamSource(
+            id = "${id}_primary",
+            label = "Server 1 (Primary)",
+            url = url,
+            priority = 1
+        )
+    )
 ) {
     val isWebsiteEmbed: Boolean
         get() {
