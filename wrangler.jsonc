@@ -3,6 +3,7 @@
   "name": "novastream-gateway",
   "main": "src/gateway/worker.ts",
   "compatibility_date": "2026-01-01",
+  "account_id": "7a86f6d32a65cdbf8b9bff2dfad577c5",
   "observability": {
     "enabled": true
   }

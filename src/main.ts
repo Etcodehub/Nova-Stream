@@ -31,8 +31,8 @@ let player: NovaPlayer;
 async function bootstrap(): Promise<void> {
   console.log('[NovaStream] Initializing Web Streaming Core...');
 
-  // 1. Initialize Player
-  player = new NovaPlayer(videoElement);
+  // 1. Initialize Player with Cloudflare Edge Gateway
+  player = new NovaPlayer(videoElement, 'https://novastream-gateway.etcodehub.workers.dev');
   player.subscribe(renderPlayerState);
 
   // 2. Load 0ms Fast Cache from IndexedDB
