@@ -1,7 +1,8 @@
 /**
  * ChannelGrid Component
  * Prime Video / Netflix-style horizontal carousels (rails)
- * Organized on Home by Sport, Movie, and Kids, plus full 'All TV Channels' view with category tabs.
+ * Organized on Home by Top Channels, Best Sports, Movies, Kids, News, and Entertainment,
+ * plus full 'All TV Channels' catalog grid with real-time category filtering and search.
  */
 
 import type { Channel } from '../types/index.ts';
@@ -37,15 +38,16 @@ export class ChannelGrid {
 
   public filterByCategory(category: string): void {
     this.currentCategory = category;
+    this.allChannelsSubCategory = 'ALL';
     this.render();
   }
 
   public setSearchQuery(query: string): void {
-    this.searchQuery = query;
+    this.searchQuery = query.trim().toLowerCase();
     this.render();
   }
 
-  private render(): void {
+  public render(): void {
     this.container.innerHTML = '';
 
     // If searching, show search results grid
@@ -54,7 +56,7 @@ export class ChannelGrid {
       return;
     }
 
-    // View 1: 'All TV Channels' with Category Tabs
+    // View 1: 'All TV Channels' with Category Tabs & Grid
     if (this.currentCategory === 'ALL_CHANNELS') {
       this.renderAllChannelsView();
       return;
@@ -69,35 +71,66 @@ export class ChannelGrid {
       return;
     }
 
-    // View 3: Default Home Rails: Sport, Movie, Kids (Requested by User)
+    // View 3: Home Rails (Top Channels, Best Sports, Movies, Kids, News, Entertainment)
+    const topChannels = this.channels.filter((c) => c.isTop);
     const sports = this.channels.filter((c) => c.category === 'Sports');
     const movies = this.channels.filter((c) => c.category === 'Movies');
     const kids = this.channels.filter((c) => c.category === 'Kids');
     const news = this.channels.filter((c) => c.category === 'News');
+    const entertainment = this.channels.filter(
+      (c) => c.category === 'Entertainment' || c.category === 'Documentary'
+    );
 
-    if (sports.length > 0) this.renderRail('⚽ Sport — Live Matches & Premier Feeds', sports);
-    if (movies.length > 0) this.renderRail('🎬 Movie — Premiere Cinema & Blockbusters', movies);
-    if (kids.length > 0) this.renderRail('🧸 Kids — Cartoons, Animation & Family Fun', kids);
-    if (news.length > 0) this.renderRail('🌐 News & World Broadcasts', news);
+    // 1. Top Channels & Trending Now
+    if (topChannels.length > 0) {
+      this.renderRail('🔥 Top Channels & Trending Now', topChannels);
+    }
+
+    // 2. Best Sport Channels
+    if (sports.length > 0) {
+      this.renderRail('⚽ Best Sport Channels — Premier League & Live Matches', sports);
+    }
+
+    // 3. Movies & Cinema
+    if (movies.length > 0) {
+      this.renderRail('🎬 Premiere Cinema & Blockbuster Movies', movies);
+    }
+
+    // 4. Kids & Family
+    if (kids.length > 0) {
+      this.renderRail('🧸 Kids & Family — Cartoons, Animation & Fun', kids);
+    }
+
+    // 5. Global News
+    if (news.length > 0) {
+      this.renderRail('🌐 Global 24/7 News Networks', news);
+    }
+
+    // 6. Entertainment & Shows
+    if (entertainment.length > 0) {
+      this.renderRail('📺 Entertainment, Series & Special Broadcasts', entertainment);
+    }
   }
 
   private renderAllChannelsView(): void {
     const section = document.createElement('div');
-    section.className = 'prime-single-category-section';
+    section.className = 'all-channels-section';
 
     section.innerHTML = `
       <div class="all-channels-header-bar">
-        <div>
-          <h3 class="prime-rail-title">All TV Channels</h3>
-          <p class="section-subtext">Browse and switch between all available live broadcasts</p>
+        <div class="all-channels-title-group">
+          <h2 class="all-channels-title">All TV Channels</h2>
+          <span class="all-channels-subtitle">(${this.channels.length} Total Channels from All Providers)</span>
         </div>
 
-        <div class="all-channels-category-filter" id="all-channels-filter">
+        <div class="category-pills-filter" id="all-channels-filter">
           <button class="cat-chip ${this.allChannelsSubCategory === 'ALL' ? 'active' : ''}" data-cat="ALL">All (${this.channels.length})</button>
-          <button class="cat-chip ${this.allChannelsSubCategory === 'Sports' ? 'active' : ''}" data-cat="Sports">Sport</button>
-          <button class="cat-chip ${this.allChannelsSubCategory === 'Movies' ? 'active' : ''}" data-cat="Movies">Movie</button>
-          <button class="cat-chip ${this.allChannelsSubCategory === 'Kids' ? 'active' : ''}" data-cat="Kids">Kids</button>
-          <button class="cat-chip ${this.allChannelsSubCategory === 'News' ? 'active' : ''}" data-cat="News">News</button>
+          <button class="cat-chip ${this.allChannelsSubCategory === 'TOP' ? 'active' : ''}" data-cat="TOP">🔥 Top Channels</button>
+          <button class="cat-chip ${this.allChannelsSubCategory === 'Sports' ? 'active' : ''}" data-cat="Sports">⚽ Sport</button>
+          <button class="cat-chip ${this.allChannelsSubCategory === 'Movies' ? 'active' : ''}" data-cat="Movies">🎬 Movie</button>
+          <button class="cat-chip ${this.allChannelsSubCategory === 'Kids' ? 'active' : ''}" data-cat="Kids">🧸 Kids</button>
+          <button class="cat-chip ${this.allChannelsSubCategory === 'News' ? 'active' : ''}" data-cat="News">🌐 News</button>
+          <button class="cat-chip ${this.allChannelsSubCategory === 'Entertainment' ? 'active' : ''}" data-cat="Entertainment">📺 Entertainment</button>
         </div>
       </div>
 
@@ -123,10 +156,20 @@ export class ChannelGrid {
 
   private populateAllChannelsGrid(grid: HTMLElement): void {
     grid.innerHTML = '';
-    const filtered =
-      this.allChannelsSubCategory === 'ALL'
-        ? this.channels
-        : this.channels.filter((c) => c.category.toLowerCase() === this.allChannelsSubCategory.toLowerCase());
+    let filtered = this.channels;
+
+    if (this.allChannelsSubCategory === 'TOP') {
+      filtered = this.channels.filter((c) => c.isTop);
+    } else if (this.allChannelsSubCategory !== 'ALL') {
+      filtered = this.channels.filter(
+        (c) => c.category.toLowerCase() === this.allChannelsSubCategory.toLowerCase()
+      );
+    }
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '<div class="no-channels-msg">No channels found in this category.</div>';
+      return;
+    }
 
     filtered.forEach((channel) => {
       grid.appendChild(this.createChannelCard(channel));
@@ -169,13 +212,16 @@ export class ChannelGrid {
     this.container.appendChild(railWrapper);
   }
 
-  private renderSingleRail(category: string, list: Channel[]): void {
+  private renderSingleRail(categoryName: string, list: Channel[]): void {
     const section = document.createElement('div');
     section.className = 'prime-single-category-section';
+
     section.innerHTML = `
-      <div class="prime-rail-header">
-        <h3 class="prime-rail-title">${category} Live Streams</h3>
-        <span class="prime-rail-count">${list.length} Channels</span>
+      <div class="all-channels-header-bar">
+        <div>
+          <h2 class="all-channels-title">${categoryName} Broadcasts</h2>
+          <span class="all-channels-subtitle">${list.length} Channels Available</span>
+        </div>
       </div>
       <div class="prime-cards-grid"></div>
     `;
@@ -189,7 +235,7 @@ export class ChannelGrid {
   }
 
   private renderSearchResults(): void {
-    const results = this.channels.filter((c) => {
+    const filtered = this.channels.filter((c) => {
       return (
         c.name.toLowerCase().includes(this.searchQuery) ||
         c.category.toLowerCase().includes(this.searchQuery) ||
@@ -199,19 +245,22 @@ export class ChannelGrid {
 
     const section = document.createElement('div');
     section.className = 'prime-single-category-section';
+
     section.innerHTML = `
-      <div class="prime-rail-header">
-        <h3 class="prime-rail-title">Search Results for "${this.searchQuery}"</h3>
-        <span class="prime-rail-count">${results.length} Found</span>
+      <div class="all-channels-header-bar">
+        <div>
+          <h2 class="all-channels-title">Search Results</h2>
+          <span class="all-channels-subtitle">Found ${filtered.length} channels for "${this.searchQuery}"</span>
+        </div>
       </div>
       <div class="prime-cards-grid"></div>
     `;
 
     const grid = section.querySelector('.prime-cards-grid') as HTMLElement;
-    if (results.length === 0) {
-      grid.innerHTML = '<div class="no-results-msg">No channels found matching your query.</div>';
+    if (filtered.length === 0) {
+      grid.innerHTML = '<div class="no-channels-msg">No channels found matching your search.</div>';
     } else {
-      results.forEach((channel) => {
+      filtered.forEach((channel) => {
         grid.appendChild(this.createChannelCard(channel));
       });
     }
@@ -235,6 +284,7 @@ export class ChannelGrid {
         <div class="card-overlay-badge">
           <span class="mini-live-dot"></span> LIVE
         </div>
+        ${channel.isTop ? '<span class="card-top-badge">TOP</span>' : ''}
       </div>
 
       <div class="card-details-box">
@@ -245,23 +295,23 @@ export class ChannelGrid {
         <div class="card-program-title">${programTitle}</div>
         <div class="card-footer-tags">
           <span class="prime-pill-tag">${channel.category}</span>
-          <span class="prime-quality-tag">HD</span>
+          <span class="prime-hd-text">1080p HD</span>
         </div>
       </div>
     `;
 
-    const handleSelect = () => {
+    const select = () => {
       this.activeChannelId = channel.id;
       this.highlightActiveCards();
       this.onSelect(channel);
       document.getElementById('player-viewport')?.scrollIntoView({ behavior: 'smooth' });
     };
 
-    card.addEventListener('click', handleSelect);
+    card.addEventListener('click', select);
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        handleSelect();
+        select();
       }
     });
 

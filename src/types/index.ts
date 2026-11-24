@@ -41,6 +41,8 @@ export interface Channel {
   category: 'Sports' | 'Movies' | 'Kids' | 'News' | 'Entertainment' | 'Documentary';
   logoUrl: string;
   epgId?: string;
+  network?: string;
+  isTop?: boolean;
   sources: StreamSource[];
   currentProgram?: EPGProgram;
   updatedAt: number;

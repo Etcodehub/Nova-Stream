@@ -89,3 +89,53 @@ test('calculateBackoffMs stays within capped bounds with jitter', () => {
     assert.ok(result <= max * 1.35, 'Backoff must not exceed capped maximum plus jitter margin');
   }
 });
+
+// Test 4: M3U parsing and multi-provider sources mapping
+test('parseM3u parses channels and marks sources for Cloudflare Edge proxying', () => {
+  const sampleM3u = `#EXTM3U
+#EXTINF:-1 tvg-id="sky.sports.f1" tvg-logo="https://cdn.tv/f1.png" group-title="Sports",Sky Sports F1 HD
+https://stream.provider.tv/f1/live.m3u8
+#EXTINF:-1 tvg-id="disney.junior" tvg-logo="https://cdn.tv/disney.png" group-title="Kids",Disney Junior
+https://stream.provider.tv/kids/live.m3u8`;
+
+  const lines = sampleM3u.split('\n');
+  const channels = [];
+  let currentName = '';
+  let currentLogo = '';
+  let currentTvgId = '';
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (line.startsWith('#EXTINF:')) {
+      const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+      currentLogo = logoMatch ? logoMatch[1] : '';
+      const idMatch = line.match(/tvg-id="([^"]+)"/);
+      currentTvgId = idMatch ? idMatch[1] : '';
+      const parts = line.split(',');
+      currentName = parts.length > 1 ? parts[parts.length - 1].trim() : 'Live';
+    } else if (line.startsWith('http')) {
+      channels.push({
+        id: `iptv_${currentTvgId}`,
+        name: currentName,
+        category: 'Sports',
+        logoUrl: currentLogo,
+        sources: [
+          {
+            id: `src_1`,
+            url: line,
+            priority: 1,
+            protocol: 'hls',
+            requiresProxy: true,
+          },
+        ],
+      });
+      currentName = '';
+    }
+  }
+
+  assert.equal(channels.length, 2);
+  assert.equal(channels[0].name, 'Sky Sports F1 HD');
+  assert.equal(channels[0].sources[0].requiresProxy, true);
+  assert.equal(channels[1].name, 'Disney Junior');
+});
+

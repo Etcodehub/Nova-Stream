@@ -476,6 +476,28 @@ iframe {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
+.prime-btn-close:hover {
+  background-color: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
+}
+
+.player-cinema-wrapper.visible {
+  display: block;
+  animation: cinemaSlideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes cinemaSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ==========================================================================
    3. HERO BILLBOARD BANNER
    ========================================================================== */
@@ -774,6 +796,20 @@ iframe {
   display: flex;
   align-items: center;
   gap: 0.35rem;
+}
+
+.card-top-badge {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+  color: #0b0e14;
+  font-size: 0.65rem;
+  font-weight: 900;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.5);
 }
 
 .mini-live-dot {

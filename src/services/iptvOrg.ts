@@ -8,7 +8,7 @@ import type { Channel, StreamSource } from '../types/index.ts';
 
 export interface IptvCategory {
   id: string;
-  name: 'Sports' | 'Movies' | 'Kids' | 'News' | 'Entertainment';
+  name: 'Sports' | 'Movies' | 'Kids' | 'News' | 'Entertainment' | 'Documentary';
   url: string;
 }
 
@@ -38,6 +38,11 @@ export const IPTV_ORG_ENDPOINTS: IptvCategory[] = [
     name: 'Entertainment',
     url: 'https://iptv-org.github.io/iptv/categories/entertainment.m3u',
   },
+  {
+    id: 'documentary',
+    name: 'Documentary',
+    url: 'https://iptv-org.github.io/iptv/categories/documentary.m3u',
+  },
 ];
 
 export class IptvOrgService {
@@ -46,7 +51,7 @@ export class IptvOrgService {
    */
   public async fetchCategoryChannels(
     category: IptvCategory,
-    limit = 25
+    limit = 100
   ): Promise<Channel[]> {
     try {
       const res = await fetch(category.url);

@@ -1,7 +1,7 @@
 /**
  * PlayerView Component
  * Cinema-Grade Media Player (Prime Video / Netflix style)
- * Clean, elegant consumer viewport with Interactive Visual Channel Selector button.
+ * Clean, elegant consumer viewport that opens on-demand when a user selects a channel.
  */
 
 import type { Channel, PlayerPlaybackState, StreamSource } from '../types/index.ts';
@@ -12,6 +12,7 @@ export class PlayerView {
   private player: NovaPlayer | null = null;
   private onOpenChooserCallback: (() => void) | null = null;
 
+  private wrapperElement!: HTMLElement;
   private videoElement!: HTMLVideoElement;
   private iframeElement!: HTMLIFrameElement;
   private titleElement!: HTMLElement;
@@ -20,7 +21,9 @@ export class PlayerView {
   private btnOpenChooser!: HTMLButtonElement;
   private currentLogoMini!: HTMLImageElement;
   private btnTheaterMode!: HTMLButtonElement;
+  private btnClosePlayer!: HTMLButtonElement;
   private isTheaterMode = false;
+  private isPlayerVisible = false;
 
   constructor(container: HTMLElement, player?: NovaPlayer) {
     this.container = container;
@@ -44,9 +47,39 @@ export class PlayerView {
     return this.iframeElement;
   }
 
+  public isVisible(): boolean {
+    return this.isPlayerVisible;
+  }
+
+  public show(): void {
+    this.isPlayerVisible = true;
+    if (this.wrapperElement) {
+      this.wrapperElement.style.display = 'block';
+      this.wrapperElement.classList.add('visible');
+    }
+  }
+
+  public hide(): void {
+    this.isPlayerVisible = false;
+    if (this.wrapperElement) {
+      this.wrapperElement.style.display = 'none';
+      this.wrapperElement.classList.remove('visible');
+    }
+    // Pause / Stop stream playback
+    if (this.player) {
+      this.player.stop();
+    }
+    if (this.videoElement) {
+      this.videoElement.pause();
+    }
+    if (this.iframeElement) {
+      this.iframeElement.src = 'about:blank';
+    }
+  }
+
   private render(): void {
     this.container.innerHTML = `
-      <div class="player-cinema-wrapper">
+      <div class="player-cinema-wrapper" id="player-cinema-wrapper" style="display: none;">
         <div class="player-viewport-container" id="player-viewport">
           <div class="player-ambient-glow"></div>
           <div class="player-overlay-live-badge">
@@ -92,11 +125,19 @@ export class PlayerView {
                 <line x1="12" y1="17" x2="12" y2="21"></line>
               </svg>
             </button>
+
+            <button class="prime-btn-icon prime-btn-close" id="btn-close-player" title="Close Player and Return to Home">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
           </div>
         </div>
       </div>
     `;
 
+    this.wrapperElement = this.container.querySelector('#player-cinema-wrapper')!;
     this.videoElement = this.container.querySelector('#nova-video')!;
     this.iframeElement = this.container.querySelector('#nova-iframe')!;
     this.titleElement = this.container.querySelector('#now-playing-title')!;
@@ -105,9 +146,14 @@ export class PlayerView {
     this.btnOpenChooser = this.container.querySelector('#btn-open-channel-modal')!;
     this.currentLogoMini = this.container.querySelector('#current-channel-logo-mini')!;
     this.btnTheaterMode = this.container.querySelector('#btn-theater-mode')!;
+    this.btnClosePlayer = this.container.querySelector('#btn-close-player')!;
 
     this.btnTheaterMode.addEventListener('click', () => {
       this.toggleTheaterMode();
+    });
+
+    this.btnClosePlayer.addEventListener('click', () => {
+      this.hide();
     });
 
     this.btnOpenChooser.addEventListener('click', () => {
@@ -118,6 +164,8 @@ export class PlayerView {
   }
 
   public updateNowPlaying(channel: Channel): void {
+    this.show();
+
     if (this.titleElement) {
       const subtitle = channel.currentProgram?.title ? `• ${channel.currentProgram.title}` : '';
       this.titleElement.innerHTML = `${channel.name} <span class="now-playing-sub">${subtitle}</span>`;
@@ -167,9 +215,8 @@ export class PlayerView {
 
   private toggleTheaterMode(): void {
     this.isTheaterMode = !this.isTheaterMode;
-    const playerWrapper = this.container.querySelector('.player-cinema-wrapper');
-    if (playerWrapper) {
-      playerWrapper.classList.toggle('theater-mode', this.isTheaterMode);
+    if (this.wrapperElement) {
+      this.wrapperElement.classList.toggle('theater-mode', this.isTheaterMode);
     }
   }
 }

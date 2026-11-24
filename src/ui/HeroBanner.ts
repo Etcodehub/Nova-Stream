@@ -7,15 +7,26 @@
 import type { Channel } from '../types/index.ts';
 
 export type WatchLiveCallback = (channel: Channel) => void;
+export type BrowseChannelsCallback = () => void;
 
 export class HeroBanner {
   private container: HTMLElement;
   private onWatchLive: WatchLiveCallback;
+  private onBrowseChannels: BrowseChannelsCallback | null = null;
   private currentFeaturedChannel: Channel | null = null;
 
-  constructor(container: HTMLElement, onWatchLive: WatchLiveCallback) {
+  constructor(
+    container: HTMLElement,
+    onWatchLive: WatchLiveCallback,
+    onBrowseChannels?: BrowseChannelsCallback
+  ) {
     this.container = container;
     this.onWatchLive = onWatchLive;
+    this.onBrowseChannels = onBrowseChannels || null;
+  }
+
+  public setOnBrowseChannels(cb: BrowseChannelsCallback): void {
+    this.onBrowseChannels = cb;
   }
 
   public setFeaturedChannel(channel: Channel): void {
@@ -42,7 +53,7 @@ export class HeroBanner {
 
         <div class="hero-content">
           <div class="hero-badge-row">
-            <span class="hero-live-pill"><span class="hero-live-dot"></span> LIVE NOW</span>
+            <span class="hero-live-pill"><span class="hero-live-dot"></span> FEATURED BROADCAST</span>
             <span class="hero-quality-tag">4K ULTRA HD</span>
             <span class="hero-category-tag">${ch.category}</span>
           </div>
@@ -57,13 +68,12 @@ export class HeroBanner {
               </svg>
               Watch Live
             </button>
-            <button class="hero-btn-secondary" id="btn-hero-info">
+            <button class="hero-btn-secondary" id="btn-hero-choose">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="16" x2="12" y2="12"></line>
-                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
               </svg>
-              ${ch.name}
+              📺 Choose Channel
             </button>
           </div>
         </div>
@@ -74,8 +84,14 @@ export class HeroBanner {
     btnWatch?.addEventListener('click', () => {
       if (this.currentFeaturedChannel) {
         this.onWatchLive(this.currentFeaturedChannel);
-        // Smooth scroll up to player
         document.getElementById('player-viewport')?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    const btnChoose = this.container.querySelector('#btn-hero-choose');
+    btnChoose?.addEventListener('click', () => {
+      if (this.onBrowseChannels) {
+        this.onBrowseChannels();
       }
     });
   }

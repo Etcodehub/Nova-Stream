@@ -6,14 +6,15 @@ export const INITIAL_MOCK_CHANNELS: Channel[] = [
   // ==========================================
   {
     id: 'ch_nova_sports_premier',
-    name: 'Nova Sports Premier Feed',
+    name: 'SuperSport Premier Matchday',
     category: 'Sports',
-    logoUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=300&q=80',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Premier_League_Logo.svg/512px-Premier_League_Logo.svg.png',
     epgId: 'novasports.premier.auto',
+    isTop: true,
     updatedAt: Date.now(),
     currentProgram: {
       id: 'epg_premier_match',
-      title: 'UEFA & Premier League Live Matchday',
+      title: 'Super Sunday: Premier League Feature Match',
       description: 'Ultra HD feature match broadcast with continuous commentary',
       startTime: Date.now() - 1000 * 60 * 30,
       endTime: Date.now() + 1000 * 60 * 90,
@@ -39,10 +40,11 @@ export const INITIAL_MOCK_CHANNELS: Channel[] = [
   },
   {
     id: 'ch_nova_sports_1',
-    name: 'Nova Sports 1 HD',
+    name: 'Sky Sports Main Event',
     category: 'Sports',
-    logoUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=300&q=80',
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Sky_Sports_logo_2020.svg/512px-Sky_Sports_logo_2020.svg.png',
     epgId: 'novasports1.live',
+    isTop: true,
     updatedAt: Date.now() - 3600000,
     currentProgram: {
       id: 'epg_uefa_final',

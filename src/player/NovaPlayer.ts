@@ -332,6 +332,20 @@ export class NovaPlayer {
     this.listeners.forEach((listener) => listener(this.playbackState));
   }
 
+  public stop(): void {
+    if (this.stallCheckInterval) clearInterval(this.stallCheckInterval);
+    this.destroyHls();
+    if (this.videoElement) {
+      this.videoElement.pause();
+      this.videoElement.removeAttribute('src');
+      this.videoElement.load();
+    }
+    if (this.iframeElement) {
+      this.iframeElement.src = 'about:blank';
+    }
+    this.updateState({ state: 'idle' });
+  }
+
   public destroy(): void {
     if (this.stallCheckInterval) clearInterval(this.stallCheckInterval);
     this.destroyHls();

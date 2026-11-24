@@ -87,10 +87,12 @@ export class ChannelChooserModal {
           <!-- Category filter pills -->
           <div class="modal-category-tabs" id="modal-category-tabs">
             <button class="modal-cat-pill active" data-cat="ALL">All Channels</button>
+            <button class="modal-cat-pill" data-cat="TOP">🔥 Top Channels</button>
             <button class="modal-cat-pill" data-cat="Sports">Sports</button>
             <button class="modal-cat-pill" data-cat="Movies">Movies</button>
             <button class="modal-cat-pill" data-cat="Kids">Kids</button>
             <button class="modal-cat-pill" data-cat="News">News</button>
+            <button class="modal-cat-pill" data-cat="Entertainment">Entertainment</button>
           </div>
         </div>
 
@@ -141,7 +143,9 @@ export class ChannelChooserModal {
 
     const filtered = this.channels.filter((c) => {
       const matchesCategory =
-        this.currentCategory === 'ALL' || c.category.toLowerCase() === this.currentCategory.toLowerCase();
+        this.currentCategory === 'ALL' ||
+        (this.currentCategory === 'TOP' && c.isTop) ||
+        c.category.toLowerCase() === this.currentCategory.toLowerCase();
       const matchesSearch =
         !this.searchQuery ||
         c.name.toLowerCase().includes(this.searchQuery) ||

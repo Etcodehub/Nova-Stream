@@ -1,7 +1,7 @@
 /**
  * NovaStream Commercial Web Application
  * Prime Video / Netflix-grade streaming interface orchestrating
- * Header, Cinema PlayerView, ChannelChooserModal with logos, HeroBanner, and Horizontal Channel Rails.
+ * Header, Cinema PlayerView (on-demand), ChannelChooserModal with logos, HeroBanner, and Horizontal Channel Rails.
  */
 
 import './style.css';
@@ -51,24 +51,28 @@ class NovaStreamApp {
     this.channelGrid.setChannels(this.channels);
     this.channelChooserModal.setChannels(this.channels);
 
-    // 6. Set featured hero channel and mount first stream
-    if (this.channels.length > 0) {
-      this.selectChannel(this.channels[0]);
+    // 6. Set featured hero channel WITHOUT starting autoplay on initial load
+    const topOrFirst = this.channels.find((c) => c.isTop) || this.channels[0];
+    if (topOrFirst) {
+      this.heroBanner.setFeaturedChannel(topOrFirst);
+      this.channelChooserModal.setActiveChannel(topOrFirst.id);
     }
 
-    // 7. Silent background revalidation (runs once if catalog was sparse)
-    if (this.channels.length < 15) {
-      setTimeout(() => {
-        catalogManager
-          .autoFetchAllProviders(this.channels)
-          .then((updated) => {
-            this.channels = updated;
-            this.channelGrid.setChannels(this.channels, this.activeChannel?.id);
-            this.channelChooserModal.setChannels(this.channels, this.activeChannel?.id);
-          })
-          .catch(console.error);
-      }, 500);
-    }
+    // 7. Background Ingest: auto-fetch all channels from both providers (IPTV-org + catalog.json 79 feeds + embed)
+    catalogManager
+      .autoFetchAllProviders(this.channels)
+      .then((updated) => {
+        this.channels = updated;
+        this.channelGrid.setChannels(this.channels, this.activeChannel?.id);
+        this.channelChooserModal.setChannels(this.channels, this.activeChannel?.id);
+        if (!this.activeChannel) {
+          const featured = this.channels.find((c) => c.isTop) || this.channels[0];
+          if (featured) {
+            this.heroBanner.setFeaturedChannel(featured);
+          }
+        }
+      })
+      .catch(console.error);
   }
 
   private mountComponents(): void {
@@ -87,7 +91,7 @@ class NovaStreamApp {
       },
     });
 
-    // Cinema-Grade Player View
+    // Cinema-Grade Player View (hidden until user selects a channel)
     this.playerView = new PlayerView(playerRoot);
 
     // Interactive Channel Chooser Modal with Logos
@@ -95,17 +99,23 @@ class NovaStreamApp {
       this.selectChannel(channel);
     });
 
-    // Wire button to open modal
+    // Wire player button to open modal
     this.playerView.setOnOpenChooser(() => {
       this.channelChooserModal.open();
     });
 
     // Hero Billboard Banner
-    this.heroBanner = new HeroBanner(heroRoot, (channel) => {
-      this.selectChannel(channel);
-    });
+    this.heroBanner = new HeroBanner(
+      heroRoot,
+      (channel) => {
+        this.selectChannel(channel);
+      },
+      () => {
+        this.channelChooserModal.open();
+      }
+    );
 
-    // Prime Video Style Horizontal Carousels (Sport, Movie, Kids on Home)
+    // Prime Video Style Horizontal Carousels (Top Channels, Sport, Movie, Kids, News, Entertainment)
     this.channelGrid = new ChannelGrid(catalogRoot, (channel) => {
       this.selectChannel(channel);
     });
