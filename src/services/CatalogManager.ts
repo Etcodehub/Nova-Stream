@@ -15,7 +15,7 @@ export type CatalogUpdateListener = (
 ) => void;
 
 const CACHE_VERSION_KEY = 'novastream_catalog_schema';
-const CURRENT_CACHE_VERSION = 'zlive_only_v3';
+const CURRENT_CACHE_VERSION = 'zlive_only_v4';
 
 function resolveCategory(raw: any): Channel['category'] {
   const sport = (raw.sport || '').toLowerCase();
@@ -171,7 +171,7 @@ export class CatalogManager {
             {
               id: `src_${cid}_proxy`,
               label: 'Server 1 (Edge Proxy)',
-              url: `https://novastream-gateway.etcodehub.workers.dev/embed/${cid}?radius=7&frame=0&brand=0`,
+              url: `https://zlive.st/embed/${cid}?radius=7&frame=0&brand=0`,
               priority: 1,
               protocol: 'embed',
               requiresProxy: true,

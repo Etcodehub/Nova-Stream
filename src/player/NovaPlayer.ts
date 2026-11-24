@@ -142,7 +142,7 @@ export class NovaPlayer {
 
       // Route via Cloudflare Edge Gateway if proxy requested to bypass geo-blocking & CORS
       let embedTargetUrl = source.url;
-      if (source.requiresProxy && this.proxyGatewayBase) {
+      if (source.requiresProxy && this.proxyGatewayBase && !source.url.startsWith(this.proxyGatewayBase)) {
         embedTargetUrl = `${this.proxyGatewayBase}/stream?url=${encodeURIComponent(source.url)}`;
       }
 
