@@ -121,8 +121,8 @@ for c in zlive_list:
     logo = get_logo(cid, name, cat)
     is_top = cid in top_slugs or c.get('quality') == '4K' or 'premier' in name.lower() or 'main event' in name.lower()
 
-    # Server 1: Direct Live with fullscreen=0 (hides zlive's own fullscreen button)
-    direct_url = f"https://zlive.st/embed/{cid}?radius=7&frame=0&brand=0&fullscreen=0"
+    # Server 1: Direct Live with fullscreen=0 and q=480 (480p default for fast, low-buffer playback)
+    direct_url = f"https://zlive.st/embed/{cid}?radius=7&frame=0&brand=0&fullscreen=0&q=480"
     sources = [
         {
             "id": f"src_{cid}_direct",

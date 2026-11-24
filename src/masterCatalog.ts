@@ -22,7 +22,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_adult-swim-test_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/adult-swim-test?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/adult-swim-test?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -53,7 +53,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_skysportsf1-uk2_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/skysportsf1-uk2?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/skysportsf1-uk2?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -84,7 +84,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_skysportsf1-uk3_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/skysportsf1-uk3?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/skysportsf1-uk3?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -115,7 +115,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_skysportsf1-uk3-llta_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/skysportsf1-uk3-llta?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/skysportsf1-uk3-llta?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -146,7 +146,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_TSN4_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/TSN4?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/TSN4?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -186,7 +186,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_beinsports2-au_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/beinsports2-au?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/beinsports2-au?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -217,7 +217,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_bein-turkey-1_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/bein-turkey-1?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/bein-turkey-1?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -248,7 +248,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_bein-turkey-2_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/bein-turkey-2?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/bein-turkey-2?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -279,7 +279,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_skysportsmainevent1_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/skysportsmainevent1?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/skysportsmainevent1?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -310,7 +310,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_dazn-it-test_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/dazn-it-test?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/dazn-it-test?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -341,7 +341,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_dazn-it-backup_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/dazn-it-backup?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/dazn-it-backup?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -372,7 +372,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_spersport-56_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/spersport-56?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/spersport-56?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -403,7 +403,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_spersport-grand_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/spersport-grand?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/spersport-grand?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -434,7 +434,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_spersport-premier_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/spersport-premier?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/spersport-premier?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -465,7 +465,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_dazn-f1-test_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/dazn-f1-test?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/dazn-f1-test?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -496,7 +496,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_dazn-f1-test-backup_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/dazn-f1-test-backup?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/dazn-f1-test-backup?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -527,7 +527,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_fs-502_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/fs-502?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/fs-502?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -558,7 +558,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_boing_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/boing?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/boing?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -589,7 +589,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_cartoonnetwork-uk_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/cartoonnetwork-uk?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/cartoonnetwork-uk?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -620,7 +620,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_cartoonnetwork-us-east_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/cartoonnetwork-us-east?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/cartoonnetwork-us-east?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -651,7 +651,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_fox8_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/fox8?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/fox8?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -682,7 +682,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_boomerang-uk_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/boomerang-uk?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/boomerang-uk?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -713,7 +713,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_snet-la_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/snet-la?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/snet-la?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -744,7 +744,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_la-1_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/la-1?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/la-1?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -775,7 +775,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_cbc-ca_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/cbc-ca?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/cbc-ca?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -806,7 +806,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_sony-sports-1-test_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/sony-sports-1-test?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/sony-sports-1-test?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -837,7 +837,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_treehouse-ca_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/treehouse-ca?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/treehouse-ca?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -868,7 +868,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_ytv-ca_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/ytv-ca?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/ytv-ca?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -899,7 +899,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_sony-sports-2-testj_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/sony-sports-2-testj?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/sony-sports-2-testj?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -930,7 +930,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_sony-sports-3-test-crp5_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/sony-sports-3-test-crp5?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/sony-sports-3-test-crp5?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -961,7 +961,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_bnn-canada_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/bnn-canada?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/bnn-canada?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -992,7 +992,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_sony-sports-5t_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/sony-sports-5t?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/sony-sports-5t?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1023,7 +1023,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_cnn-usa_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/cnn-usa?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/cnn-usa?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1054,7 +1054,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_snet-newyork_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/snet-newyork?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/snet-newyork?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1085,7 +1085,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_tntsports-5_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/tntsports-5?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/tntsports-5?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1116,7 +1116,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_tntsports-6_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/tntsports-6?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/tntsports-6?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1147,7 +1147,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_bein-arabic-1_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/bein-arabic-1?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/bein-arabic-1?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1178,7 +1178,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_vh1-usa_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/vh1-usa?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/vh1-usa?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1209,7 +1209,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_WEtv-usa_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/WEtv-usa?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/WEtv-usa?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1240,7 +1240,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_pbs-kids-us_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/pbs-kids-us?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/pbs-kids-us?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1280,7 +1280,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_bein-qatar-hd_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/bein-qatar-hd?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/bein-qatar-hd?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1311,7 +1311,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_trt-2k_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/trt-2k?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/trt-2k?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1342,7 +1342,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_foxnews_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/foxnews?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/foxnews?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1382,7 +1382,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-abc_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-abc?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-abc?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1413,7 +1413,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-acc-network_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-acc-network?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-acc-network?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1444,7 +1444,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-ae-network_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-ae-network?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-ae-network?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1475,7 +1475,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-amc_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-amc?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-amc?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1515,7 +1515,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-animal-planet_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-animal-planet?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-animal-planet?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1546,7 +1546,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-axs-tv_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-axs-tv?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-axs-tv?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1577,7 +1577,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bbc-america_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bbc-america?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bbc-america?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1608,7 +1608,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bbc-news_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bbc-news?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bbc-news?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1639,7 +1639,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bbc-one-london_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bbc-one-london?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bbc-one-london?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1670,7 +1670,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bbc-two_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bbc-two?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bbc-two?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1701,7 +1701,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bein-sports_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bein-sports?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bein-sports?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1732,7 +1732,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bein-sports-francais-1_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bein-sports-francais-1?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bein-sports-francais-1?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1763,7 +1763,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bein-sports-francais-2_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bein-sports-francais-2?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bein-sports-francais-2?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1794,7 +1794,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bein-sports-francais-3_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bein-sports-francais-3?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bein-sports-francais-3?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1825,7 +1825,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bein-sports-mena-1_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bein-sports-mena-1?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bein-sports-mena-1?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1856,7 +1856,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bein-sports-mena-2_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bein-sports-mena-2?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bein-sports-mena-2?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1887,7 +1887,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bein-sports-mena-3_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bein-sports-mena-3?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bein-sports-mena-3?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1918,7 +1918,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bein-sports-mena-4_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bein-sports-mena-4?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bein-sports-mena-4?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1949,7 +1949,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bein-sports-mena-5_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bein-sports-mena-5?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bein-sports-mena-5?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -1980,7 +1980,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bein-sports-mena-6_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bein-sports-mena-6?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bein-sports-mena-6?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2011,7 +2011,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bein-sports-mena-7_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bein-sports-mena-7?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bein-sports-mena-7?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2042,7 +2042,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bein-sports-mena-8_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bein-sports-mena-8?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bein-sports-mena-8?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2073,7 +2073,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bein-sports-mena-9_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bein-sports-mena-9?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bein-sports-mena-9?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2104,7 +2104,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-big-ten-network_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-big-ten-network?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-big-ten-network?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2135,7 +2135,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-boomerang_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-boomerang?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-boomerang?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2175,7 +2175,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-bravo_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-bravo?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-bravo?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2206,7 +2206,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-canal-extra-1_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-canal-extra-1?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-canal-extra-1?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2237,7 +2237,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-canal-extra-2_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-canal-extra-2?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-canal-extra-2?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2268,7 +2268,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-canal-sport-360-france_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-canal-sport-360-france?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-canal-sport-360-france?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2299,7 +2299,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-canal-sport-3-pl_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-canal-sport-3-pl?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-canal-sport-3-pl?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2330,7 +2330,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-canal-sport-4-pl_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-canal-sport-4-pl?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-canal-sport-4-pl?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2361,7 +2361,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-canal-sport-5-pl_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-canal-sport-5-pl?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-canal-sport-5-pl?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2392,7 +2392,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-canal-sport-6-pl_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-canal-sport-6-pl?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-canal-sport-6-pl?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2423,7 +2423,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-canal-sport-pl_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-canal-sport-pl?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-canal-sport-pl?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2454,7 +2454,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-cartoon-network_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-cartoon-network?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-cartoon-network?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2494,7 +2494,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-cbeebies_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-cbeebies?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-cbeebies?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2534,7 +2534,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-cbs_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-cbs?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-cbs?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2565,7 +2565,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-cbs-sports-network_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-cbs-sports-network?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-cbs-sports-network?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2596,7 +2596,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-cnbc_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-cnbc?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-cnbc?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2627,7 +2627,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-cnn_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-cnn?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-cnn?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2667,7 +2667,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-comedy-central_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-comedy-central?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-comedy-central?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2698,7 +2698,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-cw_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-cw?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-cw?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2729,7 +2729,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-dazn-1-germany_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-dazn-1-germany?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-dazn-1-germany?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2760,7 +2760,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_dazn-1-germany-backup_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/dazn-1-germany-backup?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/dazn-1-germany-backup?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2791,7 +2791,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-dazn-1-italia_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-dazn-1-italia?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-dazn-1-italia?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2822,7 +2822,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_dazn-1-italia-backup_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/dazn-1-italia-backup?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/dazn-1-italia-backup?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2853,7 +2853,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-dazn-1-portugal_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-dazn-1-portugal?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-dazn-1-portugal?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2884,7 +2884,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-dazn-1-spain_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-dazn-1-spain?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-dazn-1-spain?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2915,7 +2915,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_dazn-1-spain-backup_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/dazn-1-spain-backup?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/dazn-1-spain-backup?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2946,7 +2946,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-dazn-1-usa_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-dazn-1-usa?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-dazn-1-usa?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -2977,7 +2977,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-dazn-2-germany_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-dazn-2-germany?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-dazn-2-germany?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3008,7 +3008,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_dazn-2-germany-backup_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/dazn-2-germany-backup?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/dazn-2-germany-backup?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3039,7 +3039,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-dazn-2-spain_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-dazn-2-spain?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-dazn-2-spain?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3070,7 +3070,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_dazn-2-spain-backup_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/dazn-2-spain-backup?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/dazn-2-spain-backup?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3101,7 +3101,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-dazn-f1_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-dazn-f1?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-dazn-f1?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3141,7 +3141,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_dazn-f1-backup_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/dazn-f1-backup?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/dazn-f1-backup?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3172,7 +3172,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-dazn-laliga_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-dazn-laliga?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-dazn-laliga?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3203,7 +3203,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_dazn-laliga-backup_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/dazn-laliga-backup?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/dazn-laliga-backup?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3234,7 +3234,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-dirtvision-now-24-7_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-dirtvision-now-24-7?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-dirtvision-now-24-7?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3265,7 +3265,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-discovery-channel_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-discovery-channel?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-discovery-channel?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3305,7 +3305,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-discovery-family_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-discovery-family?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-discovery-family?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3336,7 +3336,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-discovery-turbo_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-discovery-turbo?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-discovery-turbo?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3367,7 +3367,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-disney-channel_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-disney-channel?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-disney-channel?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3407,7 +3407,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-disney-junior_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-disney-junior?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-disney-junior?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3447,7 +3447,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-disney-xd_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-disney-xd?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-disney-xd?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3487,7 +3487,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_nicktoons-usa_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/nicktoons-usa?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/nicktoons-usa?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3518,7 +3518,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-eleven-sports-1_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-eleven-sports-1?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-eleven-sports-1?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3558,7 +3558,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-eleven-sports-2_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-eleven-sports-2?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-eleven-sports-2?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3598,7 +3598,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-eleven-sports-4_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-eleven-sports-4?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-eleven-sports-4?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3638,7 +3638,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_espn-backup_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/espn-backup?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/espn-backup?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3669,7 +3669,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-espn_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-espn?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-espn?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3709,7 +3709,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-espn-deportes_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-espn-deportes?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-espn-deportes?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3740,7 +3740,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-espn2_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-espn2?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-espn2?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3771,7 +3771,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-espnews_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-espnews?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-espnews?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3802,7 +3802,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-espnu_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-espnu?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-espnu?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3833,7 +3833,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-food-network_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-food-network?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-food-network?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3864,7 +3864,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-fox_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-fox?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-fox?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3904,7 +3904,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-fox-deportes_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-fox-deportes?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-fox-deportes?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3944,7 +3944,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-fox-news_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-fox-news?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-fox-news?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -3975,7 +3975,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-fox-sports-1_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-fox-sports-1?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-fox-sports-1?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4015,7 +4015,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-fox-sports-2_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-fox-sports-2?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-fox-sports-2?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4055,7 +4055,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-fox-sports-501-cricket_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-fox-sports-501-cricket?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-fox-sports-501-cricket?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4086,7 +4086,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-fox-sports-502-league_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-fox-sports-502-league?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-fox-sports-502-league?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4117,7 +4117,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-fox-sports-503_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-fox-sports-503?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-fox-sports-503?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4148,7 +4148,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-fox-sports-504-footy_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-fox-sports-504-footy?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-fox-sports-504-footy?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4179,7 +4179,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-fox-sports-505_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-fox-sports-505?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-fox-sports-505?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4210,7 +4210,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-fox-sports-506_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-fox-sports-506?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-fox-sports-506?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4241,7 +4241,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-fox-sports-507_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-fox-sports-507?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-fox-sports-507?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4272,7 +4272,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-freeform_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-freeform?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-freeform?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4303,7 +4303,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-fx_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-fx?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-fx?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4343,7 +4343,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-fxm_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-fxm?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-fxm?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4374,7 +4374,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-fxx_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-fxx?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-fxx?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4405,7 +4405,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-go3-sport-1_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-go3-sport-1?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-go3-sport-1?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4436,7 +4436,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-go3-sport-2_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-go3-sport-2?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-go3-sport-2?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4467,7 +4467,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-go3-sport-3_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-go3-sport-3?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-go3-sport-3?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4498,7 +4498,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-golf-channel_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-golf-channel?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-golf-channel?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4538,7 +4538,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-hbo_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-hbo?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-hbo?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4578,7 +4578,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-hajduk-tv-hr_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-hajduk-tv-hr?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-hajduk-tv-hr?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4609,7 +4609,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-hbo-comedy_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-hbo-comedy?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-hbo-comedy?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4640,7 +4640,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-hbo-drama_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-hbo-drama?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-hbo-drama?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4671,7 +4671,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-hgtv_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-hgtv?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-hgtv?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4702,7 +4702,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-hub-sports-1-singapore_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-hub-sports-1-singapore?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-hub-sports-1-singapore?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4733,7 +4733,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-hub-sports-3-singapore_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-hub-sports-3-singapore?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-hub-sports-3-singapore?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4764,7 +4764,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-hub-sports-4-singapore_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-hub-sports-4-singapore?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-hub-sports-4-singapore?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4795,7 +4795,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-hub-sports-5-singapore_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-hub-sports-5-singapore?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-hub-sports-5-singapore?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4826,7 +4826,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-l-quipe-fr_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-l-quipe-fr?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-l-quipe-fr?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4857,7 +4857,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-mlb-network_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-mlb-network?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-mlb-network?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4888,7 +4888,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-motogp-channel_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-motogp-channel?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-motogp-channel?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4919,7 +4919,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-max-sport-2-hr_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-max-sport-2-hr?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-max-sport-2-hr?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4950,7 +4950,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-movistar-deportes_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-movistar-deportes?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-movistar-deportes?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -4990,7 +4990,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-movistar-deportes-2_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-movistar-deportes-2?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-movistar-deportes-2?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5021,7 +5021,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-movistar-plus_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-movistar-plus?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-movistar-plus?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5061,7 +5061,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-mtv_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-mtv?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-mtv?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5101,7 +5101,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-nba-tv_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-nba-tv?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-nba-tv?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5141,7 +5141,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-nbc_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-nbc?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-nbc?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5181,7 +5181,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-nbc-sports-bay-area_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-nbc-sports-bay-area?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-nbc-sports-bay-area?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5212,7 +5212,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-nbc-sports-boston_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-nbc-sports-boston?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-nbc-sports-boston?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5243,7 +5243,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-nbc-sports-philadelphia_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-nbc-sports-philadelphia?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-nbc-sports-philadelphia?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5274,7 +5274,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-nfl-network_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-nfl-network?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-nfl-network?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5314,7 +5314,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-nhl-network_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-nhl-network?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-nhl-network?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5354,7 +5354,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-nick-jr_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-nick-jr?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-nick-jr?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5394,7 +5394,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-nickelodeon_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-nickelodeon?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-nickelodeon?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5434,7 +5434,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-polsat_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-polsat?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-polsat?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5474,7 +5474,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-nova-tv-hr_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-nova-tv-hr?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-nova-tv-hr?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5505,7 +5505,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-polsat-sport-1_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-polsat-sport-1?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-polsat-sport-1?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5536,7 +5536,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-polsat-sport-2_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-polsat-sport-2?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-polsat-sport-2?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5567,7 +5567,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-polsat-sport-3_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-polsat-sport-3?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-polsat-sport-3?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5598,7 +5598,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-polsat-sport-fight_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-polsat-sport-fight?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-polsat-sport-fight?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5638,7 +5638,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-premier-sports-1-ie_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-premier-sports-1-ie?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-premier-sports-1-ie?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5669,7 +5669,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-premier-sports-2-ie_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-premier-sports-2-ie?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-premier-sports-2-ie?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5700,7 +5700,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-premiere_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-premiere?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-premiere?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5731,7 +5731,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-racer-network_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-racer-network?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-racer-network?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5771,7 +5771,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sec-network_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sec-network?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sec-network?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5802,7 +5802,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-showtime_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-showtime?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-showtime?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5833,7 +5833,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-showtime-2_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-showtime-2?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-showtime-2?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5864,7 +5864,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-showtime-extreme_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-showtime-extreme?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-showtime-extreme?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5895,7 +5895,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-showtime-family-zone_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-showtime-family-zone?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-showtime-family-zone?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5926,7 +5926,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-showtime-next_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-showtime-next?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-showtime-next?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5957,7 +5957,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-showtime-women_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-showtime-women?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-showtime-women?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -5988,7 +5988,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-arts_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-arts?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-arts?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6019,7 +6019,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-atlantic_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-atlantic?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-atlantic?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6050,7 +6050,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-comedy_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-comedy?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-comedy?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6081,7 +6081,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-crime_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-crime?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-crime?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6112,7 +6112,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-documentaries_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-documentaries?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-documentaries?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6143,7 +6143,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-kids_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-kids?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-kids?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6174,7 +6174,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-nature_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-nature?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-nature?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6205,7 +6205,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-news_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-news?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-news?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6245,7 +6245,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-one_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-one?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-one?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6276,7 +6276,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sci-fi_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sci-fi?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sci-fi?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6307,7 +6307,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-1-nz_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-1-nz?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-1-nz?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6338,7 +6338,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-2-nz_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-2-nz?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-2-nz?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6369,7 +6369,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-3-nz_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-3-nz?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-3-nz?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6400,7 +6400,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-4-nz_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-4-nz?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-4-nz?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6431,7 +6431,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-5-nz_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-5-nz?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-5-nz?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6462,7 +6462,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-7-nz_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-7-nz?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-7-nz?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6493,7 +6493,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-8-nz_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-8-nz?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-8-nz?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6524,7 +6524,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-9-nz_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-9-nz?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-9-nz?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6555,7 +6555,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-24_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-24?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-24?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6586,7 +6586,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-arena-it_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-arena-it?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-arena-it?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6617,7 +6617,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-bundesliga_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-bundesliga?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-bundesliga?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6648,7 +6648,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-calcio-it_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-calcio-it?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-calcio-it?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6679,7 +6679,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-f1-italia_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-f1-italia?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-f1-italia?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6710,7 +6710,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-max-it_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-max-it?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-max-it?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6741,7 +6741,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-select-nz_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-select-nz?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-select-nz?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6772,7 +6772,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-tennis-it_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-tennis-it?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-tennis-it?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6803,7 +6803,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sport-uno_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sport-uno?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sport-uno?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6834,7 +6834,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sports-action_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sports-action?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sports-action?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6865,7 +6865,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sports-cricket_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sports-cricket?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sports-cricket?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6896,7 +6896,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sports-f1_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sports-f1?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sports-f1?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6927,7 +6927,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sports-football_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sports-football?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sports-football?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6958,7 +6958,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sports-golf_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sports-golf?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sports-golf?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -6989,7 +6989,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sports-main-event_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sports-main-event?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sports-main-event?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7020,7 +7020,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sports-mix_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sports-mix?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sports-mix?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7051,7 +7051,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sports-news_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sports-news?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sports-news?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7082,7 +7082,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sports-premier-league_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sports-premier-league?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sports-premier-league?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7113,7 +7113,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sports-racing_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sports-racing?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sports-racing?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7144,7 +7144,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sports-tennis_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sports-tennis?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sports-tennis?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7175,7 +7175,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-sports-plus_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-sports-plus?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-sports-plus?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7206,7 +7206,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-witness_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-witness?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-witness?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7237,7 +7237,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sky-uno_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sky-uno?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sky-uno?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7268,7 +7268,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sony-sports-network_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sony-sports-network?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sony-sports-network?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7299,7 +7299,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sony-sports-network-3_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sony-sports-network-3?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sony-sports-network-3?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7330,7 +7330,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sony-sports-network-4_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sony-sports-network-4?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sony-sports-network-4?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7361,7 +7361,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sony-sports-network-5_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sony-sports-network-5?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sony-sports-network-5?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7392,7 +7392,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sport-tv1_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sport-tv1?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sport-tv1?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7423,7 +7423,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sport-tv2_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sport-tv2?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sport-tv2?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7454,7 +7454,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sport-tv3_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sport-tv3?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sport-tv3?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7485,7 +7485,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sport-tv4_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sport-tv4?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sport-tv4?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7516,7 +7516,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sport-tv5_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sport-tv5?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sport-tv5?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7547,7 +7547,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sportdigital-fussball_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sportdigital-fussball?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sportdigital-fussball?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7578,7 +7578,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-starz_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-starz?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-starz?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7609,7 +7609,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-starz-cinema_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-starz-cinema?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-starz-cinema?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7640,7 +7640,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-starz-comedy_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-starz-comedy?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-starz-comedy?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7671,7 +7671,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-starz-kids-and-family_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-starz-kids-and-family?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-starz-kids-and-family?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7702,7 +7702,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-syfy_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-syfy?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-syfy?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7742,7 +7742,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sportsnet-360_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sportsnet-360?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sportsnet-360?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7773,7 +7773,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-tbs_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-tbs?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-tbs?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7813,7 +7813,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sportsnet-ontario_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sportsnet-ontario?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sportsnet-ontario?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7844,7 +7844,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sportsnet-one_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sportsnet-one?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sportsnet-one?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7875,7 +7875,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sportsnet-west_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sportsnet-west?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sportsnet-west?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7906,7 +7906,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-telemundo_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-telemundo?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-telemundo?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7937,7 +7937,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-tennis-channel_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-tennis-channel?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-tennis-channel?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -7977,7 +7977,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sportsnet-pacific_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sportsnet-pacific?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sportsnet-pacific?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8008,7 +8008,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-supersport-cricket_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-supersport-cricket?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-supersport-cricket?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8039,7 +8039,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-the-weather-channel_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-the-weather-channel?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-the-weather-channel?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8070,7 +8070,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-supersport-motorsport_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-supersport-motorsport?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-supersport-motorsport?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8101,7 +8101,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-tnt_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-tnt?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-tnt?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8141,7 +8141,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sportsnet-world_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sportsnet-world?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sportsnet-world?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8172,7 +8172,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-tnt-sports-1_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-tnt-sports-1?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-tnt-sports-1?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8212,7 +8212,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-tnt-sports-2_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-tnt-sports-2?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-tnt-sports-2?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8252,7 +8252,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-tnt-sports-3_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-tnt-sports-3?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-tnt-sports-3?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8292,7 +8292,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-tnt-sports-4_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-tnt-sports-4?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-tnt-sports-4?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8332,7 +8332,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-trutv_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-trutv?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-trutv?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8363,7 +8363,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-supersport-premier-league_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-supersport-premier-league?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-supersport-premier-league?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8394,7 +8394,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-tsn1_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-tsn1?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-tsn1?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8425,7 +8425,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-supersport-laliga_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-supersport-laliga?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-supersport-laliga?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8456,7 +8456,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-supersport-rugby_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-supersport-rugby?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-supersport-rugby?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8487,7 +8487,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-tudn_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-tudn?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-tudn?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8518,7 +8518,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-tyc-sports-internacional_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-tyc-sports-internacional?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-tyc-sports-internacional?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8549,7 +8549,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-ufc-fight-pass-24-7_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-ufc-fight-pass-24-7?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-ufc-fight-pass-24-7?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8580,7 +8580,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-unimas_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-unimas?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-unimas?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8611,7 +8611,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-unite8-sports-1-zee-caf_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-unite8-sports-1-zee-caf?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-unite8-sports-1-zee-caf?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8642,7 +8642,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-univision_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-univision?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-univision?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8673,7 +8673,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-usa-network_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-usa-network?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-usa-network?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8713,7 +8713,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-tsn2_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-tsn2?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-tsn2?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8744,7 +8744,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-wapa-america_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-wapa-america?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-wapa-america?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8775,7 +8775,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-tsn3_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-tsn3?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-tsn3?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8806,7 +8806,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-wapa-deportes_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-wapa-deportes?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-wapa-deportes?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8837,7 +8837,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-tsn4_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-tsn4?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-tsn4?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8877,7 +8877,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-willow-cricket_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-willow-cricket?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-willow-cricket?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8908,7 +8908,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-tsn5_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-tsn5?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-tsn5?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8939,7 +8939,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-willow-cricket-2_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-willow-cricket-2?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-willow-cricket-2?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -8970,7 +8970,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-ziggo-sport-1-nl_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-ziggo-sport-1-nl?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-ziggo-sport-1-nl?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,
@@ -9001,7 +9001,7 @@ export const MASTER_CHANNELS_CATALOG: Channel[] = [
       {
         "id": "src_auto-sportsnet-east_direct",
         "label": "Server 1 (Direct Live)",
-        "url": "https://zlive.st/embed/auto-sportsnet-east?radius=7&frame=0&brand=0&fullscreen=0",
+        "url": "https://zlive.st/embed/auto-sportsnet-east?radius=7&frame=0&brand=0&fullscreen=0&q=480",
         "priority": 1,
         "protocol": "embed",
         "requiresProxy": false,

@@ -233,8 +233,25 @@ export class NovaPlayer {
 
         this.hls.on(Hls.Events.MANIFEST_PARSED, (_, data) => {
           const qualities = ['Auto', ...data.levels.map((l) => `${l.height}p`)];
+
+          // Cap HLS quality at 480p (or lowest available if all levels > 480p)
+          if (data.levels.length > 0 && this.hls) {
+            let capIdx = 0;
+            let bestHeight = 0;
+            data.levels.forEach((lvl, idx) => {
+              const h = lvl.height || 0;
+              if (h > 0 && h <= 480 && h >= bestHeight) {
+                bestHeight = h;
+                capIdx = idx;
+              }
+            });
+            this.hls.autoLevelCapping = capIdx;
+            this.hls.currentLevel = capIdx;
+          }
+
           this.updateState({
             availableQualities: qualities,
+            activeQuality: '480p',
             state: 'playing',
           });
           this.sourceManager.markSourceHealthy(source.id);
