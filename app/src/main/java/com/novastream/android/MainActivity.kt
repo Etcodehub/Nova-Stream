@@ -146,11 +146,17 @@ private fun NovaStreamApp(nativePlayer: NativePlayer) {
     val categories = remember {
         listOf(
             "Top 10 Matches",
+            "Premier Sports",
             "SuperSport",
             "Sky Sports",
             "TNT Sports",
             "beIN Sports",
-            "Global Sports",
+            "Football Feeds",
+            "Combat & Racing",
+            "US Leagues",
+            "24/7 News",
+            "Docs & Cinema",
+            "All Channels",
             "Favorites"
         )
     }
@@ -170,13 +176,10 @@ private fun NovaStreamApp(nativePlayer: NativePlayer) {
         allChannels.filter { channel ->
             val matchesCategory = when (selectedCategory) {
                 "Top 10 Matches" -> channel.isTopTen
-                "SuperSport" -> channel.network.equals("SuperSport", ignoreCase = true)
-                "Sky Sports" -> channel.network.equals("Sky Sports", ignoreCase = true)
-                "TNT Sports" -> channel.network.equals("TNT Sports", ignoreCase = true)
-                "beIN Sports" -> channel.network.equals("beIN Sports", ignoreCase = true)
-                "Global Sports" -> !listOf("SuperSport", "Sky Sports", "TNT Sports", "beIN Sports").contains(channel.network)
+                "All Channels" -> true
                 "Favorites" -> favorites.contains(channel.id)
-                else -> true
+                else -> channel.group.equals(selectedCategory, ignoreCase = true) ||
+                    channel.network.equals(selectedCategory, ignoreCase = true)
             }
 
             val matchesSearch = searchQuery.isBlank() ||
@@ -712,11 +715,17 @@ private fun CompactChannelCard(
         Modifier
     }
 
-    val networkColors = when (channel.network) {
-        "SuperSport" -> listOf(Color(0xFFE11D48), Color(0xFF1E3A8A))
-        "Sky Sports" -> listOf(Color(0xFF0284C7), Color(0xFF0369A1))
-        "TNT Sports" -> listOf(Color(0xFFF59E0B), Color(0xFFD97706))
-        "beIN Sports" -> listOf(Color(0xFF8B5CF6), Color(0xFF6D28D9))
+    val networkColors = when {
+        channel.network.contains("SuperSport", true) -> listOf(Color(0xFFE11D48), Color(0xFF1E3A8A))
+        channel.network.contains("Sky", true) -> listOf(Color(0xFF0284C7), Color(0xFF0369A1))
+        channel.network.contains("TNT", true) -> listOf(Color(0xFFF59E0B), Color(0xFFD97706))
+        channel.network.contains("beIN", true) -> listOf(Color(0xFF8B5CF6), Color(0xFF6D28D9))
+        channel.network.contains("ESPN", true) -> listOf(Color(0xFFDC2626), Color(0xFF991B1B))
+        channel.network.contains("DAZN", true) -> listOf(Color(0xFF1E293B), Color(0xFFD97706))
+        channel.network.contains("F1", true) || channel.network.contains("UFC", true) || channel.network.contains("WWE", true) -> listOf(Color(0xFFEF4444), Color(0xFF18181B))
+        channel.network.contains("NBA", true) || channel.network.contains("NFL", true) || channel.network.contains("MLB", true) -> listOf(Color(0xFF2563EB), Color(0xFF1E40AF))
+        channel.network.contains("News", true) || channel.network.contains("BBC", true) || channel.network.contains("CNN", true) || channel.network.contains("Al Jazeera", true) -> listOf(Color(0xFFE11D48), Color(0xFF475569))
+        channel.network.contains("Nat Geo", true) || channel.network.contains("Discovery", true) || channel.network.contains("NASA", true) -> listOf(Color(0xFFD97706), Color(0xFF059669))
         else -> listOf(Color(0xFF059669), Color(0xFF047857))
     }
 

@@ -8,7 +8,7 @@ data class Channel(
     val url: String,
     val headers: Map<String, String> = emptyMap(),
     val network: String = group,
-    val eventSubtitle: String = "Live Sports Broadcast",
+    val eventSubtitle: String = "Live Broadcast",
     val qualityBadge: String = "HD",
     val isTopTen: Boolean = false
 ) {
@@ -24,14 +24,16 @@ data class Channel(
 }
 
 val curatedSportsChannels: List<Channel> = listOf(
-    // === TOP 10 BEST FOOTBALL MATCHES ===
+    // =========================================================================
+    // 1. TOP 10 BEST FOOTBALL MATCH CHANNELS (Highest Popularity & Priority)
+    // =========================================================================
     Channel(
         id = "ss_prem",
         name = "SuperSport Premier League",
         network = "SuperSport",
-        group = "SuperSport",
+        group = "Premier Sports",
         url = "https://embedsports.me/supersport-premier-league-stream-1/embed/",
-        eventSubtitle = "Premier League Live • Main Match",
+        eventSubtitle = "Premier League Live • Feature Match",
         qualityBadge = "4K",
         isTopTen = true
     ),
@@ -39,9 +41,9 @@ val curatedSportsChannels: List<Channel> = listOf(
         id = "sky_prem",
         name = "Sky Sports Premier League",
         network = "Sky Sports",
-        group = "Sky Sports",
+        group = "Premier Sports",
         url = "https://embedsports.me/sky-sports-premier-league-stream-1/embed/",
-        eventSubtitle = "EPL Live Broadcast & Super Sunday",
+        eventSubtitle = "Super Sunday & EPL 24/7 Matchday",
         qualityBadge = "FHD",
         isTopTen = true
     ),
@@ -49,7 +51,7 @@ val curatedSportsChannels: List<Channel> = listOf(
         id = "sky_main",
         name = "Sky Sports Main Event",
         network = "Sky Sports",
-        group = "Sky Sports",
+        group = "Premier Sports",
         url = "https://embedsports.me/sky-sports-main-event-stream-1/embed/",
         eventSubtitle = "Flagship Matchday & Big Events",
         qualityBadge = "FHD",
@@ -59,9 +61,9 @@ val curatedSportsChannels: List<Channel> = listOf(
         id = "tnt_1",
         name = "TNT Sports 1",
         network = "TNT Sports",
-        group = "TNT Sports",
+        group = "Premier Sports",
         url = "https://embedsports.me/tnt-sports-1-stream-1/embed/",
-        eventSubtitle = "UEFA Champions League & EPL",
+        eventSubtitle = "UEFA Champions League & EPL Live",
         qualityBadge = "FHD",
         isTopTen = true
     ),
@@ -69,9 +71,9 @@ val curatedSportsChannels: List<Channel> = listOf(
         id = "tnt_2",
         name = "TNT Sports 2",
         network = "TNT Sports",
-        group = "TNT Sports",
+        group = "Premier Sports",
         url = "https://embedsports.me/tnt-sports-2-stream-1/embed/",
-        eventSubtitle = "UEFA Europa League & Serie A Live",
+        eventSubtitle = "UEFA Europa League & Serie A",
         qualityBadge = "HD",
         isTopTen = true
     ),
@@ -79,9 +81,9 @@ val curatedSportsChannels: List<Channel> = listOf(
         id = "bein_1",
         name = "beIN Sports 1 English",
         network = "beIN Sports",
-        group = "beIN Sports",
+        group = "Premier Sports",
         url = "https://embedsports.me/bein-sports-1-stream-1/embed/",
-        eventSubtitle = "Premier League & UCL Special",
+        eventSubtitle = "Premier League & UCL Prime Feed",
         qualityBadge = "FHD",
         isTopTen = true
     ),
@@ -89,9 +91,9 @@ val curatedSportsChannels: List<Channel> = listOf(
         id = "bein_2",
         name = "beIN Sports 2 English",
         network = "beIN Sports",
-        group = "beIN Sports",
+        group = "Premier Sports",
         url = "https://embedsports.me/bein-sports-2-stream-1/embed/",
-        eventSubtitle = "La Liga & Ligue 1 Live",
+        eventSubtitle = "La Liga & Ligue 1 Live Action",
         qualityBadge = "HD",
         isTopTen = true
     ),
@@ -99,9 +101,9 @@ val curatedSportsChannels: List<Channel> = listOf(
         id = "ss_foot",
         name = "SuperSport Football",
         network = "SuperSport",
-        group = "SuperSport",
+        group = "Premier Sports",
         url = "https://embedsports.me/supersport-football-stream-1/embed/",
-        eventSubtitle = "Serie A & European Cup Ties",
+        eventSubtitle = "Serie A, AFCON & European Cup Ties",
         qualityBadge = "FHD",
         isTopTen = true
     ),
@@ -109,7 +111,7 @@ val curatedSportsChannels: List<Channel> = listOf(
         id = "cbs_golazo",
         name = "CBS Sports Golazo",
         network = "CBS Sports",
-        group = "Global Sports",
+        group = "Football Feeds",
         url = "https://dai.google.com/linear/hls/event/7f3Wv6f7QEKfQna22jHqLQ/master.m3u8",
         eventSubtitle = "24/7 Football & UEFA Champions League",
         qualityBadge = "1080p",
@@ -119,106 +121,189 @@ val curatedSportsChannels: List<Channel> = listOf(
         id = "tv_varzesh",
         name = "TV Varzesh",
         network = "Varzesh",
-        group = "Global Sports",
+        group = "Football Feeds",
         url = "https://live.telewebion.com/varzesh/live.m3u8",
-        eventSubtitle = "Live International Football Coverage",
+        eventSubtitle = "World Football & International Tournaments",
         qualityBadge = "HD",
         isTopTen = true
     ),
 
-    // === TNT SPORTS (1 - 4) ===
+    // =========================================================================
+    // 2. PREMIER SPORTS & FOOTBALL GIANTS (Global Fan Favorites)
+    // =========================================================================
     Channel(
-        id = "tnt_3",
-        name = "TNT Sports 3",
-        network = "TNT Sports",
-        group = "TNT Sports",
-        url = "https://embedsports.me/tnt-sports-3-stream-1/embed/",
-        eventSubtitle = "MotoGP, Boxing & Football Highlights",
-        qualityBadge = "HD"
-    ),
-    Channel(
-        id = "tnt_4",
-        name = "TNT Sports 4",
-        network = "TNT Sports",
-        group = "TNT Sports",
-        url = "https://embedsports.me/tnt-sports-4-stream-1/embed/",
-        eventSubtitle = "Rugby, UFC & Live Sports",
-        qualityBadge = "HD"
-    ),
-
-    // === SKY SPORTS (1 - 4 & Main Event & Premier League) ===
-    Channel(
-        id = "sky_foot",
-        name = "Sky Sports Football",
-        network = "Sky Sports",
-        group = "Sky Sports",
-        url = "https://embedsports.me/sky-sports-football-stream-1/embed/",
-        eventSubtitle = "EFL, SPFL, Bundesliga Live",
+        id = "espn_usa",
+        name = "ESPN USA",
+        network = "ESPN",
+        group = "Premier Sports",
+        url = "https://embedsports.me/espn-stream-1/embed/",
+        eventSubtitle = "Live Sports Center, La Liga & MLS",
         qualityBadge = "FHD"
     ),
     Channel(
-        id = "sky_arena",
-        name = "Sky Sports Arena",
-        network = "Sky Sports",
-        group = "Sky Sports",
-        url = "https://embedsports.me/sky-sports-arena-stream-1/embed/",
-        eventSubtitle = "Boxing, Darts & World Sports",
+        id = "espn_2",
+        name = "ESPN 2",
+        network = "ESPN",
+        group = "Premier Sports",
+        url = "https://embedsports.me/espn-2-stream-1/embed/",
+        eventSubtitle = "FA Cup, Bundesliga & Top Football",
         qualityBadge = "HD"
     ),
     Channel(
-        id = "sky_action",
-        name = "Sky Sports Action",
-        network = "Sky Sports",
-        group = "Sky Sports",
-        url = "https://embedsports.me/sky-sports-action-stream-1/embed/",
-        eventSubtitle = "NFL, Tennis & Athletics",
+        id = "dazn_1",
+        name = "DAZN 1 HD",
+        network = "DAZN",
+        group = "Premier Sports",
+        url = "https://embedsports.me/dazn-1-stream-1/embed/",
+        eventSubtitle = "Serie A, La Liga & Boxing Matchday",
+        qualityBadge = "1080p"
+    ),
+    Channel(
+        id = "dazn_2",
+        name = "DAZN 2 HD",
+        network = "DAZN",
+        group = "Premier Sports",
+        url = "https://embedsports.me/dazn-2-stream-1/embed/",
+        eventSubtitle = "Champions League & Global Combat",
         qualityBadge = "HD"
     ),
     Channel(
-        id = "sky_1",
-        name = "Sky Sports 1",
-        network = "Sky Sports",
-        group = "Sky Sports",
-        url = "https://embedsports.me/sky-sports-1-stream-1/embed/",
-        eventSubtitle = "Live Sky Event Stream 1",
+        id = "eurosport_1",
+        name = "Eurosport 1 HD",
+        network = "Eurosport",
+        group = "Premier Sports",
+        url = "https://embedsports.me/eurosport-1-stream-1/embed/",
+        eventSubtitle = "Tennis Grand Slams & World Championship",
+        qualityBadge = "FHD"
+    ),
+    Channel(
+        id = "eurosport_2",
+        name = "Eurosport 2 HD",
+        network = "Eurosport",
+        group = "Premier Sports",
+        url = "https://embedsports.me/eurosport-2-stream-1/embed/",
+        eventSubtitle = "Cycling, Winter Sports & Live Feeds",
         qualityBadge = "HD"
     ),
     Channel(
-        id = "sky_2",
-        name = "Sky Sports 2",
-        network = "Sky Sports",
-        group = "Sky Sports",
-        url = "https://embedsports.me/sky-sports-2-stream-1/embed/",
-        eventSubtitle = "Live Sky Event Stream 2",
+        id = "canal_sport",
+        name = "Canal+ Sport 1",
+        network = "Canal+",
+        group = "Premier Sports",
+        url = "https://embedsports.me/canal-sport-stream-1/embed/",
+        eventSubtitle = "Premier League, Ligue 1 & Top Rugby",
+        qualityBadge = "FHD"
+    ),
+    Channel(
+        id = "movistar_laliga",
+        name = "Movistar LaLiga",
+        network = "Movistar",
+        group = "Football Feeds",
+        url = "https://embedsports.me/movistar-laliga-stream-1/embed/",
+        eventSubtitle = "Spanish La Liga Live Broadcasts",
+        qualityBadge = "FHD"
+    ),
+    Channel(
+        id = "movistar_ucl",
+        name = "Movistar Liga de Campeones",
+        network = "Movistar",
+        group = "Football Feeds",
+        url = "https://embedsports.me/movistar-liga-de-campeones-stream-1/embed/",
+        eventSubtitle = "UEFA Champions League & Europa Live",
+        qualityBadge = "FHD"
+    ),
+    Channel(
+        id = "rmc_sport",
+        name = "RMC Sport 1",
+        network = "RMC",
+        group = "Premier Sports",
+        url = "https://embedsports.me/rmc-sport-1-stream-1/embed/",
+        eventSubtitle = "UFC, European Football & Kickboxing",
         qualityBadge = "HD"
     ),
     Channel(
-        id = "sky_3",
-        name = "Sky Sports 3",
-        network = "Sky Sports",
-        group = "Sky Sports",
-        url = "https://embedsports.me/sky-sports-3-stream-1/embed/",
-        eventSubtitle = "Live Sky Event Stream 3",
+        id = "astro_ss1",
+        name = "Astro SuperSport 1",
+        network = "Astro",
+        group = "Premier Sports",
+        url = "https://embedsports.me/astro-supersport-1-stream-1/embed/",
+        eventSubtitle = "Premier League HD Multi-Camera",
+        qualityBadge = "FHD"
+    ),
+    Channel(
+        id = "astro_ss2",
+        name = "Astro SuperSport 2",
+        network = "Astro",
+        group = "Premier Sports",
+        url = "https://embedsports.me/astro-supersport-2-stream-1/embed/",
+        eventSubtitle = "La Liga, Cup Matches & Asian Football",
         qualityBadge = "HD"
     ),
     Channel(
-        id = "sky_4",
-        name = "Sky Sports 4",
-        network = "Sky Sports",
-        group = "Sky Sports",
-        url = "https://embedsports.me/sky-sports-4-stream-1/embed/",
-        eventSubtitle = "Live Sky Event Stream 4",
+        id = "optus_sport",
+        name = "Optus Sport 1",
+        network = "Optus",
+        group = "Football Feeds",
+        url = "https://embedsports.me/optus-sport-1-stream-1/embed/",
+        eventSubtitle = "Premier League, WSL & International Football",
+        qualityBadge = "1080p"
+    ),
+    Channel(
+        id = "sony_ten1",
+        name = "Sony Sports Ten 1",
+        network = "Sony",
+        group = "Premier Sports",
+        url = "https://embedsports.me/sony-ten-1-stream-1/embed/",
+        eventSubtitle = "UEFA Champions League, WWE & Tennis",
+        qualityBadge = "FHD"
+    ),
+    Channel(
+        id = "sony_ten2",
+        name = "Sony Sports Ten 2",
+        network = "Sony",
+        group = "Premier Sports",
+        url = "https://embedsports.me/sony-ten-2-stream-1/embed/",
+        eventSubtitle = "European Football Leagues & Athletics",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "tyc_sports",
+        name = "TyC Sports",
+        network = "TyC",
+        group = "Football Feeds",
+        url = "https://embedsports.me/tyc-sports-stream-1/embed/",
+        eventSubtitle = "Argentine Primera, Copa & South America",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "gol_play",
+        name = "Gol Play",
+        network = "Gol",
+        group = "Football Feeds",
+        url = "https://embedsports.me/gol-play-stream-1/embed/",
+        eventSubtitle = "Free Live Football & Highlights",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "polsat_sport",
+        name = "Polsat Sport 1",
+        network = "Polsat",
+        group = "Premier Sports",
+        url = "https://embedsports.me/polsat-sport-1-stream-1/embed/",
+        eventSubtitle = "European Football & Volleyball Nations",
         qualityBadge = "HD"
     ),
 
-    // === SUPER SPORT (1 - 4 & Premier League & Grandstand) ===
+    // =========================================================================
+    // 3. SUPERSPORT NETWORK COMPLETE LINEUP
+    // =========================================================================
     Channel(
         id = "ss_grandstand",
         name = "SuperSport Grandstand",
         network = "SuperSport",
         group = "SuperSport",
         url = "https://embedsports.me/supersport-grandstand-stream-1/embed/",
-        eventSubtitle = "Top Tier World Championship Feeds",
+        eventSubtitle = "Premier Stadium Broadcast & Big Clashes",
         qualityBadge = "FHD"
     ),
     Channel(
@@ -227,7 +312,7 @@ val curatedSportsChannels: List<Channel> = listOf(
         network = "SuperSport",
         group = "SuperSport",
         url = "https://embedsports.me/supersport-variety-1-stream-1/embed/",
-        eventSubtitle = "Multi-League Football & Rugby",
+        eventSubtitle = "Multi-League Football & Rugby Union",
         qualityBadge = "HD"
     ),
     Channel(
@@ -236,7 +321,7 @@ val curatedSportsChannels: List<Channel> = listOf(
         network = "SuperSport",
         group = "SuperSport",
         url = "https://embedsports.me/supersport-variety-2-stream-1/embed/",
-        eventSubtitle = "European Football Matches",
+        eventSubtitle = "European Football Matches & Athletics",
         qualityBadge = "HD"
     ),
     Channel(
@@ -254,11 +339,120 @@ val curatedSportsChannels: List<Channel> = listOf(
         network = "SuperSport",
         group = "SuperSport",
         url = "https://embedsports.me/supersport-variety-4-stream-1/embed/",
-        eventSubtitle = "Tennis, Golf & Action Sports",
+        eventSubtitle = "Tennis Grand Slam, Golf & Action Sports",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "ss_action",
+        name = "SuperSport Action",
+        network = "SuperSport",
+        group = "SuperSport",
+        url = "https://embedsports.me/supersport-action-stream-1/embed/",
+        eventSubtitle = "Extreme Sports, MMA & High Octane Action",
         qualityBadge = "HD"
     ),
 
-    // === BEIN SPORTS (1 - 4) ===
+    // =========================================================================
+    // 4. SKY SPORTS NETWORK COMPLETE LINEUP
+    // =========================================================================
+    Channel(
+        id = "sky_foot",
+        name = "Sky Sports Football",
+        network = "Sky Sports",
+        group = "Sky Sports",
+        url = "https://embedsports.me/sky-sports-football-stream-1/embed/",
+        eventSubtitle = "EFL, SPFL, Bundesliga Live Matches",
+        qualityBadge = "FHD"
+    ),
+    Channel(
+        id = "sky_arena",
+        name = "Sky Sports Arena",
+        network = "Sky Sports",
+        group = "Sky Sports",
+        url = "https://embedsports.me/sky-sports-arena-stream-1/embed/",
+        eventSubtitle = "Boxing World Titles, Darts & Rugby",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "sky_action",
+        name = "Sky Sports Action",
+        network = "Sky Sports",
+        group = "Sky Sports",
+        url = "https://embedsports.me/sky-sports-action-stream-1/embed/",
+        eventSubtitle = "NFL Sunday Night, Athletics & Tennis",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "sky_1",
+        name = "Sky Sports 1",
+        network = "Sky Sports",
+        group = "Sky Sports",
+        url = "https://embedsports.me/sky-sports-1-stream-1/embed/",
+        eventSubtitle = "Live Sky Event Broadcast 1",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "sky_2",
+        name = "Sky Sports 2",
+        network = "Sky Sports",
+        group = "Sky Sports",
+        url = "https://embedsports.me/sky-sports-2-stream-1/embed/",
+        eventSubtitle = "Live Sky Event Broadcast 2",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "sky_3",
+        name = "Sky Sports 3",
+        network = "Sky Sports",
+        group = "Sky Sports",
+        url = "https://embedsports.me/sky-sports-3-stream-1/embed/",
+        eventSubtitle = "Live Sky Event Broadcast 3",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "sky_4",
+        name = "Sky Sports 4",
+        network = "Sky Sports",
+        group = "Sky Sports",
+        url = "https://embedsports.me/sky-sports-4-stream-1/embed/",
+        eventSubtitle = "Live Sky Event Broadcast 4",
+        qualityBadge = "HD"
+    ),
+
+    // =========================================================================
+    // 5. TNT SPORTS COMPLETE LINEUP
+    // =========================================================================
+    Channel(
+        id = "tnt_3",
+        name = "TNT Sports 3",
+        network = "TNT Sports",
+        group = "TNT Sports",
+        url = "https://embedsports.me/tnt-sports-3-stream-1/embed/",
+        eventSubtitle = "MotoGP, Boxing & Football Highlights",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "tnt_4",
+        name = "TNT Sports 4",
+        network = "TNT Sports",
+        group = "TNT Sports",
+        url = "https://embedsports.me/tnt-sports-4-stream-1/embed/",
+        eventSubtitle = "Rugby Premiership, UFC & Live Sports",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "tnt_ultimate",
+        name = "TNT Sports Ultimate",
+        network = "TNT Sports",
+        group = "TNT Sports",
+        url = "https://embedsports.me/tnt-sports-ultimate-stream-1/embed/",
+        eventSubtitle = "Ultra HD 4K HDR Sports Broadcast",
+        qualityBadge = "4K"
+    ),
+
+    // =========================================================================
+    // 6. BEIN SPORTS COMPLETE LINEUP
+    // =========================================================================
     Channel(
         id = "bein_3",
         name = "beIN Sports 3 English",
@@ -287,15 +481,308 @@ val curatedSportsChannels: List<Channel> = listOf(
         qualityBadge = "720p"
     ),
 
-    // === CBS SPORTS & OTHERS ===
+    // =========================================================================
+    // 7. MOTORSPORT & COMBAT SPORTS (High Adrenaline)
+    // =========================================================================
+    Channel(
+        id = "sky_f1",
+        name = "Sky Sports F1 HD",
+        network = "Sky Sports",
+        group = "Combat & Racing",
+        url = "https://embedsports.me/sky-sports-f1-stream-1/embed/",
+        eventSubtitle = "Formula 1 Practice, Quali & Grand Prix",
+        qualityBadge = "4K"
+    ),
+    Channel(
+        id = "f1_live",
+        name = "Formula 1 World Feed",
+        network = "F1",
+        group = "Combat & Racing",
+        url = "https://embedsports.me/f1-live-stream-1/embed/",
+        eventSubtitle = "Pit Lane & On-board Camera Feeds",
+        qualityBadge = "FHD"
+    ),
+    Channel(
+        id = "ufc_live",
+        name = "UFC Fight Pass Live",
+        network = "UFC",
+        group = "Combat & Racing",
+        url = "https://embedsports.me/ufc-fight-pass-stream-1/embed/",
+        eventSubtitle = "Championship MMA & Fight Night",
+        qualityBadge = "FHD"
+    ),
+    Channel(
+        id = "wwe_net",
+        name = "WWE Network Live",
+        network = "WWE",
+        group = "Combat & Racing",
+        url = "https://embedsports.me/wwe-network-stream-1/embed/",
+        eventSubtitle = "RAW, SmackDown & Premium Live Events",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "redbull_tv",
+        name = "Red Bull TV HD",
+        network = "Red Bull",
+        group = "Combat & Racing",
+        url = "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8",
+        eventSubtitle = "Extreme Sports, Rally, Biking & Surfing",
+        qualityBadge = "1080p"
+    ),
+    Channel(
+        id = "motortrend",
+        name = "MotorTrend Network",
+        network = "MotorTrend",
+        group = "Combat & Racing",
+        url = "https://embedsports.me/motortrend-stream-1/embed/",
+        eventSubtitle = "Supercars, Live Road Racing & Garage",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "fightbox",
+        name = "FightBox HD",
+        network = "FightBox",
+        group = "Combat & Racing",
+        url = "https://embedsports.me/fightbox-stream-1/embed/",
+        eventSubtitle = "Kickboxing, Muay Thai & MMA Worldwide",
+        qualityBadge = "HD"
+    ),
+
+    // =========================================================================
+    // 8. US MAJOR SPORTS LEAGUES (NBA, NFL, MLB, Golf)
+    // =========================================================================
+    Channel(
+        id = "nba_tv",
+        name = "NBA TV 24/7 Live",
+        network = "NBA",
+        group = "US Leagues",
+        url = "https://embedsports.me/nba-tv-stream-1/embed/",
+        eventSubtitle = "NBA Live Games, Highlights & Analysis",
+        qualityBadge = "FHD"
+    ),
+    Channel(
+        id = "nfl_net",
+        name = "NFL Network Live",
+        network = "NFL",
+        group = "US Leagues",
+        url = "https://embedsports.me/nfl-network-stream-1/embed/",
+        eventSubtitle = "Thursday Night Football & NFL RedZone",
+        qualityBadge = "FHD"
+    ),
+    Channel(
+        id = "mlb_net",
+        name = "MLB Network",
+        network = "MLB",
+        group = "US Leagues",
+        url = "https://embedsports.me/mlb-network-stream-1/embed/",
+        eventSubtitle = "Major League Baseball Game of the Day",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "fs1_usa",
+        name = "Fox Sports 1 (FS1)",
+        network = "Fox Sports",
+        group = "US Leagues",
+        url = "https://embedsports.me/fs1-stream-1/embed/",
+        eventSubtitle = "CONCACAF, MLS, College Football & MLB",
+        qualityBadge = "FHD"
+    ),
+    Channel(
+        id = "fs2_usa",
+        name = "Fox Sports 2 (FS2)",
+        network = "Fox Sports",
+        group = "US Leagues",
+        url = "https://embedsports.me/fs2-stream-1/embed/",
+        eventSubtitle = "Motorsports, World Rugby & US Soccer",
+        qualityBadge = "HD"
+    ),
     Channel(
         id = "cbs_net",
         name = "CBS Sports Network",
         network = "CBS Sports",
-        group = "Global Sports",
+        group = "US Leagues",
         url = "https://embedsports.me/cbs-sports-network-stream-1/embed/",
-        eventSubtitle = "US Soccer, College & Live League Play",
+        eventSubtitle = "College Football, NWSL & World League Play",
         qualityBadge = "HD"
+    ),
+    Channel(
+        id = "tennis_ch",
+        name = "Tennis Channel HD",
+        network = "Tennis",
+        group = "US Leagues",
+        url = "https://embedsports.me/tennis-channel-stream-1/embed/",
+        eventSubtitle = "ATP, WTA & Grand Slam Tournament Live",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "golf_ch",
+        name = "Golf Channel HD",
+        network = "Golf",
+        group = "US Leagues",
+        url = "https://embedsports.me/golf-channel-stream-1/embed/",
+        eventSubtitle = "PGA Tour, European Tour & The Open Live",
+        qualityBadge = "HD"
+    ),
+
+    // =========================================================================
+    // 9. 24/7 GLOBAL NEWS (Most Useful & Watched Around the World)
+    // =========================================================================
+    Channel(
+        id = "aljazeera_en",
+        name = "Al Jazeera English HD",
+        network = "Al Jazeera",
+        group = "24/7 News",
+        url = "https://live-hls-web-aje.getaj.net/AJE/01.m3u8",
+        eventSubtitle = "Live Global News & In-depth Reporting",
+        qualityBadge = "1080p"
+    ),
+    Channel(
+        id = "skynews_live",
+        name = "Sky News UK Live",
+        network = "Sky News",
+        group = "24/7 News",
+        url = "https://skynewsau-live.akamaized.net/hls/live/2002689/skynewsau-extra1/master.m3u8",
+        eventSubtitle = "Breaking News Live Around the Clock",
+        qualityBadge = "1080p"
+    ),
+    Channel(
+        id = "bbc_news",
+        name = "BBC News HD",
+        network = "BBC",
+        group = "24/7 News",
+        url = "https://embedsports.me/bbc-news-stream-1/embed/",
+        eventSubtitle = "Trusted World News & Live Reports",
+        qualityBadge = "FHD"
+    ),
+    Channel(
+        id = "cnn_intl",
+        name = "CNN International",
+        network = "CNN",
+        group = "24/7 News",
+        url = "https://embedsports.me/cnn-international-stream-1/embed/",
+        eventSubtitle = "Global Headlines & Live Coverage",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "bloomberg_tv",
+        name = "Bloomberg Global TV",
+        network = "Bloomberg",
+        group = "24/7 News",
+        url = "https://liveproduseast.akamaized.net/us/Channel-USTV-AWS-virginia-1/live.m3u8",
+        eventSubtitle = "Live Stock Markets, Finance & Economics",
+        qualityBadge = "1080p"
+    ),
+    Channel(
+        id = "cnbc_live",
+        name = "CNBC Live",
+        network = "CNBC",
+        group = "24/7 News",
+        url = "https://embedsports.me/cnbc-stream-1/embed/",
+        eventSubtitle = "Business News, Wall Street & Tech",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "dw_news",
+        name = "DW News English",
+        network = "DW",
+        group = "24/7 News",
+        url = "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8",
+        eventSubtitle = "European Perspective on World News",
+        qualityBadge = "1080p"
+    ),
+    Channel(
+        id = "france24_en",
+        name = "France 24 English",
+        network = "France 24",
+        group = "24/7 News",
+        url = "https://static.france24.com/live/F24_EN_LO_HLS/live_tv.m3u8",
+        eventSubtitle = "International Breaking News Live",
+        qualityBadge = "720p"
+    ),
+    Channel(
+        id = "euronews_en",
+        name = "Euronews World",
+        network = "Euronews",
+        group = "24/7 News",
+        url = "https://euronews-euronews-world-1-au.samsung.wurl.tv/manifest/playlist.m3u8",
+        eventSubtitle = "Pan-European News & Analysis",
+        qualityBadge = "1080p"
+    ),
+
+    // =========================================================================
+    // 10. DOCUMENTARY, SCIENCE & CINEMA (Premium Entertainment)
+    // =========================================================================
+    Channel(
+        id = "natgeo_wild",
+        name = "Nat Geo Wild HD",
+        network = "Nat Geo",
+        group = "Docs & Cinema",
+        url = "https://embedsports.me/nat-geo-wild-stream-1/embed/",
+        eventSubtitle = "Wildlife & Planet Earth Expeditions",
+        qualityBadge = "FHD"
+    ),
+    Channel(
+        id = "discovery_sci",
+        name = "Discovery Science",
+        network = "Discovery",
+        group = "Docs & Cinema",
+        url = "https://embedsports.me/discovery-science-stream-1/embed/",
+        eventSubtitle = "Exploration, Technology & Science",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "history_ch",
+        name = "History Channel HD",
+        network = "History",
+        group = "Docs & Cinema",
+        url = "https://embedsports.me/history-channel-stream-1/embed/",
+        eventSubtitle = "Ancient Civilizations & World History",
+        qualityBadge = "FHD"
+    ),
+    Channel(
+        id = "nasa_tv",
+        name = "NASA TV HD",
+        network = "NASA",
+        group = "Docs & Cinema",
+        url = "https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master.m3u8",
+        eventSubtitle = "Live Space Station & Rocket Launches",
+        qualityBadge = "1080p"
+    ),
+    Channel(
+        id = "sky_cinema",
+        name = "Sky Cinema Action",
+        network = "Sky Cinema",
+        group = "Docs & Cinema",
+        url = "https://embedsports.me/sky-cinema-action-stream-1/embed/",
+        eventSubtitle = "Blockbuster Hollywood Action 24/7",
+        qualityBadge = "FHD"
+    ),
+    Channel(
+        id = "hbo_premiere",
+        name = "HBO Premiere Cinema",
+        network = "HBO",
+        group = "Docs & Cinema",
+        url = "https://embedsports.me/hbo-stream-1/embed/",
+        eventSubtitle = "Award Winning Feature Films & Series",
+        qualityBadge = "4K"
+    ),
+    Channel(
+        id = "paramount_net",
+        name = "Paramount Network HD",
+        network = "Paramount",
+        group = "Docs & Cinema",
+        url = "https://embedsports.me/paramount-network-stream-1/embed/",
+        eventSubtitle = "Hit Dramas, Series & Classic Movies",
+        qualityBadge = "HD"
+    ),
+    Channel(
+        id = "warner_tv",
+        name = "Warner TV Cinema",
+        network = "Warner",
+        group = "Docs & Cinema",
+        url = "https://embedsports.me/warner-tv-stream-1/embed/",
+        eventSubtitle = "Warner Bros Premier Movies & Classics",
+        qualityBadge = "FHD"
     )
 )
 
@@ -306,10 +793,11 @@ data class PlaylistCategory(
 
 val defaultCategories = listOf(
     PlaylistCategory("Top 10 Matches"),
-    PlaylistCategory("SuperSport"),
-    PlaylistCategory("Sky Sports"),
-    PlaylistCategory("TNT Sports"),
-    PlaylistCategory("beIN Sports"),
-    PlaylistCategory("Global Sports"),
+    PlaylistCategory("Premier Sports"),
+    PlaylistCategory("Football Feeds"),
+    PlaylistCategory("Combat & Racing"),
+    PlaylistCategory("US Leagues"),
+    PlaylistCategory("24/7 News"),
+    PlaylistCategory("Docs & Cinema"),
     PlaylistCategory("Favorites")
 )
