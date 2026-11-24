@@ -43,7 +43,7 @@ class NativePlayer(context: Context) {
             .apply {
                 addListener(object : Player.Listener {
                     override fun onIsPlayingChanged(playing: Boolean) {
-                        isPlaying = playing
+                        this@NativePlayer.isPlaying = playing
                         if (playing) {
                             status = "Playing"
                             lastError = null
@@ -53,7 +53,7 @@ class NativePlayer(context: Context) {
                     override fun onPlaybackStateChanged(playbackState: Int) {
                         status = when (playbackState) {
                             Player.STATE_BUFFERING -> "Buffering…"
-                            Player.STATE_READY -> if (isPlaying) "Playing" else "Ready"
+                            Player.STATE_READY -> if (this@NativePlayer.isPlaying) "Playing" else "Ready"
                             Player.STATE_ENDED -> "Stream ended"
                             Player.STATE_IDLE -> "Ready"
                             else -> status

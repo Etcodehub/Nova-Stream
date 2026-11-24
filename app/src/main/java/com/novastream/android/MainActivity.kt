@@ -118,7 +118,7 @@ private fun NovaTheme(content: @Composable () -> Unit) {
 
 @androidx.annotation.OptIn(UnstableApi::class)
 @Composable
-private fun NovaStreamApp(player: NativePlayer) {
+private fun NovaStreamApp(nativePlayer: NativePlayer) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val channels = remember { mutableStateListOf<Channel>() }
@@ -135,7 +135,7 @@ private fun NovaStreamApp(player: NativePlayer) {
     fun selectChannel(channel: Channel) {
         selected = channel
         showEmbed = channel.isWebsiteEmbed
-        if (showEmbed) player.pause() else player.play(channel)
+        if (showEmbed) nativePlayer.pause() else nativePlayer.play(channel)
     }
 
     fun loadPlaylist(url: String) {
@@ -205,7 +205,7 @@ private fun NovaStreamApp(player: NativePlayer) {
                     modifier = Modifier.fillMaxSize(),
                     factory = { ctx ->
                         PlayerView(ctx).apply {
-                            player = player.exoPlayer
+                            player = nativePlayer.exoPlayer
                             useController = true
                             resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
                             layoutParams = ViewGroup.LayoutParams(
@@ -214,7 +214,7 @@ private fun NovaStreamApp(player: NativePlayer) {
                             )
                         }
                     },
-                    update = { it.player = player.exoPlayer }
+                    update = { it.player = nativePlayer.exoPlayer }
                 )
             }
             if (selected == null) {
@@ -231,16 +231,16 @@ private fun NovaStreamApp(player: NativePlayer) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(selected?.group ?: "NOVASTREAM", color = Accent, fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
                 Spacer(Modifier.width(8.dp))
-                Text(if (showEmbed) "Website embed" else player.status, color = Muted, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text(if (showEmbed) "Website embed" else nativePlayer.status, color = Muted, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
                 Spacer(Modifier.weight(1f))
-                if (player.lastError != null && !showEmbed) {
-                    IconButton(onClick = { player.retry() }, modifier = Modifier.size(30.dp)) {
+                if (nativePlayer.lastError != null && !showEmbed) {
+                    IconButton(onClick = { nativePlayer.retry() }, modifier = Modifier.size(30.dp)) {
                         Icon(Icons.Default.Refresh, contentDescription = "Retry", tint = Accent)
                     }
                 }
             }
-            if (player.lastError != null && !showEmbed) {
-                Text(player.lastError ?: "", color = Color(0xFFFBBF24), fontSize = 10.sp, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            if (nativePlayer.lastError != null && !showEmbed) {
+                Text(nativePlayer.lastError ?: "", color = Color(0xFFFBBF24), fontSize = 10.sp, maxLines = 2, overflow = TextOverflow.Ellipsis)
             }
         }
 
