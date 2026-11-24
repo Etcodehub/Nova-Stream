@@ -7,8 +7,7 @@ import './style.css';
 import { fastCache } from './cache/FastCacheManager.ts';
 import { deltaSync } from './sync/DeltaSyncService.ts';
 import { NovaPlayer } from './player/NovaPlayer.ts';
-import { INITIAL_MOCK_CHANNELS } from './mockData.ts';
-import { iptvOrgService, IPTV_ORG_ENDPOINTS } from './services/iptvOrg.ts';
+import { catalogManager } from './services/CatalogManager.ts';
 import type { Channel, PlayerPlaybackState } from './types/index.ts';
 
 // UI Element References
@@ -38,29 +37,37 @@ async function bootstrap(): Promise<void> {
   player = new NovaPlayer(videoElement, 'https://novastream-gateway.etcodehub.workers.dev', iframeElement);
   player.subscribe(renderPlayerState);
 
-  // 2. Load 0ms Fast Cache from IndexedDB
-  const cached = await fastCache.loadFastCache();
-  if (cached.channels.length > 0) {
-    channels = cached.channels;
-    activeRevVal.textContent = `rev: ${cached.metadata.activeRevision}`;
-    cachedCountVal.textContent = `${channels.length} Cached`;
-  } else {
-    // Seed initial database
-    await fastCache.saveChannels(INITIAL_MOCK_CHANNELS, 1);
-    channels = INITIAL_MOCK_CHANNELS;
-    activeRevVal.textContent = 'rev: 1';
-    cachedCountVal.textContent = `${channels.length} Cached`;
-  }
+  // 2. 0ms Instant Cache Load from IndexedDB
+  const { channels: cachedChannels } = await catalogManager.loadInstantCache();
+  channels = cachedChannels;
+  const currentRev = await fastCache.getActiveRevision();
+  activeRevVal.textContent = `rev: ${currentRev}`;
+  cachedCountVal.textContent = `⚡ ${channels.length} Cached (0ms Instant)`;
 
-  // 3. Render Channels Grid
+  // 3. Render Channels Grid Immediately
   renderChannelsGrid();
 
-  // 4. Auto-mount first channel
+  // 4. Auto-mount first channel for instant playback
   if (channels.length > 0) {
     selectChannel(channels[0]);
   }
 
-  // 5. Wire Delta Sync Event Listeners
+  // 5. Listen to background catalog auto-fetch updates
+  catalogManager.onCatalogUpdated((updatedChannels, stats) => {
+    channels = updatedChannels;
+    cachedCountVal.textContent = `⚡ ${channels.length} Cached (0ms Ready)`;
+    renderChannelsGrid();
+    if (stats.newlyAdded > 0) {
+      console.info(`[NovaStream] +${stats.newlyAdded} channels auto-cached in IndexedDB.`);
+    }
+  });
+
+  // 6. Launch Immediate Non-Blocking Background Auto-Fetch across all providers
+  setTimeout(() => {
+    catalogManager.autoFetchAllProviders(channels).catch(console.error);
+  }, 100);
+
+  // 7. Wire Delta Sync Event Listeners
   deltaSync.addListener({
     onSyncStarted: () => {
       btnSyncTrigger.disabled = true;
@@ -69,9 +76,9 @@ async function bootstrap(): Promise<void> {
     onSyncCompleted: (updatedChannels, revision, deltaCount) => {
       channels = updatedChannels;
       activeRevVal.textContent = `rev: ${revision}`;
-      cachedCountVal.textContent = `${channels.length} Cached`;
+      cachedCountVal.textContent = `⚡ ${channels.length} Cached`;
       btnSyncTrigger.disabled = false;
-      btnSyncTrigger.innerHTML = `V3 Sync (${deltaCount} deltas applied)`;
+      btnSyncTrigger.innerHTML = `V3 Sync (${deltaCount} deltas)`;
       renderChannelsGrid();
     },
     onSyncFailed: (err) => {
@@ -92,32 +99,22 @@ async function bootstrap(): Promise<void> {
 
   btnLoadIptv.addEventListener('click', async () => {
     btnLoadIptv.disabled = true;
-    btnLoadIptv.textContent = 'Importing IPTV-org...';
+    btnLoadIptv.textContent = 'Auto-fetching Feeds...';
 
     try {
-      const sportsChannels = await iptvOrgService.fetchCategoryChannels(IPTV_ORG_ENDPOINTS[0], 20);
-      const newsChannels = await iptvOrgService.fetchCategoryChannels(IPTV_ORG_ENDPOINTS[1], 10);
-      const newItems = [...sportsChannels, ...newsChannels];
-
-      if (newItems.length > 0) {
-        // Merge without duplicates
-        const existingIds = new Set(channels.map((c) => c.id));
-        const added = newItems.filter((c) => !existingIds.has(c.id));
-        channels = [...channels, ...added];
-        await fastCache.saveChannels(channels, await fastCache.getActiveRevision());
-        cachedCountVal.textContent = `${channels.length} Cached`;
-        btnLoadIptv.textContent = `+${added.length} IPTV-org Added`;
-        renderChannelsGrid();
-      } else {
-        btnLoadIptv.textContent = 'IPTV-org Up to Date';
-      }
+      const updated = await catalogManager.autoFetchAllProviders(channels);
+      channels = updated;
+      cachedCountVal.textContent = `⚡ ${channels.length} Cached (0ms Ready)`;
+      btnLoadIptv.textContent = `⚡ ${channels.length} Channels Synced`;
+      renderChannelsGrid();
     } catch (err) {
       console.error(err);
-      btnLoadIptv.textContent = 'Import Failed';
+      btnLoadIptv.textContent = 'Sync Failed';
     } finally {
       setTimeout(() => {
         btnLoadIptv.disabled = false;
-      }, 2000);
+        btnLoadIptv.textContent = 'Refresh Channels';
+      }, 2500);
     }
   });
 
