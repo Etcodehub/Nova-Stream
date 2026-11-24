@@ -383,7 +383,7 @@ private fun NovaHeader(channelCount: Int) {
         Column(modifier = Modifier.weight(1f)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = "REEZN",
+                    text = "iStream",
                     color = LiveRed,
                     fontWeight = FontWeight.Black,
                     fontSize = 17.sp,
@@ -408,7 +408,6 @@ private fun NovaHeader(channelCount: Int) {
                 text = "STREAM MOVIES, SERIES & SPORTS",
                 color = TextMuted,
                 fontSize = 8.5.sp,
-                fontWeight = FontWeight.Bold
                 fontWeight = FontWeight.SemiBold,
                 letterSpacing = 0.8.sp
             )
