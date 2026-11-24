@@ -1,164 +1,112 @@
-# NovaStream Web
+# NovaStream Platform
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Android CI](https://github.com/Etcodehub/Nova-Stream/actions/workflows/android.yml/badge.svg)](https://github.com/Etcodehub/Nova-Stream/actions)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Bundler-Vite_6-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 
-> **High-performance, fault-tolerant web media streaming architecture.** Engineered with zero-latency IndexedDB caching, V3 monotonic delta synchronization, dynamic multi-source failover, ClearKey DRM support, and edge CORS manifest rewriting.
+> **NovaStream is a multi-platform media streaming ecosystem** combining a native Android TV/Mobile client with an enterprise-grade Web Streaming Platform featuring 0ms IndexedDB caching, V3 monotonic delta synchronization, dynamic multi-source server failover, ClearKey DRM support, and edge CORS manifest rewriting.
 
 ---
 
-## 🏗️ Architectural Overview
-
-NovaStream adapts battle-tested media streaming engineering patterns into a modern, pure-browser ecosystem:
+## 🌟 Platform Components
 
 ```mermaid
 flowchart TD
-    subgraph BrowserClient [NovaStream Web Client]
-        UI["Modern Web Interface"]
-        Cache["IndexedDB FastCache (0ms Startup)"]
-        Reconciler["V3 Delta Sync Reconciler"]
-        PlayerEngine["NovaPlayer (MSE / EME Engine)"]
-        SourceMgr["SourceManager (Multi-Mirror Failover)"]
-        
-        UI <--> Cache
-        UI --> PlayerEngine
-        PlayerEngine --> SourceMgr
-        Reconciler <-->|Monotonic Revision Check| Cache
+    subgraph Clients [NovaStream Client Ecosystem]
+        AndroidClient["Android App (Kotlin + Media3 / ExoPlayer)"]
+        WebClient["Web Client (Vite + TypeScript + HLS.js + ClearKey)"]
     end
 
-    subgraph EdgeLayer [Edge Routing & Gateway]
-        Gateway["Edge CORS Proxy (Worker / Node.js)"]
-        AuthOrigin["Origin Authentication / Referer Header"]
+    subgraph CoreServices [Core Streaming Engine]
+        FastCache["0ms IndexedDB Fast Cache"]
+        SourceMgr["Multi-Server Failover Engine"]
+        DeltaSync["V3 Monotonic Delta Sync Reconciler"]
     end
 
-    subgraph MediaOrigins [Live Media Origins & CDNs]
-        PrimaryCDN["Primary CDN (FHD 60FPS)"]
-        BackupCDN["Backup CDN (720p Mirror)"]
-        SDMirror["Tertiary SD Fallback"]
+    subgraph EdgeLayer [Edge Gateway & CDNs]
+        CORSGateway["Edge CORS Proxy (Cloudflare Worker / Node.js)"]
+        StreamCDNs["Live Media CDNs & HLS Origins"]
     end
 
-    Reconciler -->|1. Sync Delta (304 / Patch)| UI
-    SourceMgr -->|2. Request Stream (Active Mirror)| Gateway
-    Gateway -->|3. Manifest Rewrite & CORS Injection| PrimaryCDN
-    SourceMgr -.->|Auto-Failover on 404/Stall| BackupCDN
+    WebClient <--> FastCache
+    WebClient --> SourceMgr
+    WebClient <--> DeltaSync
+    SourceMgr --> CORSGateway
+    CORSGateway --> StreamCDNs
 ```
 
 ---
 
-## 🌟 Core Features
+## 💻 1. Web Streaming Platform (`src/`)
 
-### 1. Multi-Source Failover Engine (`src/player/SourceManager.ts`)
-* Replicates enterprise player failover (`PlayerLiveSourceManager`).
-* Each channel defines multiple redundant mirrors (`sources[]`) sorted by priority.
-* **Intelligent Circuit Breaker:** Detects fatal segment drops (404, 502, network errors, or buffer stalls > 6s) and instantly rotates playback to the next healthy candidate mirror without tearing down player UI.
-* **Automatic Quarantine:** Temporarily quarantines failing servers with exponential backoff cooldowns before re-testing.
+Adapted from reverse-engineered native streaming architectures to solve browser-specific hurdles (MSE, EME, CORS):
 
-### 2. Zero-Latency Startup Cache (`src/cache/FastCacheManager.ts`)
-* Implements browser IndexedDB persistence (`NovaStream_FastCache`).
-* Channels and EPG metadata are restored **instantaneously (0ms)** from local storage on app boot, rendering UI grids before making any network requests.
+* **0ms Fast Cache (`src/cache/FastCacheManager.ts`):** Restores channels and program metadata instantly from browser **IndexedDB** (`NovaStream_FastCache`) on startup before any network calls.
+* **Multi-Source Failover Engine (`src/player/SourceManager.ts`):** Automatically rotates candidate server mirrors (`Server 1`, `Server 2 (Backup)`, `Server 3`) when encountering fatal segment errors or prolonged buffer stalls (> 6s).
+* **V3 Monotonic Delta Sync (`src/sync/DeltaSyncService.ts`):** Syncs only incremental catalog updates using an `activeRevision` integer, avoiding heavy full-catalog downloads.
+* **Edge CORS Gateway (`src/gateway/`):** Both a Node.js proxy (`corsProxy.ts`) and a Cloudflare Worker script (`worker.ts`) that rewrite `.m3u8` playlists and inject CORS headers (`Access-Control-Allow-Origin: *`).
+* **ClearKey EME Integration (`src/player/NovaPlayer.ts`):** W3C Encrypted Media Extensions support for ClearKey protected streams.
 
-### 3. V3 Monotonic Delta Sync Protocol (`src/sync/DeltaSyncService.ts`)
-* Eliminates heavy full-catalog payload downloads.
-* Exchanges only incremental deltas using a monotonic `activeRevision` integer:
-  * Returns `HTTP 304 Not Modified` if local revision is current.
-  * Delivers atomic `UPSERT` and `DELETE` delta patches when revisions bump.
-* Features decorrelated exponential backoff with jitter for network fault resilience.
-
-### 4. Edge CORS Media Gateway (`src/gateway/`)
-* Standard web browsers enforce strict CORS and origin restrictions on HLS playlists (`.m3u8`) and transport streams (`.ts`, `.m4s`).
-* NovaStream provides two production gateway implementations:
-  1. **Node.js Gateway (`src/gateway/corsProxy.ts`):** Native HTTP/HTTPS streaming proxy that dynamically rewrites relative/absolute playlist URLs to route chunks through the proxy and injects `Access-Control-Allow-Origin: *`.
-  2. **Cloudflare Worker (`src/gateway/worker.ts`):** Serverless edge proxy ready for global distribution via Wrangler.
-
-### 5. ClearKey DRM Integration (`src/player/NovaPlayer.ts`)
-* Fully compliant with W3C Encrypted Media Extensions (EME).
-* Converts 16-byte key and key ID pairs into JSON Web Key (JWK) sets and binds them directly to media key sessions.
-
----
-
-## 🚀 Quickstart
-
-### Prerequisites
-* Node.js `v18+` or `v20+` (tested on Node v26)
-* npm `v9+`
-
-### 1. Installation
+### Web Quickstart
 ```bash
-git clone <your-repo-url> novastream
-cd novastream
+# Install dependencies
 npm install
-```
 
-### 2. Run Development Server
-```bash
+# Start local web development server
 npm run dev
-```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 3. Run Standalone Edge CORS Proxy (Optional)
-```bash
-npm run gateway
-```
-The CORS proxy will run on `http://localhost:8080`.
-
-### 4. Run Unit Test Suite
-```bash
+# Run unit tests
 npm test
-```
 
-### 5. Production Build
-```bash
+# Build production bundle
 npm run build
 ```
 
 ---
 
-## 📁 Repository Layout
+## 📱 2. Native Android App (`app/`)
 
-```text
-novastream/
-├── src/
-│   ├── types/
-│   │   └── index.ts               # Core domain models (Channel, StreamSource, Delta)
-│   ├── cache/
-│   │   └── FastCacheManager.ts    # 0ms IndexedDB local persistence engine
-│   ├── sync/
-│   │   └── DeltaSyncService.ts    # V3 monotonic delta sync reconciler
-│   ├── player/
-│   │   ├── SourceManager.ts       # Multi-server failover & circuit breaker
-│   │   └── NovaPlayer.ts          # Hls.js wrapper + ClearKey EME integration
-│   ├── gateway/
-│   │   ├── corsProxy.ts           # Standalone Node.js CORS & manifest rewriter
-│   │   └── worker.ts              # Cloudflare Worker edge streaming gateway
-│   ├── mockData.ts                # Verified live test streams & sample channels
-│   ├── style.css                  # Modern dark-mode streaming UI
-│   └── main.ts                    # UI entrypoint and orchestrator
-├── test/
-│   └── streaming_core.test.js     # Unit test suite for manifest rewriting & failover
-├── wrangler.jsonc                 # Cloudflare Worker configuration
-├── vite.config.ts                 # Vite bundler configuration
-├── tsconfig.json                  # TypeScript compiler settings
-└── package.json
+* **Engine:** AndroidX Media3 / ExoPlayer.
+* **Stream Protocols:** HLS (`.m3u8`), MPEG-DASH (`.mpd`), and progressive MP4 playback.
+* **M3U Playlist Parser:** Metadata parsing for channel names, groups, logos, and custom request headers (`User-Agent`, `Referer`, `Cookie`).
+* **CI/CD:** Automated GitHub Actions build workflow (`.github/workflows/android.yml`) that builds and uploads the debug APK.
+
+### Android Build
+```bash
+# Build debug APK locally
+./gradlew assembleDebug
 ```
+Output location: `app/build/outputs/apk/debug/app-debug.apk`
 
 ---
 
-## 🔗 Pushing to Your GitHub Repository
+## 📁 Repository Structure
 
-To connect and push this code to a remote GitHub repository:
-
-```bash
-# 1. Add your GitHub remote URL
-git remote add origin https://github.com/<your-username>/novastream.git
-
-# 2. Stage and commit all files
-git add .
-git commit -m "feat: initial commit of NovaStream web streaming core"
-
-# 3. Push to main branch
-git branch -M main
-git push -u origin main
+```text
+Nova-Stream/
+├── .github/workflows/
+│   └── android.yml                # Automated Android APK CI/CD workflow
+├── app/                           # Native Android Media3 Kotlin app
+│   ├── build.gradle.kts
+│   └── src/main/java/com/novastream/android/
+├── src/                           # NovaStream Web Streaming Core
+│   ├── types/                     # TypeScript domain models
+│   ├── cache/FastCacheManager.ts  # 0ms IndexedDB cache
+│   ├── sync/DeltaSyncService.ts   # V3 Delta Sync protocol
+│   ├── player/SourceManager.ts    # Multi-source failover engine
+│   ├── player/NovaPlayer.ts       # HLS / ClearKey EME player engine
+│   ├── gateway/                   # CORS proxies (Node.js & Cloudflare Worker)
+│   ├── mockData.ts                # Verified live test streams
+│   ├── style.css                  # Modern dark-mode streaming UI
+│   └── main.ts                    # UI entrypoint & orchestrator
+├── test/
+│   └── streaming_core.test.js     # Unit test suite
+├── catalog.json                   # 79 curated live channels
+├── wrangler.jsonc                 # Cloudflare Worker edge configuration
+├── vite.config.ts                 # Vite bundler configuration
+├── tsconfig.json                  # TypeScript compiler settings
+└── package.json
 ```
 
 ---
