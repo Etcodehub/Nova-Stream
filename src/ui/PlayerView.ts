@@ -392,62 +392,95 @@ export class PlayerView {
     this.renderedSidebarCategory = cat;
     this.quickChannelListEl.innerHTML = '';
 
-    const beinIds = ['auto-bein-sports-mena-1', 'auto-bein-sports-mena-2', 'auto-bein-sports-mena-3', 'auto-bein-sports-mena-4'];
-    const tntIds = ['auto-tnt-sports-1', 'auto-tnt-sports-2', 'auto-tnt-sports-3', 'auto-tnt-sports-4'];
+    if (cat === 'Sports') {
+      const beinIds = ['auto-bein-sports-mena-1', 'auto-bein-sports-mena-2', 'auto-bein-sports-mena-3', 'auto-bein-sports-mena-4'];
+      const tntIds = ['auto-tnt-sports-1', 'auto-tnt-sports-2', 'auto-tnt-sports-3', 'auto-tnt-sports-4'];
 
-    const beinList = beinIds.map((id) => this.allChannels.find((c) => c.id === id)).filter(Boolean) as Channel[];
-    const tntList = tntIds.map((id) => this.allChannels.find((c) => c.id === id)).filter(Boolean) as Channel[];
+      const beinList = beinIds.map((id) => this.allChannels.find((c) => c.id === id)).filter(Boolean) as Channel[];
+      const tntList = tntIds.map((id) => this.allChannels.find((c) => c.id === id)).filter(Boolean) as Channel[];
 
-    // 1. Best Big Channels: beIN Sports & TNT Sports + 1 2 3 4 below each
-    if (beinList.length > 0 || tntList.length > 0) {
-      const featuredWrap = document.createElement('div');
-      featuredWrap.className = 'sidebar-featured-groups';
+      // 1. Best Big Channels: beIN Sports & TNT Sports + 1 2 3 4 below each (Sports only)
+      if (beinList.length > 0 || tntList.length > 0) {
+        const featuredWrap = document.createElement('div');
+        featuredWrap.className = 'sidebar-featured-groups';
 
-      const buildGroup = (title: string, mainCh: Channel, numbered: Channel[]) => {
-        const group = document.createElement('div');
-        group.className = 'sidebar-big-group';
+        const buildGroup = (title: string, mainCh: Channel, numbered: Channel[]) => {
+          const group = document.createElement('div');
+          group.className = 'sidebar-big-group';
 
-        const bigBtn = document.createElement('button');
-        bigBtn.className = `sidebar-big-card ${this.currentChannel?.id === mainCh.id ? 'active' : ''}`;
-        bigBtn.dataset.channelId = mainCh.id;
-        bigBtn.innerHTML = `
-          <img class="sidebar-big-logo" src="${mainCh.logoUrl}" alt="${mainCh.name}" />
-          <div class="sidebar-big-meta">
-            <div class="sidebar-big-name">${title}</div>
-            <div class="sidebar-big-sub">Top Live Sports • HD</div>
+          const bigBtn = document.createElement('button');
+          bigBtn.className = `sidebar-big-card ${this.currentChannel?.id === mainCh.id ? 'active' : ''}`;
+          bigBtn.dataset.channelId = mainCh.id;
+          bigBtn.innerHTML = `
+            <img class="sidebar-big-logo" src="${mainCh.logoUrl}" alt="${mainCh.name}" />
+            <div class="sidebar-big-meta">
+              <div class="sidebar-big-name">${title}</div>
+              <div class="sidebar-big-sub">Top Live Sports • HD</div>
+            </div>
+            <span class="live-pulse-sm"></span>
+          `;
+          bigBtn.addEventListener('click', () => this.onSelectChannelCallback?.(mainCh));
+          group.appendChild(bigBtn);
+
+          const numRow = document.createElement('div');
+          numRow.className = 'sidebar-num-row';
+          numbered.forEach((ch, idx) => {
+            const nBtn = document.createElement('button');
+            nBtn.className = `sidebar-num-btn ${this.currentChannel?.id === ch.id ? 'active' : ''}`;
+            nBtn.dataset.channelId = ch.id;
+            nBtn.title = ch.name;
+            nBtn.innerHTML = `
+              <img class="sidebar-num-logo" src="${ch.logoUrl}" alt="${ch.name}" />
+              <span>${idx + 1}</span>
+            `;
+            nBtn.addEventListener('click', () => this.onSelectChannelCallback?.(ch));
+            numRow.appendChild(nBtn);
+          });
+          group.appendChild(numRow);
+          return group;
+        };
+
+        if (beinList.length > 0) featuredWrap.appendChild(buildGroup('beIN Sports', beinList[0], beinList));
+        if (tntList.length > 0) featuredWrap.appendChild(buildGroup('TNT Sports', tntList[0], tntList));
+        this.quickChannelListEl.appendChild(featuredWrap);
+      }
+
+      // 2. Curated 5 Sports channels only (no duplicate beIN/other clutter)
+      const curatedSportsIds = [
+        'sony-sports-1-test',
+        'auto-supersport-premier-league',
+        'auto-sky-sports-main-event',
+        'auto-sky-sports-premier-league',
+        'dazn-it-test',
+      ];
+      const curatedSports = curatedSportsIds
+        .map((id) => this.allChannels.find((c) => c.id === id))
+        .filter(Boolean) as Channel[];
+
+      curatedSports.forEach((ch) => {
+        const item = document.createElement('button');
+        const isActive = this.currentChannel?.id === ch.id;
+        item.className = `quick-ch-item ${isActive ? 'active' : ''}`;
+        item.dataset.channelId = ch.id;
+        item.innerHTML = `
+          <img class="quick-ch-logo" src="${ch.logoUrl || ''}" alt="${ch.name}" />
+          <div class="quick-ch-info">
+            <div class="quick-ch-name">${ch.name}</div>
+            <div class="quick-ch-cat">${ch.network || ch.category}</div>
           </div>
           <span class="live-pulse-sm"></span>
         `;
-        bigBtn.addEventListener('click', () => this.onSelectChannelCallback?.(mainCh));
-        group.appendChild(bigBtn);
-
-        const numRow = document.createElement('div');
-        numRow.className = 'sidebar-num-row';
-        numbered.forEach((ch, idx) => {
-          const nBtn = document.createElement('button');
-          nBtn.className = `sidebar-num-btn ${this.currentChannel?.id === ch.id ? 'active' : ''}`;
-          nBtn.dataset.channelId = ch.id;
-          nBtn.title = ch.name;
-          nBtn.innerHTML = `
-            <img class="sidebar-num-logo" src="${ch.logoUrl}" alt="${ch.name}" />
-            <span>${idx + 1}</span>
-          `;
-          nBtn.addEventListener('click', () => this.onSelectChannelCallback?.(ch));
-          numRow.appendChild(nBtn);
+        item.addEventListener('click', () => {
+          this.onSelectChannelCallback?.(ch);
         });
-        group.appendChild(numRow);
-        return group;
-      };
-
-      if (beinList.length > 0) featuredWrap.appendChild(buildGroup('beIN Sports', beinList[0], beinList));
-      if (tntList.length > 0) featuredWrap.appendChild(buildGroup('TNT Sports', tntList[0], tntList));
-      this.quickChannelListEl.appendChild(featuredWrap);
+        this.quickChannelListEl.appendChild(item);
+      });
+      return;
     }
 
-    // 2. Remaining category channels
-    const featuredSet = new Set([...beinIds, ...tntIds]);
+    // Non-Sports categories (Kids, Movies, Entertainment, News): show only that category's channels
     const related = this.allChannels
-      .filter((c) => c.category === cat && !featuredSet.has(c.id))
+      .filter((c) => c.category === cat)
       .slice(0, 20);
 
     related.forEach((ch) => {
