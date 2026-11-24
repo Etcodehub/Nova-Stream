@@ -30,18 +30,18 @@ export class CatalogManager {
   }
 
   /**
-   * 0ms Instant Load
-   * Returns locally cached channels immediately without waiting for any network request.
+   * 0ms Instant Load (Cache Once)
+   * If channels are already cached in IndexedDB, returns immediately.
    */
   public async loadInstantCache(): Promise<{ channels: Channel[]; isFresh: boolean }> {
     const cached = await this.cache.loadFastCache();
 
-    if (cached.channels.length > 0) {
-      // Return cached instantly
+    if (cached.channels.length > 5) {
+      // Catalog is already cached locally on this device!
       return { channels: cached.channels, isFresh: true };
     }
 
-    // First time on a new device: seed immediately with bundled mock channels
+    // First launch: seed with initial baseline
     await this.cache.saveChannels(INITIAL_MOCK_CHANNELS, 1);
     return { channels: INITIAL_MOCK_CHANNELS, isFresh: false };
   }

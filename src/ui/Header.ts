@@ -1,21 +1,18 @@
 /**
  * Header Component
- * Modular top navigation bar with device detection, revision telemetry, and sync triggers.
+ * Commercial streaming navigation bar (Prime Video / Netflix style)
+ * Clean, modern consumer navigation without technical debug badges.
  */
 
 export interface HeaderCallbacks {
-  onRefreshClick: () => void;
-  onDeltaSyncClick: () => void;
+  onCategorySelect: (category: string) => void;
+  onSearch: (query: string) => void;
 }
 
 export class Header {
   private container: HTMLElement;
   private callbacks: HeaderCallbacks;
-  private revElement!: HTMLElement;
-  private cacheElement!: HTMLElement;
-  private syncBtn!: HTMLButtonElement;
-  private refreshBtn!: HTMLButtonElement;
-  private devicePill!: HTMLElement;
+  private searchInput!: HTMLInputElement;
 
   constructor(container: HTMLElement, callbacks: HeaderCallbacks) {
     this.container = container;
@@ -24,96 +21,78 @@ export class Header {
   }
 
   private render(): void {
-    const deviceType = this.detectDeviceType();
-
     this.container.innerHTML = `
       <header class="app-header">
-        <div class="logo-group">
-          <div class="logo-badge">NOVA</div>
-          <div class="logo-title-group">
-            <h1 class="logo-title">NovaStream</h1>
-            <span class="device-pill" id="device-pill">${deviceType}</span>
+        <div class="header-left">
+          <div class="brand-logo" role="button" tabindex="0" id="brand-home">
+            <span class="logo-accent">NOVA</span>STREAM
           </div>
+
+          <nav class="nav-links">
+            <button class="nav-link active" data-cat="ALL">Home</button>
+            <button class="nav-link" data-cat="Sports">Sports</button>
+            <button class="nav-link" data-cat="Movies">Movies</button>
+            <button class="nav-link" data-cat="News">News</button>
+            <button class="nav-link" data-cat="Entertainment">Live TV</button>
+          </nav>
         </div>
 
-        <div class="header-status">
-          <div class="badge badge-cyan" id="revision-badge">
-            <span class="badge-dot"></span>
-            <span>Revision:</span>
-            <strong id="active-rev-val">rev: 1</strong>
+        <div class="header-right">
+          <div class="header-search-box">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input
+              type="text"
+              id="header-search-input"
+              class="header-search-input"
+              placeholder="Search matches, movies, channels..."
+            />
           </div>
 
-          <div class="badge badge-purple" id="cache-badge">
-            <span class="pulse-icon">⚡</span>
-            <strong id="cached-count-val">0ms Ready</strong>
-          </div>
-
-          <div class="header-actions">
-            <button class="btn btn-secondary btn-sm" id="btn-header-refresh" title="Auto-fetch live feeds from IPTV-org and Catalog">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-              <span class="btn-text">Refresh</span>
-            </button>
-
-            <button class="btn btn-primary btn-sm" id="btn-header-sync" title="V3 Monotonic Delta Sync">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="23 4 23 10 17 10"></polyline>
-                <polyline points="1 20 1 14 7 14"></polyline>
-                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-              </svg>
-              <span class="btn-text">V3 Sync</span>
-            </button>
+          <div class="user-profile-badge" title="NovaStream VIP">
+            <span class="profile-avatar">N</span>
           </div>
         </div>
       </header>
     `;
 
-    this.revElement = this.container.querySelector('#active-rev-val')!;
-    this.cacheElement = this.container.querySelector('#cached-count-val')!;
-    this.syncBtn = this.container.querySelector('#btn-header-sync')!;
-    this.refreshBtn = this.container.querySelector('#btn-header-refresh')!;
-    this.devicePill = this.container.querySelector('#device-pill')!;
+    this.searchInput = this.container.querySelector('#header-search-input')!;
 
-    this.refreshBtn.addEventListener('click', () => this.callbacks.onRefreshClick());
-    this.syncBtn.addEventListener('click', () => this.callbacks.onDeltaSyncClick());
+    this.searchInput.addEventListener('input', () => {
+      this.callbacks.onSearch(this.searchInput.value.trim().toLowerCase());
+    });
 
-    window.addEventListener('resize', () => {
-      this.devicePill.textContent = this.detectDeviceType();
+    const navLinks = this.container.querySelectorAll('.nav-link');
+    navLinks.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLElement;
+        navLinks.forEach((l) => l.classList.remove('active'));
+        target.classList.add('active');
+        const cat = target.dataset.cat || 'ALL';
+        this.callbacks.onCategorySelect(cat);
+      });
+    });
+
+    const brandHome = this.container.querySelector('#brand-home');
+    brandHome?.addEventListener('click', () => {
+      navLinks.forEach((l) => l.classList.remove('active'));
+      navLinks[0]?.classList.add('active');
+      this.callbacks.onCategorySelect('ALL');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
-  public updateRevision(rev: number): void {
-    if (this.revElement) this.revElement.textContent = `rev: ${rev}`;
-  }
-
-  public updateCacheStatus(count: number, label = '0ms Cached'): void {
-    if (this.cacheElement) this.cacheElement.textContent = `⚡ ${count} ${label}`;
-  }
-
-  public setSyncing(isSyncing: boolean, text = 'Syncing...'): void {
-    if (this.syncBtn) {
-      this.syncBtn.disabled = isSyncing;
-      const textSpan = this.syncBtn.querySelector('.btn-text');
-      if (textSpan) textSpan.textContent = text;
-    }
-  }
-
-  public setRefreshing(isRefreshing: boolean, text = 'Refreshing...'): void {
-    if (this.refreshBtn) {
-      this.refreshBtn.disabled = isRefreshing;
-      const textSpan = this.refreshBtn.querySelector('.btn-text');
-      if (textSpan) textSpan.textContent = text;
-    }
-  }
-
-  private detectDeviceType(): string {
-    const width = window.innerWidth;
-    if (width < 640) return '📱 Mobile';
-    if (width < 1024) return '📟 Tablet';
-    if (width > 1920) return '📺 TV / Ultra-Wide';
-    return '💻 Desktop';
+  public setActiveCategory(category: string): void {
+    const navLinks = this.container.querySelectorAll('.nav-link');
+    navLinks.forEach((l) => {
+      const el = l as HTMLElement;
+      if (el.dataset.cat?.toLowerCase() === category.toLowerCase()) {
+        el.classList.add('active');
+      } else {
+        el.classList.remove('active');
+      }
+    });
   }
 }

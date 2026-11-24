@@ -1,7 +1,7 @@
 /**
  * ChannelGrid Component
- * Modular catalog viewer with live search filtering, category tabs,
- * and responsive multi-platform channel cards with real-time EPG progress.
+ * Prime Video / Netflix-style horizontal carousels (rails)
+ * Organized by Sports, Cinema, News, and Live TV with smooth horizontal scrolling.
  */
 
 import type { Channel } from '../types/index.ts';
@@ -15,69 +15,10 @@ export class ChannelGrid {
   private activeChannelId: string | null = null;
   private currentCategory = 'ALL';
   private searchQuery = '';
-  private gridContainer!: HTMLElement;
-  private tabsContainer!: HTMLElement;
-  private searchInput!: HTMLInputElement;
 
   constructor(container: HTMLElement, onSelect: ChannelSelectCallback) {
     this.container = container;
     this.onSelect = onSelect;
-    this.render();
-  }
-
-  private render(): void {
-    this.container.innerHTML = `
-      <section class="catalog-section">
-        <div class="catalog-controls-bar">
-          <div class="catalog-title-group">
-            <h3 class="section-title">Live Channels & Feeds</h3>
-            <span class="catalog-count-badge" id="catalog-count-badge">0 channels</span>
-          </div>
-
-          <div class="catalog-search-wrapper">
-            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input
-              type="text"
-              class="catalog-search-input"
-              id="catalog-search-input"
-              placeholder="Search football, sports, news, channels..."
-            />
-          </div>
-
-          <div class="category-tabs-group" id="category-tabs">
-            <button class="cat-pill active" data-category="ALL">All</button>
-            <button class="cat-pill" data-category="Sports">Sports</button>
-            <button class="cat-pill" data-category="Movies">Movies</button>
-            <button class="cat-pill" data-category="News">News</button>
-            <button class="cat-pill" data-category="Entertainment">Entertainment</button>
-          </div>
-        </div>
-
-        <div class="channels-grid-layout" id="channels-grid"></div>
-      </section>
-    `;
-
-    this.gridContainer = this.container.querySelector('#channels-grid')!;
-    this.tabsContainer = this.container.querySelector('#category-tabs')!;
-    this.searchInput = this.container.querySelector('#catalog-search-input')!;
-
-    this.searchInput.addEventListener('input', () => {
-      this.searchQuery = this.searchInput.value.trim().toLowerCase();
-      this.renderGrid();
-    });
-
-    this.tabsContainer.addEventListener('click', (e) => {
-      const target = (e.target as HTMLElement).closest('.cat-pill') as HTMLElement | null;
-      if (target && target.dataset.category) {
-        this.tabsContainer.querySelectorAll('.cat-pill').forEach((pill) => pill.classList.remove('active'));
-        target.classList.add('active');
-        this.currentCategory = target.dataset.category;
-        this.renderGrid();
-      }
-    });
   }
 
   public setChannels(channels: Channel[], activeId?: string): void {
@@ -85,102 +26,198 @@ export class ChannelGrid {
     if (activeId !== undefined) {
       this.activeChannelId = activeId;
     }
-    const countBadge = this.container.querySelector('#catalog-count-badge');
-    if (countBadge) {
-      countBadge.textContent = `${channels.length} channels`;
-    }
-    this.renderGrid();
+    this.render();
   }
 
   public setActiveChannel(channelId: string): void {
     this.activeChannelId = channelId;
-    this.renderGrid();
+    this.highlightActiveCards();
   }
 
-  private renderGrid(): void {
-    this.gridContainer.innerHTML = '';
+  public filterByCategory(category: string): void {
+    this.currentCategory = category;
+    this.render();
+  }
 
-    const filtered = this.channels.filter((c) => {
-      const matchesCategory =
-        this.currentCategory === 'ALL' || c.category.toLowerCase() === this.currentCategory.toLowerCase();
-      const matchesSearch =
-        !this.searchQuery ||
-        c.name.toLowerCase().includes(this.searchQuery) ||
-        c.category.toLowerCase().includes(this.searchQuery) ||
-        (c.currentProgram?.title && c.currentProgram.title.toLowerCase().includes(this.searchQuery));
-      return matchesCategory && matchesSearch;
-    });
+  public setSearchQuery(query: string): void {
+    this.searchQuery = query;
+    this.render();
+  }
 
-    if (filtered.length === 0) {
-      this.gridContainer.innerHTML = `
-        <div class="grid-empty-message">
-          <p>No channels match your filter.</p>
-        </div>
-      `;
+  private render(): void {
+    this.container.innerHTML = '';
+
+    // If searching, show search results grid
+    if (this.searchQuery) {
+      this.renderSearchResults();
       return;
     }
 
-    filtered.forEach((channel) => {
-      const card = document.createElement('div');
-      const isActive = this.activeChannelId === channel.id;
-      card.className = `channel-card ${isActive ? 'active' : ''}`;
-      card.setAttribute('role', 'button');
-      card.setAttribute('tabindex', '0');
+    // If a specific category tab is selected, show that category rail/grid
+    if (this.currentCategory !== 'ALL') {
+      const filtered = this.channels.filter(
+        (c) => c.category.toLowerCase() === this.currentCategory.toLowerCase()
+      );
+      this.renderSingleRail(this.currentCategory, filtered);
+      return;
+    }
 
-      let progressPercent = 0;
-      if (channel.currentProgram) {
-        const now = Date.now();
-        const total = channel.currentProgram.endTime - channel.currentProgram.startTime;
-        const elapsed = now - channel.currentProgram.startTime;
-        progressPercent = Math.min(Math.max((elapsed / total) * 100, 10), 100);
-      }
+    // Default: Prime Video-style Multi-Rail Layout
+    const sports = this.channels.filter((c) => c.category === 'Sports');
+    const movies = this.channels.filter((c) => c.category === 'Movies');
+    const news = this.channels.filter((c) => c.category === 'News');
+    const entertainment = this.channels.filter(
+      (c) => c.category === 'Entertainment' || (!['Sports', 'Movies', 'News'].includes(c.category))
+    );
 
-      card.innerHTML = `
-        <div class="channel-card-header">
-          <img class="channel-card-logo" src="${channel.logoUrl}" alt="${channel.name}" loading="lazy" />
-          <div class="channel-card-meta">
-            <h4 class="channel-card-name">${channel.name}</h4>
-            <div class="channel-card-sub">
-              <span class="category-tag">${channel.category}</span>
-              <span class="mirrors-count">${channel.sources.length} ${channel.sources.length === 1 ? 'server' : 'servers'}</span>
-            </div>
-          </div>
+    if (sports.length > 0) this.renderRail('⚽ Live Sports & Football Matchday', sports);
+    if (movies.length > 0) this.renderRail('🎬 Premiere Cinema & Movies', movies);
+    if (news.length > 0) this.renderRail('🌐 Global 24/7 News Networks', news);
+    if (entertainment.length > 0) this.renderRail('📺 Entertainment & Live TV', entertainment);
+  }
+
+  private renderRail(title: string, list: Channel[]): void {
+    const railWrapper = document.createElement('div');
+    railWrapper.className = 'prime-rail-wrapper';
+
+    railWrapper.innerHTML = `
+      <div class="prime-rail-header">
+        <h3 class="prime-rail-title">${title}</h3>
+        <span class="prime-rail-count">${list.length} Channels</span>
+      </div>
+      <div class="prime-rail-track-container">
+        <button class="rail-scroll-arrow left" aria-label="Scroll left">‹</button>
+        <div class="prime-rail-track"></div>
+        <button class="rail-scroll-arrow right" aria-label="Scroll right">›</button>
+      </div>
+    `;
+
+    const track = railWrapper.querySelector('.prime-rail-track') as HTMLElement;
+    const arrowLeft = railWrapper.querySelector('.rail-scroll-arrow.left') as HTMLButtonElement;
+    const arrowRight = railWrapper.querySelector('.rail-scroll-arrow.right') as HTMLButtonElement;
+
+    list.forEach((channel) => {
+      const card = this.createChannelCard(channel);
+      track.appendChild(card);
+    });
+
+    arrowLeft.addEventListener('click', () => {
+      track.scrollBy({ left: -420, behavior: 'smooth' });
+    });
+
+    arrowRight.addEventListener('click', () => {
+      track.scrollBy({ left: 420, behavior: 'smooth' });
+    });
+
+    this.container.appendChild(railWrapper);
+  }
+
+  private renderSingleRail(category: string, list: Channel[]): void {
+    const section = document.createElement('div');
+    section.className = 'prime-single-category-section';
+    section.innerHTML = `
+      <div class="prime-rail-header">
+        <h3 class="prime-rail-title">${category} Live Streams</h3>
+        <span class="prime-rail-count">${list.length} Channels</span>
+      </div>
+      <div class="prime-cards-grid"></div>
+    `;
+
+    const grid = section.querySelector('.prime-cards-grid') as HTMLElement;
+    list.forEach((channel) => {
+      grid.appendChild(this.createChannelCard(channel));
+    });
+
+    this.container.appendChild(section);
+  }
+
+  private renderSearchResults(): void {
+    const results = this.channels.filter((c) => {
+      return (
+        c.name.toLowerCase().includes(this.searchQuery) ||
+        c.category.toLowerCase().includes(this.searchQuery) ||
+        (c.currentProgram?.title && c.currentProgram.title.toLowerCase().includes(this.searchQuery))
+      );
+    });
+
+    const section = document.createElement('div');
+    section.className = 'prime-single-category-section';
+    section.innerHTML = `
+      <div class="prime-rail-header">
+        <h3 class="prime-rail-title">Search Results for "${this.searchQuery}"</h3>
+        <span class="prime-rail-count">${results.length} Found</span>
+      </div>
+      <div class="prime-cards-grid"></div>
+    `;
+
+    const grid = section.querySelector('.prime-cards-grid') as HTMLElement;
+    if (results.length === 0) {
+      grid.innerHTML = '<div class="no-results-msg">No channels found matching your query.</div>';
+    } else {
+      results.forEach((channel) => {
+        grid.appendChild(this.createChannelCard(channel));
+      });
+    }
+
+    this.container.appendChild(section);
+  }
+
+  private createChannelCard(channel: Channel): HTMLElement {
+    const card = document.createElement('div');
+    const isActive = this.activeChannelId === channel.id;
+    card.className = `prime-channel-card ${isActive ? 'active' : ''}`;
+    card.dataset.channelId = channel.id;
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+
+    const programTitle = channel.currentProgram?.title || 'Live Transmission';
+
+    card.innerHTML = `
+      <div class="card-poster-box">
+        <img class="card-logo-img" src="${channel.logoUrl}" alt="${channel.name}" loading="lazy" />
+        <div class="card-overlay-badge">
+          <span class="mini-live-dot"></span> LIVE
         </div>
+      </div>
 
-        ${
-          channel.currentProgram
-            ? `
-          <div class="card-epg-box">
-            <div class="epg-title-text">${channel.currentProgram.title}</div>
-            <div class="epg-progress-row">
-              <span class="epg-time-text">Live • ${Math.round(progressPercent)}%</span>
-            </div>
-            <div class="epg-bar-track">
-              <div class="epg-bar-indicator" style="width: ${progressPercent}%;"></div>
-            </div>
-          </div>
-        `
-            : ''
-        }
-      `;
+      <div class="card-details-box">
+        <h4 class="card-channel-name">${channel.name}</h4>
+        <div class="card-program-title">${programTitle}</div>
+        <div class="card-footer-tags">
+          <span class="prime-pill-tag">${channel.category}</span>
+          <span class="prime-quality-tag">HD</span>
+        </div>
+      </div>
+    `;
 
-      card.addEventListener('click', () => {
-        this.activeChannelId = channel.id;
-        this.renderGrid();
-        this.onSelect(channel);
-      });
+    const handleSelect = () => {
+      this.activeChannelId = channel.id;
+      this.highlightActiveCards();
+      this.onSelect(channel);
+      // Smooth scroll up to player
+      document.getElementById('player-viewport')?.scrollIntoView({ behavior: 'smooth' });
+    };
 
-      // Keyboard navigation support for TV / D-pad
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          this.activeChannelId = channel.id;
-          this.renderGrid();
-          this.onSelect(channel);
-        }
-      });
+    card.addEventListener('click', handleSelect);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleSelect();
+      }
+    });
 
-      this.gridContainer.appendChild(card);
+    return card;
+  }
+
+  private highlightActiveCards(): void {
+    const cards = this.container.querySelectorAll('.prime-channel-card');
+    cards.forEach((card) => {
+      const el = card as HTMLElement;
+      if (el.dataset.channelId === this.activeChannelId) {
+        el.classList.add('active');
+      } else {
+        el.classList.remove('active');
+      }
     });
   }
 }

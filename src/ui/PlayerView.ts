@@ -1,8 +1,7 @@
 /**
  * PlayerView Component
- * Renders the responsive media viewport (HTML5 Video & IFrame Embed),
- * Quick Channel Chooser dropdown, Now-Playing bar, Theater mode toggle,
- * and Multi-Server Switcher pills.
+ * Cinema-Grade Media Player (Prime Video / Netflix style)
+ * Clean, elegant consumer viewport without technical debug buttons.
  */
 
 import type { Channel, PlayerPlaybackState, StreamSource } from '../types/index.ts';
@@ -21,7 +20,6 @@ export class PlayerView {
   private qualityBadgeElement!: HTMLElement;
   private serverButtonsContainer!: HTMLElement;
   private channelChooserSelect!: HTMLSelectElement;
-  private btnSimulateFail!: HTMLButtonElement;
   private btnTheaterMode!: HTMLButtonElement;
   private isTheaterMode = false;
 
@@ -49,12 +47,13 @@ export class PlayerView {
 
   private render(): void {
     this.container.innerHTML = `
-      <div class="player-view-wrapper">
+      <div class="player-cinema-wrapper">
         <div class="player-viewport-container" id="player-viewport">
+          <div class="player-ambient-glow"></div>
           <div class="player-overlay-live-badge">
             <span class="live-dot"></span> LIVE
           </div>
-          <video id="nova-video" controls playsinline></video>
+          <video id="nova-video" controls playsinline poster="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1280&q=80"></video>
           <iframe
             id="nova-iframe"
             style="display: none; width: 100%; aspect-ratio: 16 / 9; border: 0;"
@@ -63,44 +62,34 @@ export class PlayerView {
           ></iframe>
         </div>
 
-        <div class="player-controls-panel">
-          <div class="player-meta-row">
-            <div class="player-title-group">
-              <!-- Quick Channel Chooser -->
-              <div class="channel-chooser-box">
-                <select id="channel-chooser-select" class="channel-dropdown-select" title="Quick Channel Chooser">
-                  <option value="" disabled selected>⚡ Switch Channel...</option>
-                </select>
-              </div>
-
-              <h2 class="player-channel-title" id="now-playing-title">Ready for Playback</h2>
-              <span class="badge badge-cyan" id="player-quality-badge">Auto</span>
+        <div class="player-info-toolbar">
+          <div class="player-info-left">
+            <div class="channel-dropdown-box">
+              <select id="channel-chooser-select" class="prime-select" title="Switch Channel">
+                <option value="" disabled selected>Channels...</option>
+              </select>
             </div>
 
-            <div class="player-actions-group">
-              <button class="btn btn-secondary btn-xs" id="btn-theater-mode" title="Toggle Cinema Theater Mode">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                  <line x1="8" y1="21" x2="16" y2="21"></line>
-                  <line x1="12" y1="17" x2="12" y2="21"></line>
-                </svg>
-                <span class="btn-text">Theater Mode</span>
-              </button>
-
-              <button class="btn btn-danger btn-xs" id="btn-simulate-fail" title="Simulate a server crash to test auto-failover">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                  <line x1="12" y1="9" x2="12" y2="13"></line>
-                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                <span class="btn-text">Simulate Crash</span>
-              </button>
+            <div class="channel-headline">
+              <h1 class="now-playing-channel" id="now-playing-title">NovaStream Live</h1>
+              <span class="prime-badge-hd" id="player-quality-badge">1080p HD</span>
             </div>
           </div>
 
-          <div class="server-selector-row">
-            <span class="server-label">Available Mirrors:</span>
-            <div class="server-pills-list" id="server-buttons-container"></div>
+          <div class="player-info-right">
+            <!-- Server Mirror Selector -->
+            <div class="mirror-selector-group">
+              <span class="mirror-label">Feed:</span>
+              <div class="mirror-pills-row" id="server-buttons-container"></div>
+            </div>
+
+            <button class="prime-btn-icon" id="btn-theater-mode" title="Toggle Cinema Theater Mode">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -112,12 +101,7 @@ export class PlayerView {
     this.qualityBadgeElement = this.container.querySelector('#player-quality-badge')!;
     this.serverButtonsContainer = this.container.querySelector('#server-buttons-container')!;
     this.channelChooserSelect = this.container.querySelector('#channel-chooser-select')!;
-    this.btnSimulateFail = this.container.querySelector('#btn-simulate-fail')!;
     this.btnTheaterMode = this.container.querySelector('#btn-theater-mode')!;
-
-    this.btnSimulateFail.addEventListener('click', () => {
-      this.player?.triggerSimulatedFailure();
-    });
 
     this.btnTheaterMode.addEventListener('click', () => {
       this.toggleTheaterMode();
@@ -134,7 +118,6 @@ export class PlayerView {
   public populateChannelChooser(channels: Channel[], activeId?: string): void {
     if (!this.channelChooserSelect) return;
 
-    // Group channels by category
     const categories = new Map<string, Channel[]>();
     channels.forEach((ch) => {
       const list = categories.get(ch.category) || [];
@@ -142,7 +125,7 @@ export class PlayerView {
       categories.set(ch.category, list);
     });
 
-    this.channelChooserSelect.innerHTML = '<option value="" disabled>⚡ Switch Channel...</option>';
+    this.channelChooserSelect.innerHTML = '<option value="" disabled>Switch Channel...</option>';
 
     categories.forEach((list, category) => {
       const optGroup = document.createElement('optgroup');
@@ -172,20 +155,20 @@ export class PlayerView {
 
   public updateNowPlaying(title: string, subtitle?: string): void {
     if (this.titleElement) {
-      this.titleElement.innerHTML = `${title} ${subtitle ? `<span class="subtitle">— ${subtitle}</span>` : ''}`;
+      this.titleElement.innerHTML = `${title} ${subtitle ? `<span class="now-playing-sub">• ${subtitle}</span>` : ''}`;
     }
   }
 
   public updateState(state: PlayerPlaybackState): void {
     if (this.qualityBadgeElement) {
-      this.qualityBadgeElement.textContent = state.activeQuality || 'Auto';
+      this.qualityBadgeElement.textContent = state.activeQuality || '1080p HD';
     }
 
-    // Render Server Mirror Switcher Pills
+    // Render Stream Mirror Switcher (e.g. Server 1, Server 2) cleanly
     this.serverButtonsContainer.innerHTML = '';
-    state.candidateSources.forEach((source: StreamSource) => {
+    state.candidateSources.forEach((source: StreamSource, idx: number) => {
       const btn = document.createElement('button');
-      btn.className = `server-pill ${state.currentSource?.id === source.id ? 'active' : ''}`;
+      btn.className = `mirror-pill ${state.currentSource?.id === source.id ? 'active' : ''}`;
 
       const indicatorClass =
         source.state === 'HEALTHY'
@@ -194,11 +177,11 @@ export class PlayerView {
           ? 'indicator-failed'
           : source.state === 'CHECKING'
           ? 'indicator-checking'
-          : 'indicator-idle';
+          : 'indicator-healthy';
 
       btn.innerHTML = `
         <span class="indicator ${indicatorClass}"></span>
-        <span class="server-pill-label">${source.label}</span>
+        <span>${source.label.replace(/Server \d+ \((.*?)\)/, '$1') || `Feed ${idx + 1}`}</span>
       `;
 
       btn.addEventListener('click', () => {
@@ -211,13 +194,9 @@ export class PlayerView {
 
   private toggleTheaterMode(): void {
     this.isTheaterMode = !this.isTheaterMode;
-    const mainGrid = document.querySelector('.main-content-grid');
-    if (mainGrid) {
-      mainGrid.classList.toggle('theater-mode', this.isTheaterMode);
-    }
-    const btnText = this.btnTheaterMode.querySelector('.btn-text');
-    if (btnText) {
-      btnText.textContent = this.isTheaterMode ? 'Exit Theater' : 'Theater Mode';
+    const playerWrapper = this.container.querySelector('.player-cinema-wrapper');
+    if (playerWrapper) {
+      playerWrapper.classList.toggle('theater-mode', this.isTheaterMode);
     }
   }
 }

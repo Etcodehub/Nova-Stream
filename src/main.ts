@@ -1,17 +1,15 @@
 /**
- * NovaStream Application Orchestrator
- * Fully separated UI architecture coordinating Header, PlayerView, DiagnosticsView,
- * ChannelGrid, FastCache (IndexedDB), and NovaPlayer.
+ * NovaStream Commercial Web Application
+ * Prime Video / Netflix-grade streaming interface orchestrating
+ * Header, Cinema PlayerView, HeroBanner, and Horizontal Channel Rails.
  */
 
 import './style.css';
-import { fastCache } from './cache/FastCacheManager.ts';
-import { deltaSync } from './sync/DeltaSyncService.ts';
 import { catalogManager } from './services/CatalogManager.ts';
 import { NovaPlayer } from './player/NovaPlayer.ts';
 import { Header } from './ui/Header.ts';
 import { PlayerView } from './ui/PlayerView.ts';
-import { DiagnosticsView } from './ui/DiagnosticsView.ts';
+import { HeroBanner } from './ui/HeroBanner.ts';
 import { ChannelGrid } from './ui/ChannelGrid.ts';
 import type { Channel, PlayerPlaybackState } from './types/index.ts';
 
@@ -19,13 +17,13 @@ class NovaStreamApp {
   private player!: NovaPlayer;
   private header!: Header;
   private playerView!: PlayerView;
-  private diagnosticsView!: DiagnosticsView;
+  private heroBanner!: HeroBanner;
   private channelGrid!: ChannelGrid;
   private channels: Channel[] = [];
   private activeChannel: Channel | null = null;
 
   public async bootstrap(): Promise<void> {
-    console.info('[NovaStream] Bootstrapping separated UI architecture...');
+    console.info('[NovaStream] Initializing Prime-grade streaming experience...');
 
     // 1. Mount UI Component Shells
     this.mountComponents();
@@ -38,61 +36,57 @@ class NovaStreamApp {
     );
     this.playerView.setPlayer(this.player);
 
-    // 3. Connect Player State Listener to Views
+    // 3. Connect Player State Listener to PlayerView
     this.player.subscribe((state: PlayerPlaybackState) => {
       this.playerView.updateState(state);
-      this.diagnosticsView.updateState(state);
     });
 
-    // 4. Load 0ms Instant Cache from IndexedDB
+    // 4. Load 0ms Instant Cache Once from IndexedDB
     const { channels: cachedChannels } = await catalogManager.loadInstantCache();
     this.channels = cachedChannels;
-    const currentRev = await fastCache.getActiveRevision();
 
-    this.header.updateRevision(currentRev);
-    this.header.updateCacheStatus(this.channels.length, 'Cached (0ms Ready)');
-
-    // 5. Populate Channel Grid and Quick Channel Chooser
+    // 5. Populate Channel Grid & Hero Banner
     this.channelGrid.setChannels(this.channels);
     this.playerView.populateChannelChooser(this.channels);
 
-    // 6. Auto-mount first channel for instant play
+    // 6. Set featured hero channel and mount first stream
     if (this.channels.length > 0) {
       this.selectChannel(this.channels[0]);
     }
 
-    // 7. Subscribe to Background Auto-Fetch Updates
-    catalogManager.onCatalogUpdated((updatedChannels, stats) => {
-      this.channels = updatedChannels;
-      this.header.updateCacheStatus(this.channels.length, 'Cached');
-      this.channelGrid.setChannels(this.channels, this.activeChannel?.id);
-      this.playerView.populateChannelChooser(this.channels, this.activeChannel?.id);
-      if (stats.newlyAdded > 0) {
-        console.info(`[NovaStream] Ingested +${stats.newlyAdded} live channels from background fetch.`);
-      }
-    });
-
-    // 8. Launch Non-Blocking Background Provider Ingest
-    setTimeout(() => {
-      catalogManager.autoFetchAllProviders(this.channels).catch(console.error);
-    }, 150);
-
-    // 9. Wire Delta Sync Protocol Listeners
-    this.wireDeltaSync();
+    // 7. Silent background revalidation (runs once if catalog was sparse)
+    if (this.channels.length < 15) {
+      setTimeout(() => {
+        catalogManager
+          .autoFetchAllProviders(this.channels)
+          .then((updated) => {
+            this.channels = updated;
+            this.channelGrid.setChannels(this.channels, this.activeChannel?.id);
+            this.playerView.populateChannelChooser(this.channels, this.activeChannel?.id);
+          })
+          .catch(console.error);
+      }, 500);
+    }
   }
 
   private mountComponents(): void {
     const headerRoot = document.getElementById('header-mount')!;
     const playerRoot = document.getElementById('player-mount')!;
-    const diagnosticsRoot = document.getElementById('diagnostics-mount')!;
+    const heroRoot = document.getElementById('hero-mount')!;
     const catalogRoot = document.getElementById('catalog-mount')!;
 
+    // Clean commercial Header
     this.header = new Header(headerRoot, {
-      onRefreshClick: () => this.handleManualRefresh(),
-      onDeltaSyncClick: () => this.handleDeltaSync(),
+      onCategorySelect: (category) => {
+        this.channelGrid.filterByCategory(category);
+      },
+      onSearch: (query) => {
+        this.channelGrid.setSearchQuery(query);
+      },
     });
 
-    this.playerView = new PlayerView(playerRoot, null as any);
+    // Cinema-Grade Player View
+    this.playerView = new PlayerView(playerRoot);
     this.playerView.setOnChannelChange((channelId) => {
       const channel = this.channels.find((c) => c.id === channelId);
       if (channel) {
@@ -100,8 +94,12 @@ class NovaStreamApp {
       }
     });
 
-    this.diagnosticsView = new DiagnosticsView(diagnosticsRoot);
+    // Hero Billboard Banner
+    this.heroBanner = new HeroBanner(heroRoot, (channel) => {
+      this.selectChannel(channel);
+    });
 
+    // Prime Video Style Horizontal Carousels
     this.channelGrid = new ChannelGrid(catalogRoot, (channel) => {
       this.selectChannel(channel);
     });
@@ -109,52 +107,12 @@ class NovaStreamApp {
 
   private selectChannel(channel: Channel): void {
     this.activeChannel = channel;
+    this.header.setActiveCategory(channel.category);
     this.playerView.updateNowPlaying(channel.name, channel.currentProgram?.title);
     this.playerView.setSelectedChannel(channel.id);
     this.channelGrid.setActiveChannel(channel.id);
+    this.heroBanner.setFeaturedChannel(channel);
     this.player.loadChannel(channel);
-  }
-
-  private async handleManualRefresh(): Promise<void> {
-    this.header.setRefreshing(true, 'Fetching...');
-    try {
-      const updated = await catalogManager.autoFetchAllProviders(this.channels);
-      this.channels = updated;
-      this.channelGrid.setChannels(this.channels, this.activeChannel?.id);
-      this.header.updateCacheStatus(this.channels.length, 'Synced');
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setTimeout(() => this.header.setRefreshing(false, 'Refresh'), 2000);
-    }
-  }
-
-  private async handleDeltaSync(): Promise<void> {
-    this.header.setSyncing(true, 'Syncing...');
-    try {
-      await deltaSync.performDeltaSync();
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  private wireDeltaSync(): void {
-    deltaSync.addListener({
-      onSyncStarted: () => {
-        this.header.setSyncing(true, 'Syncing...');
-      },
-      onSyncCompleted: (updatedChannels, revision, deltaCount) => {
-        this.channels = updatedChannels;
-        this.header.updateRevision(revision);
-        this.header.updateCacheStatus(this.channels.length, 'Cached');
-        this.header.setSyncing(false, `V3 Sync (${deltaCount})`);
-        this.channelGrid.setChannels(this.channels, this.activeChannel?.id);
-      },
-      onSyncFailed: (err) => {
-        this.header.setSyncing(false, 'Sync Failed');
-        console.error('[NovaStream Sync Error]:', err);
-      },
-    });
   }
 }
 
