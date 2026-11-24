@@ -41,6 +41,8 @@ export class PlayerView {
   private sidebarChannelsPane!: HTMLElement;
 
   private isPlayerVisible = false;
+  private isCleanFullscreen = false;
+  private manualFullscreenExit = false;
   private allChannels: Channel[] = [];
   private currentChannel: Channel | null = null;
   private renderedSidebarCategory: string | null = null;
@@ -80,13 +82,68 @@ export class PlayerView {
     return this.iframeElement;
   }
 
-  public toggleFullscreen(): void {
-    const viewport = this.container.querySelector('#player-viewport');
-    if (document.fullscreenElement) {
-      document.exitFullscreen().catch(() => {});
-    } else if (viewport?.requestFullscreen) {
+  public enterCleanFullscreen(withNative = false): void {
+    const viewport = this.container.querySelector('#player-viewport') as HTMLElement | null;
+    if (!viewport) return;
+    this.isCleanFullscreen = true;
+    viewport.classList.add('is-clean-fullscreen');
+    document.body.style.overflow = 'hidden';
+    this.updateFullscreenButtonIcon(true);
+    if (withNative && !document.fullscreenElement && viewport.requestFullscreen) {
       viewport.requestFullscreen().catch(() => {});
     }
+  }
+
+  public exitCleanFullscreen(manual = false): void {
+    const viewport = this.container.querySelector('#player-viewport') as HTMLElement | null;
+    if (manual) {
+      this.manualFullscreenExit = true;
+    }
+    this.isCleanFullscreen = false;
+    viewport?.classList.remove('is-clean-fullscreen');
+    document.body.style.overflow = '';
+    this.updateFullscreenButtonIcon(false);
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    }
+  }
+
+  public toggleFullscreen(): void {
+    if (this.isCleanFullscreen || document.fullscreenElement) {
+      this.exitCleanFullscreen(true);
+    } else {
+      this.manualFullscreenExit = false;
+      this.enterCleanFullscreen(true);
+    }
+  }
+
+  private updateFullscreenButtonIcon(inFs: boolean): void {
+    const customFsBtn = this.container.querySelector('#btn-custom-fullscreen');
+    if (!customFsBtn) return;
+    const fsEnterIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>`;
+    const fsExitIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+    customFsBtn.innerHTML = inFs ? fsExitIcon : fsEnterIcon;
+    customFsBtn.setAttribute('title', inFs ? 'Exit Fullscreen' : 'Fullscreen (NovaStream)');
+  }
+
+  private bindOrientationListener(): void {
+    const handleOrientation = () => {
+      const isLandscape = window.matchMedia('(orientation: landscape)').matches;
+      const isTouchPhone = window.innerWidth <= 960 && window.innerHeight <= 560;
+      if (!isLandscape) {
+        this.manualFullscreenExit = false;
+        if (this.isCleanFullscreen && !document.fullscreenElement) {
+          this.exitCleanFullscreen(false);
+        }
+        return;
+      }
+      if (this.isPlayerVisible && isTouchPhone && !this.manualFullscreenExit && !this.isCleanFullscreen) {
+        this.enterCleanFullscreen(false);
+      }
+    };
+
+    window.addEventListener('orientationchange', () => setTimeout(handleOrientation, 120));
+    window.addEventListener('resize', handleOrientation);
   }
 
   public async togglePictureInPicture(): Promise<void> {
@@ -149,6 +206,7 @@ export class PlayerView {
 
   public hide(): void {
     this.isPlayerVisible = false;
+    this.exitCleanFullscreen(false);
     if (this.wrapperElement) {
       this.wrapperElement.style.display = 'none';
       this.wrapperElement.classList.remove('visible');
@@ -344,20 +402,22 @@ export class PlayerView {
     });
 
     const customFsBtn = this.container.querySelector('#btn-custom-fullscreen');
-    const fsEnterIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>`;
-    const fsExitIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
-
     const toggleFs = () => this.toggleFullscreen();
 
     document.addEventListener('fullscreenchange', () => {
-      if (!customFsBtn) return;
-      const inFs = Boolean(document.fullscreenElement);
-      customFsBtn.innerHTML = inFs ? fsExitIcon : fsEnterIcon;
-      customFsBtn.setAttribute('title', inFs ? 'Exit Fullscreen' : 'Fullscreen (NovaStream)');
+      const inNativeFs = Boolean(document.fullscreenElement);
+      if (!inNativeFs && this.isCleanFullscreen) {
+        const viewport = this.container.querySelector('#player-viewport');
+        viewport?.classList.remove('is-clean-fullscreen');
+        this.isCleanFullscreen = false;
+        document.body.style.overflow = '';
+      }
+      this.updateFullscreenButtonIcon(inNativeFs || this.isCleanFullscreen);
     });
 
     this.btnFullscreen.addEventListener('click', toggleFs);
     customFsBtn?.addEventListener('click', toggleFs);
+    this.bindOrientationListener();
 
     this.btnErrorRetry.addEventListener('click', () => {
       this.errorOverlayElement.style.display = 'none';
