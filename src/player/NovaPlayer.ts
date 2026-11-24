@@ -180,12 +180,15 @@ export class NovaPlayer {
           autoStartLoad: true,
           lowLatencyMode: false,
           backBufferLength: 30,
-          maxBufferLength: 120,
-          maxMaxBufferLength: 240,
-          liveSyncDurationCount: 4,
-          liveMaxLatencyDurationCount: 12,
+          maxBufferLength: 60,
+          maxMaxBufferLength: 120,
+          liveSyncDurationCount: 2,
+          liveMaxLatencyDurationCount: 8,
+          maxFragLookUpTolerance: 0.25,
+          nudgeOffset: 0.2,
+          nudgeMaxRetry: 5,
           startLevel: -1,
-          abrEwmaDefaultEstimate: 5_000_000,
+          abrEwmaDefaultEstimate: 2_500_000,
           fragLoadPolicy: {
             default: {
               maxLoadTimeMs: 30_000,
@@ -352,13 +355,20 @@ export class NovaPlayer {
     this.stallCounter = 0;
 
     this.stallCheckInterval = window.setInterval(() => {
-      if (!this.videoElement.paused && this.playbackState.state === 'playing') {
+      const state = this.playbackState.state;
+      if (!this.videoElement.paused && (state === 'playing' || state === 'buffering')) {
         const currentTime = this.videoElement.currentTime;
         if (Math.abs(currentTime - this.lastPlaybackTime) < 0.05) {
           this.stallCounter++;
-          if (this.stallCounter >= 6) {
-            console.warn('[NovaPlayer] Watchdog detected prolonged playback stall.');
-            this.handleSourceFailure('Stream Buffer Stall Timeout (6s)');
+          if (this.stallCounter === 6 && this.hls) {
+            console.warn('[NovaPlayer] Stuck on buffering (6s), nudging to live edge...');
+            if (typeof this.hls.liveSyncPosition === 'number' && this.hls.liveSyncPosition > 0) {
+              this.videoElement.currentTime = this.hls.liveSyncPosition;
+            }
+            this.hls.startLoad();
+          } else if (this.stallCounter >= 12) {
+            console.warn('[NovaPlayer] Watchdog detected prolonged buffering stall (12s).');
+            this.handleSourceFailure('Stream Buffer Stall Timeout (12s)');
           }
         } else {
           this.stallCounter = 0;
