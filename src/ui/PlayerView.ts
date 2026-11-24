@@ -87,8 +87,8 @@ export class PlayerView {
     if (!viewport) return;
     this.isCleanFullscreen = true;
     viewport.classList.add('is-clean-fullscreen');
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
+    document.documentElement.classList.add('clean-fs-active');
+    document.body.classList.add('clean-fs-active');
     this.updateFullscreenButtonIcon(true);
     if (withNative && !document.fullscreenElement && viewport.requestFullscreen) {
       viewport.requestFullscreen().catch(() => {});
@@ -102,8 +102,8 @@ export class PlayerView {
     }
     this.isCleanFullscreen = false;
     viewport?.classList.remove('is-clean-fullscreen');
-    document.documentElement.style.overflow = '';
-    document.body.style.overflow = '';
+    document.documentElement.classList.remove('clean-fs-active');
+    document.body.classList.remove('clean-fs-active');
     this.updateFullscreenButtonIcon(false);
     if (document.fullscreenElement) {
       document.exitFullscreen().catch(() => {});
@@ -424,7 +424,8 @@ export class PlayerView {
         const viewport = this.container.querySelector('#player-viewport');
         viewport?.classList.remove('is-clean-fullscreen');
         this.isCleanFullscreen = false;
-        document.body.style.overflow = '';
+        document.documentElement.classList.remove('clean-fs-active');
+        document.body.classList.remove('clean-fs-active');
       }
       this.updateFullscreenButtonIcon(inNativeFs || this.isCleanFullscreen);
     });
